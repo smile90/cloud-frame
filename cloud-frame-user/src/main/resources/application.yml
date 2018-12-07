@@ -17,8 +17,6 @@ management:
 
 # spring config
 spring:
-  profiles:
-    include: ds
   application:
     name: @project.artifactId@
   jmx:
@@ -27,3 +25,5 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
     serialization:
       indent_output: true
+  profiles:
+    include: ds
