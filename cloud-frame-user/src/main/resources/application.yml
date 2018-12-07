@@ -2,7 +2,7 @@ server:
   port: 10001
 
 info:
-  name: @project.name@
+  name: @project.artifactId@
   version: @project.version@
   description: @project.description@
 
