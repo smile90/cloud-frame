@@ -1,0 +1,19 @@
+# eureka
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:1111/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    metadata-map:
+      user.name: "admin"      #These two are needed so that the server
+      user.password: "123456" #can access the protected client endpoints
+
+# config
+#spring:
+#  cloud:
+#    config:
+#      discovery:
+#        enabled: true
+#        serviceId: cloud-config-server
