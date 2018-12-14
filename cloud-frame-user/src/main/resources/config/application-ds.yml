@@ -2,7 +2,7 @@
 spring:
   datasource:
     # 基础配置，必须有，后面可以进行覆盖
-    url: jdbc:mysql://127.0.0.1:3306/frame?useUnicode=true&characterEncoding=UTF-8&useSSL=true
+    url: jdbc:mysql://127.0.0.1:3306/sys_user?useUnicode=true&characterEncoding=UTF-8&useSSL=true
     username: root
     password: root
 
@@ -22,13 +22,13 @@ spring:
       # 主数据源
       primary:
         name: ${spring.application.name}-primary
-        url: jdbc:mysql://127.0.0.1:3306/frame?useUnicode=true&characterEncoding=UTF-8&useSSL=true
+        url: jdbc:mysql://127.0.0.1:3306/sys_user?useUnicode=true&characterEncoding=UTF-8&useSSL=true
         username: root
         password: root
 
       # 只读数据源
       read:
         name: ${spring.application.name}-read
-        url: jdbc:mysql://127.0.0.1:3306/frame?useUnicode=true&characterEncoding=UTF-8&useSSL=true
+        url: jdbc:mysql://127.0.0.1:3306/sys_user?useUnicode=true&characterEncoding=UTF-8&useSSL=true
         username: root
         password: root

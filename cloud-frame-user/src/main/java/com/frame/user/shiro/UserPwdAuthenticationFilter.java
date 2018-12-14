@@ -2,7 +2,7 @@ package com.frame.user.shiro;
 
 import com.alibaba.fastjson.JSONObject;
 import com.frame.common.frame.base.bean.ResponseBean;
-import com.frame.user.enums.AuthResponseResult;
+import com.frame.user.enums.AuthMsgResult;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 
@@ -12,11 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 
 /**
- * 自定义过滤器
+ * 用户密码认证过滤器
  * 对没有登录的请求进行拦截, 全部返回json信息. 覆盖掉shiro原本的跳转login.jsp的拦截方式
  */
 @Slf4j
-public class CustomPermissionsAuthorizationFilter extends FormAuthenticationFilter {
+public class UserPwdAuthenticationFilter extends FormAuthenticationFilter {
 
     @Override
     protected boolean onAccessDenied(ServletRequest request, ServletResponse response) {
@@ -26,7 +26,7 @@ public class CustomPermissionsAuthorizationFilter extends FormAuthenticationFilt
             res.setCharacterEncoding("UTF-8");
             res.setContentType("application/json");
             out = response.getWriter();
-            out.println(JSONObject.toJSONString(ResponseBean.getInstance(AuthResponseResult.AUTH_ERROR)));
+            out.println(JSONObject.toJSONString(ResponseBean.getInstance(AuthMsgResult.AUTH_ERROR)));
         } catch (Exception e) {
             log.error("onAccessDenied error.", e);
         } finally {

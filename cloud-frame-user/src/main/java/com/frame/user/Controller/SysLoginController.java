@@ -1,4 +1,4 @@
-package com.frame.user.Controller;
+package com.frame.user.controller;
 
 import com.frame.user.bean.LoginUser;
 import org.apache.shiro.SecurityUtils;

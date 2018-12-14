@@ -1,13 +1,13 @@
 package com.frame.user.config;
 
-import com.frame.user.shiro.CustomPermissionsAuthorizationFilter;
+import com.frame.user.shiro.BCryptCredentialsMatcher;
+import com.frame.user.shiro.UserPwdRealm;
+import com.frame.user.shiro.UserPwdAuthenticationFilter;
+import com.frame.user.shiro.URLPathMatchingFilter;
 import com.google.common.collect.Maps;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
-import org.apache.shiro.web.filter.authc.AuthenticatingFilter;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -18,36 +18,31 @@ import java.util.Map;
 @Configuration
 public class ShiroConfig {
 
-    @Autowired
-    private Realm customRealm;
-
-    @Bean("customPermissionsAuthorizationFilter")
-    public AuthenticatingFilter customPermissionsAuthorizationFilter() {
-        return new CustomPermissionsAuthorizationFilter();
-    }
-
     @Bean
-    public FilterRegistrationBean registration(CustomPermissionsAuthorizationFilter customPermissionsAuthorizationFilter) {
-        FilterRegistrationBean registration = new FilterRegistrationBean(customPermissionsAuthorizationFilter);
-        registration.setEnabled(false);
-        return registration;
+    public Realm userPwdRealm(){
+        UserPwdRealm realm = new UserPwdRealm();
+        // 密码校验类
+        realm.setCredentialsMatcher(new BCryptCredentialsMatcher());
+        return realm;
     }
 
     @Bean("securityManager")
     public DefaultWebSecurityManager securityManager(){
         DefaultWebSecurityManager securityManager =  new DefaultWebSecurityManager();
-        securityManager.setRealm(customRealm);
+        securityManager.setRealm(userPwdRealm());
         return securityManager;
     }
 
-    @Bean("shiroFilter")
-    public ShiroFilterFactoryBean shiroFilterFactoryBean(DefaultWebSecurityManager securityManager) {
+    @Bean("shiroFilterFactoryBean")
+    public ShiroFilterFactoryBean shiroFilterFactoryBean() {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
-        shiroFilterFactoryBean.setSecurityManager(securityManager);
+        shiroFilterFactoryBean.setSecurityManager(securityManager());
 
-        // 凭证拦截器
         Map<String, Filter> filterMap = Maps.newLinkedHashMap();
-        filterMap.put("authc", customPermissionsAuthorizationFilter());
+        // 认证过滤器修改了未授权信息通过Response回写，而不是跳转页面
+        filterMap.put("authc", new UserPwdAuthenticationFilter());
+        // 增加URL过滤器
+        filterMap.put("requestURL", new URLPathMatchingFilter());
         shiroFilterFactoryBean.setFilters(filterMap);
 
         /*定义shiro过滤链  Map结构
@@ -58,11 +53,15 @@ public class ShiroConfig {
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
          /* 过滤链定义，从上向下顺序执行，一般将 / ** 放在最为下边:这是一个坑呢，一不小心代码就不好使了;
           authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问 */
-        filterChainDefinitionMap.put("/static/**", "anon");
+        // 无权限可访问地址
+        filterChainDefinitionMap.put("/static/**,/favicon.ico", "anon");
         filterChainDefinitionMap.put("/sys/login", "anon");
         filterChainDefinitionMap.put("/sys/logout", "anon");
         filterChainDefinitionMap.put("/error", "anon");
-        filterChainDefinitionMap.put("/**", "authc");
+        // 登录后可访问地址
+        filterChainDefinitionMap.put("/sys/index", "authc");
+        // 登录并有权限
+        filterChainDefinitionMap.put("/**", "authc,requestURL");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
     }

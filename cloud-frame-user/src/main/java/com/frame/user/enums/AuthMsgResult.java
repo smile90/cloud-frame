@@ -1,14 +1,16 @@
 package com.frame.user.enums;
 
+import com.frame.common.frame.base.interfaces.MsgResult;
+
 /**
- * 响应结果
+ * 权限消息结果
  */
-public enum AuthResponseResult implements com.frame.common.frame.base.interfaces.ResponseResult {
+public enum AuthMsgResult implements MsgResult {
 
     AUTH_ERROR("000000010001", "auth error", "权限错误"),
     USER_PWD_ERROR("000000010002", "user or password error", "用户名/密码错误");
 
-    AuthResponseResult(String code, String msg, String showMsg) {
+    AuthMsgResult(String code, String msg, String showMsg) {
         this.code = code;
         this.msg = msg;
         this.showMsg = showMsg;
