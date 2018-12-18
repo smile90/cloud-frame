@@ -1,8 +1,8 @@
 package com.frame.user.shiro;
 
-import com.frame.common.frame.base.exception.BaseRuntimeException;
 import com.frame.user.entity.SysUser;
 import com.frame.user.enums.AuthMsgResult;
+import com.frame.user.exception.AuthException;
 import com.frame.user.service.SysUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.*;
@@ -43,16 +43,16 @@ public class UserPwdRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         log.debug("doGetAuthenticationInfo {}", authenticationToken);
         // 为空
-        Optional.ofNullable(authenticationToken).orElseThrow(() -> BaseRuntimeException.getInstance(AuthMsgResult.USER_PWD_ERROR));
+        Optional.ofNullable(authenticationToken).orElseThrow(() -> new AuthException(AuthMsgResult.USER_PWD_ERROR));
         // 获取用户名&密码
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
         String username = token.getUsername();
         // 用户名或密码为空
-        Optional.ofNullable(username).orElseThrow(() -> new BaseRuntimeException(AuthMsgResult.USER_PWD_ERROR));
-        Optional.ofNullable(token.getPassword()).orElseThrow(() -> BaseRuntimeException.getInstance(AuthMsgResult.USER_PWD_ERROR));
+        Optional.ofNullable(username).orElseThrow(() -> new AuthException(AuthMsgResult.USER_PWD_ERROR));
+        Optional.ofNullable(token.getPassword()).orElseThrow(() -> new AuthException(AuthMsgResult.USER_PWD_ERROR));
 
         SysUser sysUser = sysUserService.findByUsername(username);
-        Optional.ofNullable(sysUser).orElseThrow(() -> BaseRuntimeException.getInstance(AuthMsgResult.USER_PWD_ERROR));
+        Optional.ofNullable(sysUser).orElseThrow(() -> new AuthException(AuthMsgResult.USER_PWD_ERROR));
 
         // TODO 校验用户状态
         String userStatus = sysUser.getUserStatus();

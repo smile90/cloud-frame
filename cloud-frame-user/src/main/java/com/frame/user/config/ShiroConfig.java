@@ -5,6 +5,7 @@ import com.frame.user.shiro.UserPwdRealm;
 import com.frame.user.shiro.UserPwdAuthenticationFilter;
 import com.frame.user.shiro.URLPathMatchingFilter;
 import com.google.common.collect.Maps;
+import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
@@ -18,11 +19,16 @@ import java.util.Map;
 @Configuration
 public class ShiroConfig {
 
-    @Bean
+    @Bean("bCryptCredentialsMatcher")
+    public CredentialsMatcher bCryptCredentialsMatcher() {
+        return new BCryptCredentialsMatcher();
+    }
+
+    @Bean("userPwdRealm")
     public Realm userPwdRealm(){
         UserPwdRealm realm = new UserPwdRealm();
         // 密码校验类
-        realm.setCredentialsMatcher(new BCryptCredentialsMatcher());
+        realm.setCredentialsMatcher(bCryptCredentialsMatcher());
         return realm;
     }
 

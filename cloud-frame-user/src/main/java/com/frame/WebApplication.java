@@ -1,11 +1,11 @@
 package com.frame;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cloud.client.SpringCloudApplication;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringCloudApplication
-@EnableTransactionManagement
+@EnableCaching
 public class WebApplication {
 
     public static void main(String[] args) {
