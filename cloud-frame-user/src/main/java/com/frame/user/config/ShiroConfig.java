@@ -7,8 +7,10 @@ import com.frame.user.shiro.URLPathMatchingFilter;
 import com.google.common.collect.Maps;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.realm.Realm;
+import org.apache.shiro.spring.boot.autoconfigure.ShiroAnnotationProcessorAutoConfiguration;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -18,6 +20,19 @@ import java.util.Map;
 
 @Configuration
 public class ShiroConfig {
+
+    /**
+     * Shiro AutoConfi中，自动设置了该类，并且未制定使用cglib，这里强制使用
+     * @see ShiroAnnotationProcessorAutoConfiguration#defaultAdvisorAutoProxyCreator()
+     * TODO:不要问我有没有更友好的方式，我其实也不知道
+     * @return
+     */
+    @Bean
+    public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
+        DefaultAdvisorAutoProxyCreator defaultAAPC = new DefaultAdvisorAutoProxyCreator();
+        defaultAAPC.setProxyTargetClass(true);
+        return defaultAAPC;
+    }
 
     @Bean("bCryptCredentialsMatcher")
     public CredentialsMatcher bCryptCredentialsMatcher() {

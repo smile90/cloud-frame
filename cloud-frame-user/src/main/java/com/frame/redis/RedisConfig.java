@@ -6,6 +6,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.interceptor.CacheErrorHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,6 +31,7 @@ import java.util.Map;
  * @date: 2018/12/14
  */
 @Slf4j
+@EnableCaching
 @Configuration
 @EnableConfigurationProperties({RedisExpirProperties.class})
 public class RedisConfig extends CachingConfigurerSupport {
