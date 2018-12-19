@@ -28,4 +28,11 @@ public class TestController {
         return "test22";
     }
 
+
+    @RequestMapping("/testPath/{test}")
+    public Object testPath(String test) {
+        testService.test22(test);
+        return test;
+    }
+
 }

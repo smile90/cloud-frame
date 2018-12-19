@@ -26,7 +26,7 @@ public class UserPwdAuthenticationFilter extends FormAuthenticationFilter {
             res.setCharacterEncoding("UTF-8");
             res.setContentType("application/json");
             out = response.getWriter();
-            out.println(JSONObject.toJSONString(ResponseBean.getInstance(AuthMsgResult.AUTH_ERROR)));
+            out.println(JSONObject.toJSONString(ResponseBean.getInstance(AuthMsgResult.LOGIN_ERROR)));
         } catch (Exception e) {
             log.error("onAccessDenied error.", e);
         } finally {

@@ -1,9 +1,6 @@
 package com.frame.user.config;
 
-import com.frame.user.shiro.BCryptCredentialsMatcher;
-import com.frame.user.shiro.UserPwdRealm;
-import com.frame.user.shiro.UserPwdAuthenticationFilter;
-import com.frame.user.shiro.URLPathMatchingFilter;
+import com.frame.user.shiro.*;
 import com.google.common.collect.Maps;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.realm.Realm;
@@ -11,6 +8,8 @@ import org.apache.shiro.spring.boot.autoconfigure.ShiroAnnotationProcessorAutoCo
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -21,11 +20,15 @@ import java.util.Map;
 @Configuration
 public class ShiroConfig {
 
+    @Autowired
+    @Qualifier("sysRoleMatcher")
+    private SysAuthMatcher sysAuthMatcher;
+
     /**
-     * Shiro AutoConfi中，自动设置了该类，并且未制定使用cglib，这里强制使用
+     * Shiro AutoConfig中，自动设置了该类，并且未指定使用cglib，这里强制使用
      * @see ShiroAnnotationProcessorAutoConfiguration#defaultAdvisorAutoProxyCreator()
-     * TODO:不要问我有没有更友好的方式，我其实也不知道
      * @return
+     * TODO:不要问我有没有更友好的方式，我其实也不知道，这个问题我也是研究了很久的
      */
     @Bean
     public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
@@ -40,7 +43,7 @@ public class ShiroConfig {
     }
 
     @Bean("userPwdRealm")
-    public Realm userPwdRealm(){
+    public Realm userPwdRealm() {
         UserPwdRealm realm = new UserPwdRealm();
         // 密码校验类
         realm.setCredentialsMatcher(bCryptCredentialsMatcher());
@@ -48,8 +51,8 @@ public class ShiroConfig {
     }
 
     @Bean("securityManager")
-    public DefaultWebSecurityManager securityManager(){
-        DefaultWebSecurityManager securityManager =  new DefaultWebSecurityManager();
+    public DefaultWebSecurityManager securityManager() {
+        DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(userPwdRealm());
         return securityManager;
     }
@@ -57,25 +60,21 @@ public class ShiroConfig {
     @Bean("shiroFilterFactoryBean")
     public ShiroFilterFactoryBean shiroFilterFactoryBean() {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
+        // 权限管理器
         shiroFilterFactoryBean.setSecurityManager(securityManager());
 
+        // 默认拦截器
         Map<String, Filter> filterMap = Maps.newLinkedHashMap();
         // 认证过滤器修改了未授权信息通过Response回写，而不是跳转页面
         filterMap.put("authc", new UserPwdAuthenticationFilter());
         // 增加URL过滤器
-        filterMap.put("requestURL", new URLPathMatchingFilter());
+        filterMap.put("requestURL", urlPathMatchingFilter());
         shiroFilterFactoryBean.setFilters(filterMap);
 
-        /*定义shiro过滤链  Map结构
-         * Map中key(xml中是指value值)的第一个'/'代表的路径是相对于HttpServletRequest.getContextPath()的值来的
-         * anon：它对应的过滤器里面是空的,什么都没做,这里.do和.jsp后面的*表示参数,比方说login.jsp?main这种
-         * authc：该过滤器下的页面必须验证后才能访问,默认是Shiro内置的一个拦截器org.apache.shiro.web.filter.authc.FormAuthenticationFilter
-         */
+        // 请求配置拦截器
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
-         /* 过滤链定义，从上向下顺序执行，一般将 / ** 放在最为下边:这是一个坑呢，一不小心代码就不好使了;
-          authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问 */
         // 无权限可访问地址
-        filterChainDefinitionMap.put("/static/**,/favicon.ico", "anon");
+        filterChainDefinitionMap.put("/,/static/**,/favicon.ico", "anon");
         filterChainDefinitionMap.put("/sys/login", "anon");
         filterChainDefinitionMap.put("/sys/logout", "anon");
         filterChainDefinitionMap.put("/error", "anon");
@@ -87,4 +86,9 @@ public class ShiroConfig {
         return shiroFilterFactoryBean;
     }
 
+    private URLPathMatchingFilter urlPathMatchingFilter() {
+        URLPathMatchingFilter urlPathMatchingFilter = new URLPathMatchingFilter();
+        urlPathMatchingFilter.setSysAuthMatcher(sysAuthMatcher);
+        return urlPathMatchingFilter;
+    }
 }

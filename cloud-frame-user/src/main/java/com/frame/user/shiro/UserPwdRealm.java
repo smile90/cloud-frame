@@ -68,6 +68,7 @@ public class UserPwdRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
+        // TODO
         log.info("doGetAuthorizationInfo {}", principalCollection);
         return new SimpleAuthorizationInfo();
     }

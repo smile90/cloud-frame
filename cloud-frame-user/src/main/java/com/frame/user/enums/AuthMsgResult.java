@@ -13,7 +13,8 @@ public enum AuthMsgResult implements MsgResult {
 
     LOGOUT_ERROR("000000011000", "auth error", "退出错误"),
 
-    AUTH_ERROR("000000012000", "auth error", "权限错误")
+    AUTH_ERROR("000000012001", "auth error", "权限错误"),
+    NO_AUTH_ERROR("000000012002", "not auth error", "无操作权限")
     ;
 
     AuthMsgResult(String code, String msg, String showMsg) {
