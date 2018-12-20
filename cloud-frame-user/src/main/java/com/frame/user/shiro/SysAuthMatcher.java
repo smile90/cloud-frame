@@ -1,5 +1,7 @@
 package com.frame.user.shiro;
 
+import org.apache.shiro.subject.Subject;
+
 import javax.servlet.ServletRequest;
 
 /**
@@ -16,8 +18,9 @@ public interface SysAuthMatcher {
 
     /**
      * 获取路径配置（此处是角色标识）
+     * @param subject
      * @param request
      * @return
      */
-    String[] getPathConfig(ServletRequest request);
+    String[] getPathConfig(Subject subject, ServletRequest request);
 }

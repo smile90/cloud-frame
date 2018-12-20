@@ -22,7 +22,6 @@ public class BCryptCredentialsMatcher implements CredentialsMatcher {
             return false;
         }
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
-        // 如果次数大于最小次数 或者 校验密码失败，则为失败
         if (new BCryptPasswordEncoder().matches(new String(token.getPassword()), (String) info.getCredentials())) {
             return true;
         } else {

@@ -21,7 +21,7 @@ import java.util.Map;
 public class ShiroConfig {
 
     @Autowired
-    @Qualifier("sysRoleMatcher")
+    @Qualifier("sysAuthByRoleMatcher")
     private SysAuthMatcher sysAuthMatcher;
 
     /**
