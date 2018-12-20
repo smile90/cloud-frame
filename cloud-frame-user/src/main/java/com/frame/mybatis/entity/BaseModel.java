@@ -3,6 +3,7 @@ package com.frame.mybatis.entity;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.Version;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.frame.common.frame.base.enums.DataStatus;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -23,7 +24,7 @@ public class BaseModel extends Model implements Serializable {
 	@Version
 	protected Long optimistic = 0L;
 
-	protected String status;
+	protected String status = DataStatus.NORMAL.name();
 
 	protected String description;
 

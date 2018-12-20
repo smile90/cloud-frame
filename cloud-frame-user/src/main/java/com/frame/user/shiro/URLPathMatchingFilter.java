@@ -55,7 +55,7 @@ public class URLPathMatchingFilter extends RolesAuthorizationFilter implements P
             res.setCharacterEncoding("UTF-8");
             res.setContentType("application/json");
             out = response.getWriter();
-            out.println(JSONObject.toJSONString(ResponseBean.getInstance(AuthMsgResult.NO_AUTH_ERROR)));
+            out.println(JSONObject.toJSONString(ResponseBean.getInstance(AuthMsgResult.NOT_AUTH_ERROR)));
         } catch (Exception e) {
             log.error("onAccessDenied error.", e);
         } finally {

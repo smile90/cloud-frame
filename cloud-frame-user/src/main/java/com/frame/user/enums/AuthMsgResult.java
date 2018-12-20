@@ -9,12 +9,13 @@ public enum AuthMsgResult implements MsgResult {
 
     LOGIN_ERROR("000000010001", "auth error", "登录错误"),
     USER_PWD_ERROR("000000010002", "user or password error", "用户名/密码错误"),
-    LOGIN_TIME_ERROR("000000010003", "login time error", "登录错误次数超出最大次数"),
+    NOT_LOGIN_ERROR("000000010003", "not login error", "用户未登录"),
+    LOGIN_TIME_ERROR("000000010004", "login time error", "登录错误次数超出最大次数"),
 
     LOGOUT_ERROR("000000011000", "auth error", "退出错误"),
 
     AUTH_ERROR("000000012001", "auth error", "权限错误"),
-    NO_AUTH_ERROR("000000012002", "not auth error", "无操作权限")
+    NOT_AUTH_ERROR("000000012002", "not auth error", "无操作权限")
     ;
 
     AuthMsgResult(String code, String msg, String showMsg) {
