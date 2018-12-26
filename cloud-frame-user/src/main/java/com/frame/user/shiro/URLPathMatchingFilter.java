@@ -48,7 +48,8 @@ public class URLPathMatchingFilter extends AuthorizationFilter implements PathCo
      */
     @Override
     protected boolean preHandle(ServletRequest request, ServletResponse response) {
-        Object mappedValue = sysAuthMatcher.getPathConfig(getSubject(request, response), request);
+        Object mappedValue = sysAuthMatcher.getPathConfig(request);
+        log.debug("mappedValue:{}", mappedValue);
         return isAccessAllowed(request, response, mappedValue) || onAccessDenied(request, response, mappedValue);
     }
 
@@ -61,9 +62,9 @@ public class URLPathMatchingFilter extends AuthorizationFilter implements PathCo
             return false;
         }
         String[] rolesArray = (String[]) mappedValue;
-        // 无对应权限
+        // 路径无需角色
         if (rolesArray == null || rolesArray.length == 0) {
-            log.info("not access auth. path:{}", getPathWithinApplication(request));
+            log.warn("not access auth. path:{}", getPathWithinApplication(request));
             return true;
         }
         // 匹配角色：有任一角色均可访问

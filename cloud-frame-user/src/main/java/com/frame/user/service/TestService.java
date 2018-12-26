@@ -13,9 +13,8 @@ import org.springframework.stereotype.Service;
 public class TestService {
 
     @Cacheable(value = "test", key = "#test")
-    public String test(String test) {
-        log.info("test:" + test);
-        return "test";
+    public Object test(String test) {
+        return test;
     }
 
     @Cacheable(value = "test1", key = "#test")
@@ -24,7 +23,7 @@ public class TestService {
         return "test1";
     }
 
-    @Cacheable(value = "test22", key = "#test22")
+    @Cacheable(value = "test", key = "#test22")
     public String test22(String test22) {
         log.info("test22:" + test22);
         return "test22";

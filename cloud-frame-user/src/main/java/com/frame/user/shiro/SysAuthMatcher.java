@@ -18,9 +18,8 @@ public interface SysAuthMatcher {
 
     /**
      * 获取路径配置（此处是角色标识）
-     * @param subject
      * @param request
      * @return
      */
-    String[] getPathConfig(Subject subject, ServletRequest request);
+    String[] getPathConfig(ServletRequest request);
 }

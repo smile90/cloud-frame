@@ -65,8 +65,6 @@ spring:
       # 默认24小时(24 * 60 * 60)
       default-config: 86400
       config:
-        # 登录异常次数超时时间：1小时（60 * 60）
-        loginErrorTime: 3600
         test22: 80
         test1: 60
 
@@ -137,3 +135,6 @@ auth:
   login:
     error-time: 3
     timeout: 60
+logging:
+  level:
+    com.frame.user.shiro: DEBUG
