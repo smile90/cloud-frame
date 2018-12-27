@@ -4,6 +4,8 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
+import java.time.Duration;
+
 /**
  * 权限属性
  * @author: duanchangqing90
@@ -20,7 +22,11 @@ public class AuthProperties {
     public class Login {
         /*失败次数*/
         private Integer errorTime = 5;
-        /*超时时间（秒）：默认15分钟*/
-        private Integer timeout = 15 * 60;
+        /*失败超时时间：默认15分钟*/
+        private Duration errorTimeout = Duration.ofMinutes(15L);
+        /*是否启用验证码*/
+        private boolean enableValidCode = true;
+        /*验证码超时时间：默认5分钟*/
+        private Duration validCodeTimeout = Duration.ofMinutes(5L);
     }
 }

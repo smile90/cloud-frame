@@ -16,5 +16,7 @@ public class LoginUser implements Serializable {
 
     private String username;
     private String password;
+    private String validCode;
+    private boolean rememberMe;
 
 }

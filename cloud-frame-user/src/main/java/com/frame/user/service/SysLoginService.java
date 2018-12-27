@@ -6,9 +6,9 @@ import com.frame.user.constant.RedisKeyConstant;
 import com.frame.user.enums.AuthMsgResult;
 import com.frame.user.exception.AuthException;
 import com.frame.user.properties.AuthProperties;
+import com.frame.user.shiro.UserFormToken;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +21,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * 登录Service
+ *
  * @author: duanchangqing90
  * @date: 2018/12/17
  */
@@ -37,18 +38,14 @@ public class SysLoginService {
 
     /**
      * 登录
+     *
      * @param loginUser
      * @return
      */
     public ResponseBean login(LoginUser loginUser) {
         Subject subject = SecurityUtils.getSubject();
-        UsernamePasswordToken token = new UsernamePasswordToken(loginUser.getUsername(),loginUser.getPassword());
+        UserFormToken token = new UserFormToken(loginUser.getUsername(), loginUser.getPassword(), loginUser.isRememberMe(), loginUser.getValidCode());
         try {
-            // 如果已经登录，直接成功
-            if (subject.isAuthenticated()) {
-                return ResponseBean.success();
-            }
-
             // 获取错误次数，不存在为0
             Integer time = Optional.ofNullable(redisTemplate.opsForValue().get(RedisKeyConstant.USER_LOGIN_ERROR_TIME_PRE + token.getUsername())).orElse(Integer.valueOf(0));
             // 登录错误次数少于设定次数，执行登录，否则，登录失败
@@ -61,27 +58,29 @@ public class SysLoginService {
                 log.error("login time error.");
                 return ResponseBean.getInstance(AuthMsgResult.LOGIN_TIME_ERROR);
             }
-        } catch (AuthenticationException e) {
-            // 登录错误，累加
-            incrementErrorTime(token);
-            log.error("login error. {}", e.getMessage());
-            return ResponseBean.getInstance(AuthMsgResult.USER_PWD_ERROR);
         } catch (AuthException e) {
             // 登录错误，累加
             incrementErrorTime(token);
             log.error("login error. {}", e.getMessage());
-            return ResponseBean.getInstance(AuthMsgResult.USER_PWD_ERROR);
+            return ResponseBean.getInstance(e.getErrorCode(), e.getMessage(), e.getShowMsg(), null);
         } catch (Exception e) {
-            log.error("login error.", e);
-            return ResponseBean.getInstance(AuthMsgResult.LOGIN_ERROR);
+            // 登录错误，累加
+            incrementErrorTime(token);
+            log.error("login error. {}", e.getMessage());
+            if (e.getCause() instanceof AuthException) {
+                return ResponseBean.getInstance(((AuthException) e.getCause()).getErrorCode(), e.getCause().getMessage(), ((AuthException) e.getCause()).getShowMsg(), null);
+            } else {
+                return ResponseBean.getInstance(AuthMsgResult.USER_PWD_ERROR);
+            }
         }
     }
 
     /**
      * 退出
+     *
      * @return
      */
-    public ResponseBean logout(){
+    public ResponseBean logout() {
         try {
             Subject subject = SecurityUtils.getSubject();
             subject.logout();
@@ -94,12 +93,12 @@ public class SysLoginService {
 
     /**
      * 累加错误次数
+     *
      * @param token
      */
     private void incrementErrorTime(UsernamePasswordToken token) {
         redisTemplate.boundValueOps(RedisKeyConstant.USER_LOGIN_ERROR_TIME_PRE + token.getUsername()).increment();
-        redisTemplate.boundValueOps(RedisKeyConstant.USER_LOGIN_ERROR_TIME_PRE + token.getUsername()).expire(authProperties.getLogin().getTimeout(), TimeUnit.SECONDS);
+        redisTemplate.boundValueOps(RedisKeyConstant.USER_LOGIN_ERROR_TIME_PRE + token.getUsername()).expire(authProperties.getLogin().getErrorTimeout().getSeconds(), TimeUnit.SECONDS);
     }
-
 
 }

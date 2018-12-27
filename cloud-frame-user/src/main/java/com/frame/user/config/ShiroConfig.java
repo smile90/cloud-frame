@@ -19,19 +19,6 @@ public class ShiroConfig {
 
     @Autowired
     private SysAuthMatcher sysAuthByRoleMatcher;
-//
-//    /**
-//     * Shiro AutoConfig中，自动设置了该类，并且未指定使用cglib，这里强制使用
-//     * @see ShiroAnnotationProcessorAutoConfiguration#defaultAdvisorAutoProxyCreator()
-//     * @return
-//     * TODO:不要问我有没有更友好的方式，我其实也不知道，这个问题我也是研究了很久的
-//     */
-//    @Bean
-//    public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
-//        DefaultAdvisorAutoProxyCreator defaultAAPC = new DefaultAdvisorAutoProxyCreator();
-//        defaultAAPC.setProxyTargetClass(true);
-//        return defaultAAPC;
-//    }
 
     @Bean("bCryptCredentialsMatcher")
     public CredentialsMatcher bCryptCredentialsMatcher() {
@@ -70,7 +57,10 @@ public class ShiroConfig {
         // 请求配置拦截器
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         // 无权限可访问地址
-        filterChainDefinitionMap.put("/,/static/**,/favicon.ico", "anon");
+        filterChainDefinitionMap.put("/", "anon");
+        filterChainDefinitionMap.put("/favicon.ico", "anon");
+        filterChainDefinitionMap.put("/validCode/**", "anon");
+        filterChainDefinitionMap.put("/static/**", "anon");
         filterChainDefinitionMap.put("/sys/login", "anon");
         filterChainDefinitionMap.put("/sys/logout", "anon");
         filterChainDefinitionMap.put("/error", "anon");

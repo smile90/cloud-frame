@@ -6,14 +6,21 @@ import com.frame.user.enums.AuthMsgResult;
 import com.frame.user.exception.AuthException;
 import com.frame.user.service.SysUserRoleService;
 import com.frame.user.service.SysUserService;
+import com.frame.user.service.ValidCodeService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.shiro.authc.*;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.AuthenticationInfo;
+import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -23,6 +30,8 @@ import java.util.stream.Collectors;
 @Slf4j
 public class UserPwdRealm extends AuthorizingRealm {
 
+    @Autowired
+    private ValidCodeService validCodeService;
     @Autowired
     private SysUserService sysUserService;
     @Autowired
@@ -35,7 +44,7 @@ public class UserPwdRealm extends AuthorizingRealm {
      */
     @Override
     public boolean supports(AuthenticationToken token) {
-        return token instanceof UsernamePasswordToken;
+        return token instanceof UserFormToken;
     }
 
     /**
@@ -49,14 +58,22 @@ public class UserPwdRealm extends AuthorizingRealm {
         log.debug("doGetAuthenticationInfo {}", authenticationToken);
         // 为空
         Optional.ofNullable(authenticationToken).orElseThrow(() -> new AuthException(AuthMsgResult.USER_PWD_ERROR));
-        // 获取用户名&密码
-        UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
-        String username = token.getUsername();
+        // 转换类型
+        UserFormToken token = (UserFormToken) authenticationToken;
+
+        // 校验验证码
+        Optional.ofNullable(token.getValidCode()).orElseThrow(() -> new AuthException(AuthMsgResult.VALID_CODE_ERROR));
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        if (validCodeService.valid(request.getSession().getId(), token.getValidCode())) {
+            throw new AuthException(AuthMsgResult.VALID_CODE_ERROR);
+        }
+
         // 用户名或密码为空
-        Optional.ofNullable(username).orElseThrow(() -> new AuthException(AuthMsgResult.USER_PWD_ERROR));
+        Optional.ofNullable(token.getUsername()).orElseThrow(() -> new AuthException(AuthMsgResult.USER_PWD_ERROR));
         Optional.ofNullable(token.getPassword()).orElseThrow(() -> new AuthException(AuthMsgResult.USER_PWD_ERROR));
 
-        SysUser sysUser = sysUserService.findByUsername(username);
+        // 获取用户
+        SysUser sysUser = sysUserService.findByUsername(token.getUsername());
         Optional.ofNullable(sysUser).orElseThrow(() -> new AuthException(AuthMsgResult.USER_PWD_ERROR));
 
         // TODO 校验用户状态
