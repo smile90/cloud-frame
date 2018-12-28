@@ -132,4 +132,4 @@ mybatis-plus:
 
 logging:
   level:
-    com.frame.user.shiro: DEBUG
+    com.frame.user: DEBUG

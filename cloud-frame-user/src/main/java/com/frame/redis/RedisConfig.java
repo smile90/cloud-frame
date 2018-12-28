@@ -17,7 +17,6 @@ import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.cache.RedisCacheWriter;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
@@ -75,19 +74,9 @@ public class RedisConfig extends CachingConfigurerSupport {
         }
     }
 
-    @Primary
     @Bean
-    public RedisTemplate<String, String> redisTemplate() {
-        StringRedisTemplate template = new StringRedisTemplate(redisConnectionFactory);
-        template.setKeySerializer(new StringRedisSerializer());
-        template.setValueSerializer(createFastJson2JsonRedisSerializer());
-        template.afterPropertiesSet();
-        return template;
-    }
-
-    @Bean
-    public RedisTemplate<String, Integer> integerRedisTemplate() {
-        RedisTemplate<String, Integer> template = new RedisTemplate();
+    public RedisTemplate<String, ? extends Object> redisTemplate() {
+        RedisTemplate template = new RedisTemplate();
         template.setConnectionFactory(redisConnectionFactory);
         template.setKeySerializer(new StringRedisSerializer());
         template.setValueSerializer(createFastJson2JsonRedisSerializer());

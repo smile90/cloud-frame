@@ -17,6 +17,8 @@ import java.time.Duration;
 public class AuthProperties {
     /*登录参数*/
     private Login login = new Login();
+    /*缓存参数*/
+    private Cache cache = new Cache();
 
     @Data
     public class Login {
@@ -28,5 +30,11 @@ public class AuthProperties {
         private boolean enableValidCode = true;
         /*验证码超时时间：默认5分钟*/
         private Duration validCodeTimeout = Duration.ofMinutes(5L);
+    }
+
+    @Data
+    public class Cache {
+        /*Shiro超时时间：默认15分钟*/
+        private Duration timeout = Duration.ofMinutes(15L);
     }
 }
