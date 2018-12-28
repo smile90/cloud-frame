@@ -1,5 +1,6 @@
 package com.frame.user.entity;
 
+import com.frame.common.frame.base.enums.UserStatus;
 import com.frame.mybatis.entity.BaseModel;
 import lombok.Data;
 
@@ -27,6 +28,6 @@ public class SysUser extends BaseModel {
     /*类别*/
     private String typeCode;
     /*状态*/
-    private String userStatus;
+    private UserStatus userStatus;
 
 }

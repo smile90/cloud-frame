@@ -1,9 +1,11 @@
 package com.frame.user.shiro;
 
+import com.frame.common.frame.base.enums.UserStatus;
 import com.frame.user.entity.SysUser;
 import com.frame.user.entity.SysUserRole;
 import com.frame.user.enums.AuthMsgResult;
 import com.frame.user.exception.AuthException;
+import com.frame.user.properties.AuthProperties;
 import com.frame.user.service.SysUserRoleService;
 import com.frame.user.service.SysUserService;
 import com.frame.user.service.ValidCodeService;
@@ -20,7 +22,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -30,6 +31,8 @@ import java.util.stream.Collectors;
 @Slf4j
 public class UserPwdRealm extends AuthorizingRealm {
 
+    @Autowired
+    private AuthProperties authProperties;
     @Autowired
     private ValidCodeService validCodeService;
     @Autowired
@@ -63,9 +66,12 @@ public class UserPwdRealm extends AuthorizingRealm {
 
         // 校验验证码
         Optional.ofNullable(token.getValidCode()).orElseThrow(() -> new AuthException(AuthMsgResult.VALID_CODE_ERROR));
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        if (validCodeService.valid(request.getSession().getId(), token.getValidCode())) {
+        String validCodeKey =  ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest().getSession().getId();
+        // 验证 && 验证不通过：验证码错误
+        if (authProperties.getLogin().isEnableValidCode() && !validCodeService.valid(validCodeKey, token.getValidCode())) {
             throw new AuthException(AuthMsgResult.VALID_CODE_ERROR);
+        } else {
+            validCodeService.deleteValidCode(validCodeKey);
         }
 
         // 用户名或密码为空
@@ -76,8 +82,15 @@ public class UserPwdRealm extends AuthorizingRealm {
         SysUser sysUser = sysUserService.findByUsername(token.getUsername());
         Optional.ofNullable(sysUser).orElseThrow(() -> new AuthException(AuthMsgResult.USER_PWD_ERROR));
 
-        // TODO 校验用户状态
-        String userStatus = sysUser.getUserStatus();
+        // 校验用户状态
+        UserStatus userStatus = sysUser.getUserStatus();
+        Optional.ofNullable(userStatus).orElseThrow(() -> new AuthException(AuthMsgResult.USER_STATUS_ERROR));
+        switch (userStatus) {
+            case DELETED: throw new AuthException(AuthMsgResult.USER_DELETED_ERROR);
+            case EXPIRED: throw new AuthException(AuthMsgResult.USER_EXPIRED_ERROR);
+            case DISABLED: throw new AuthException(AuthMsgResult.USER_DISABLED_ERROR);
+            case LOCKED: throw new AuthException(AuthMsgResult.USER_LOCKED_ERROR);
+        }
 
         // 构建凭证
         return new SimpleAuthenticationInfo(sysUser.getUsername(), sysUser.getPassword(), sysUser.getRealname());

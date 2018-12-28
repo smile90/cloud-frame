@@ -9,9 +9,14 @@ public enum AuthMsgResult implements MsgResult {
 
     LOGIN_ERROR("000000010001", "auth error", "登录错误"),
     NOT_LOGIN_ERROR("000000010002", "not login error", "用户未登录"),
-    LOGIN_TIME_ERROR("000000010003", "login time error", "登录错误次数超出最大次数"),
-    VALID_CODE_ERROR("000000010004", "valid code error", "验证码错误"),
-    USER_PWD_ERROR("000000010005", "user or password error", "用户名/密码错误"),
+    USER_STATUS_ERROR("000000010003", "user status error", "用户状态异常"),
+    USER_DELETED_ERROR("000000010004", "user deleted error", "用户已删除"),
+    USER_DISABLED_ERROR("000000010005", "user disabled error", "用户已禁用"),
+    USER_EXPIRED_ERROR("000000010006", "user expired error", "用户已过期"),
+    USER_LOCKED_ERROR("000000010007", "user locked error", "用户已锁定"),
+    LOGIN_TIME_ERROR("000000010008", "login time error", "登录错误次数超出最大次数"),
+    VALID_CODE_ERROR("000000010009", "valid code error", "验证码错误"),
+    USER_PWD_ERROR("000000010010", "user or password error", "用户名/密码错误"),
 
     LOGOUT_ERROR("000000011000", "auth error", "退出错误"),
 

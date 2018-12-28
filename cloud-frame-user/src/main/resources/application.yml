@@ -130,11 +130,6 @@ mybatis-plus:
     map-underscore-to-camel-case: true
     cache-enabled: false
 
-# auth
-auth:
-  login:
-    error-time: 3
-    timeout: 60
 logging:
   level:
     com.frame.user.shiro: DEBUG
