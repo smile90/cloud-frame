@@ -2,11 +2,9 @@ package com.frame.user.shiro;
 
 import com.frame.common.frame.base.enums.UserStatus;
 import com.frame.user.entity.SysUser;
-import com.frame.user.entity.SysUserRole;
 import com.frame.user.enums.AuthMsgResult;
 import com.frame.user.exception.AuthException;
 import com.frame.user.properties.AuthProperties;
-import com.frame.user.service.SysUserRoleService;
 import com.frame.user.service.SysUserService;
 import com.frame.user.service.ValidCodeService;
 import lombok.extern.slf4j.Slf4j;
@@ -14,23 +12,18 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
-import org.apache.shiro.authz.AuthorizationInfo;
-import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthenticatingRealm;
-import org.apache.shiro.realm.AuthorizingRealm;
-import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 /**
- * 自定义权限认证
+ * 用户名密码认证
  */
 @Slf4j
-public class UserPwdRealm extends AuthorizingRealm {
+public class UserPwdRealm extends AbstractRealm {
 
     @Autowired
     private AuthProperties authProperties;
@@ -38,8 +31,6 @@ public class UserPwdRealm extends AuthorizingRealm {
     private ValidCodeService validCodeService;
     @Autowired
     private SysUserService sysUserService;
-    @Autowired
-    private SysUserRoleService sysUserRoleService;
 
     /**
      * 只处理UserFormToken
@@ -95,38 +86,5 @@ public class UserPwdRealm extends AuthorizingRealm {
 
         // 构建凭证
         return new SimpleAuthenticationInfo(sysUser.getUsername(), sysUser.getPassword(), sysUser.getRealname());
-    }
-
-    /**
-     * 授权
-     * @param principals
-     * @return
-     */
-    @Override
-    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        Optional.ofNullable(principals).orElseThrow(() -> new AuthException(AuthMsgResult.AUTH_ERROR));
-        // 获取用户名（此处会优先从缓存取）
-        String username = (String) getAvailablePrincipal(principals);
-        Set<String> roles = getRoles(username);
-        Set<String> permissions = getPermissions(username);
-
-        // 配置权限
-        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-        info.setRoles(roles);
-        info.setStringPermissions(permissions);
-        log.debug("doGetAuthorizationInfo username:{}, roles:{}, permissions:{}", username, roles, permissions);
-        return info;
-    }
-
-    private Set<String> getRoles(String username) {
-        List<SysUserRole> sysUserRoles = Optional.ofNullable(sysUserRoleService.findByUsername(username)).orElse(Collections.emptyList());
-        return sysUserRoles.stream()
-                .map(SysUserRole::getRoleCode)
-                .collect(Collectors.toSet());
-    }
-
-    private Set<String> getPermissions(String username) {
-        // TODO
-        return new HashSet<>();
     }
 }

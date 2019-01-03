@@ -4,7 +4,10 @@ import com.frame.user.properties.AuthProperties;
 import com.frame.user.shiro.*;
 import com.frame.user.shiro.cache.ShiroRedisCacheManager;
 import com.google.common.collect.Maps;
+import org.apache.shiro.authc.Authenticator;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
+import org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy;
+import org.apache.shiro.authc.pam.ModularRealmAuthenticator;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
@@ -17,6 +20,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import javax.servlet.Filter;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -62,14 +67,42 @@ public class ShiroConfig {
     }
 
     /**
+     * Token权限
+     * @return
+     */
+    @Bean
+    public Realm tokenRealm() {
+        TokenRealm realm = new TokenRealm();
+        return realm;
+    }
+
+    /**
+     * 认证处理：只要一个或者多个Realm认证通过，则整体身份认证就会视为成功
+     * @return
+     */
+    @Bean
+    public Authenticator authenticator() {
+        ModularRealmAuthenticator authenticator = new ModularRealmAuthenticator();
+        authenticator.setAuthenticationStrategy(new AtLeastOneSuccessfulStrategy());
+        return authenticator;
+    }
+
+    /**
      * 权限管理器
      * @return
      */
     @Bean
     public DefaultWebSecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        securityManager.setRealm(userPwdRealm());
+        // 缓存管理
         securityManager.setCacheManager(shiroRedisCacheManager());
+        // 认证逻辑
+        securityManager.setAuthenticator(authenticator());
+        // 认证实际处理类
+        Collection<Realm> realms = new ArrayList<>();
+        realms.add(userPwdRealm());
+        realms.add(tokenRealm());
+        securityManager.setRealms(realms);
         return securityManager;
     }
 
