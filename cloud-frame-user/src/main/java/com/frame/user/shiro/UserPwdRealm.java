@@ -16,6 +16,7 @@ import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
+import org.apache.shiro.realm.AuthenticatingRealm;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,13 +42,13 @@ public class UserPwdRealm extends AuthorizingRealm {
     private SysUserRoleService sysUserRoleService;
 
     /**
-     *
-     * @param token
+     * 只处理UserFormToken
+     * @see AuthenticatingRealm#supports(org.apache.shiro.authc.AuthenticationToken)
      * @return
      */
     @Override
-    public boolean supports(AuthenticationToken token) {
-        return token instanceof UserFormToken;
+    public Class getAuthenticationTokenClass() {
+        return UserFormToken.class;
     }
 
     /**

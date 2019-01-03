@@ -13,24 +13,24 @@ import java.time.Duration;
  * @author: duanchangqing90
  * @date: 2018/12/28
  */
-public class RedisCacheManager implements CacheManager {
+public class ShiroRedisCacheManager implements CacheManager {
 
     @Setter
     private RedisTemplate<String, Object> redisTemplate;
     @Setter
     private Duration timeout;
 
-    public RedisCacheManager(RedisTemplate<String, Object> redisTemplate) {
+    public ShiroRedisCacheManager(RedisTemplate<String, Object> redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
 
-    public RedisCacheManager(RedisTemplate<String, Object> redisTemplate, Duration timeout) {
+    public ShiroRedisCacheManager(RedisTemplate<String, Object> redisTemplate, Duration timeout) {
         this.redisTemplate = redisTemplate;
         this.timeout = timeout;
     }
 
     @Override
     public Cache<String, Object> getCache(String s) throws CacheException {
-        return new RedisCache(redisTemplate, timeout);
+        return new ShiroRedisCache(redisTemplate, timeout);
     }
 }

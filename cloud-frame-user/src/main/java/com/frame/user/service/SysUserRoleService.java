@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 public class SysUserRoleService extends ServiceImpl<SysUserRoleMapper, SysUserRole> {
 
-    @Cacheable(value = "userRoles", key = "#username")
+    @Cacheable(value = "user:userRoles", key = "#username")
     public List<SysUserRole> findByUsername(String username) {
         return baseMapper.selectList(new QueryWrapper<SysUserRole>()
                 .eq("username", username));

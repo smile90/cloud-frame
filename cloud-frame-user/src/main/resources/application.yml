@@ -20,10 +20,9 @@ spring:
     name: @project.artifactId@
   jmx:
     default-domain: @project.artifactId@
-# 关闭自动方式，强制使用cglib
-#  aop:
-#      auto: false
-#      proxy-target-class: true
+  # session 使用 redis 管理
+  session:
+    store-type: redis
 
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss

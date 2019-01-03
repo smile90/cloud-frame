@@ -15,12 +15,12 @@ import java.util.List;
 @Service
 public class SysRoleService extends ServiceImpl<SysRoleMapper, SysRole> {
 
-    @Cacheable(value = "roles", key = "#roleCode")
+    @Cacheable(value = "user:roles", key = "#roleCode")
     public SysRole find(String roleCode) {
         return baseMapper.selectOne(new QueryWrapper<SysRole>().eq("code", roleCode));
     }
 
-    @Cacheable(value = "roles", key = "#roleCodes")
+    @Cacheable(value = "user:roles", key = "#roleCodes")
     public List<SysRole> find(Collection roleCodes) {
         return baseMapper.selectList(new QueryWrapper<SysRole>().in("module_code", roleCodes));
     }

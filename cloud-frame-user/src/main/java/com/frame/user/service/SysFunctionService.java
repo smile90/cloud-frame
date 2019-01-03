@@ -20,7 +20,7 @@ public class SysFunctionService extends ServiceImpl<SysFunctionMapper, SysFuncti
      *
      * @return
      */
-    @Cacheable(value = "functions", key = "'allDisableFunctions'")
+    @Cacheable(value = "user:functions", key = "'allDisableFunctions'")
     public List<SysFunction> findAllDisable() {
         return list(new QueryWrapper<SysFunction>()
                 .eq("useable", YesNo.N.name()));
@@ -31,7 +31,7 @@ public class SysFunctionService extends ServiceImpl<SysFunctionMapper, SysFuncti
      *
      * @return
      */
-    @Cacheable(value = "functions", key = "'allEnableFunctions_' + #validate")
+    @Cacheable(value = "user:functions", key = "'allEnableFunctions_' + #validate")
     public List<SysFunction> findAllEnable(YesNo validate) {
         return list(new QueryWrapper<SysFunction>()
                 .eq("useable", YesNo.Y.name())

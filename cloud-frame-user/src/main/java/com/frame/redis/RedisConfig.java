@@ -75,7 +75,7 @@ public class RedisConfig extends CachingConfigurerSupport {
     }
 
     @Bean
-    public RedisTemplate<String, ? extends Object> redisTemplate() {
+    public RedisTemplate<String, ?> redisTemplate() {
         RedisTemplate template = new RedisTemplate();
         template.setConnectionFactory(redisConnectionFactory);
         template.setKeySerializer(new StringRedisSerializer());
@@ -84,8 +84,7 @@ public class RedisConfig extends CachingConfigurerSupport {
         return template;
     }
 
-    @Bean
-    public FastJson2JsonRedisSerializer createFastJson2JsonRedisSerializer() {
+    private FastJson2JsonRedisSerializer createFastJson2JsonRedisSerializer() {
         return new FastJson2JsonRedisSerializer(Object.class);
     }
 

@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class SysUserService extends ServiceImpl<SysUserMapper, SysUser> {
 
-    @Cacheable(value = "user", key = "#username", unless="#result == null")
+    @Cacheable(value = "user:user", key = "#username", unless="#result == null")
     public SysUser findByUsername(String username) {
         return baseMapper.selectOne(new QueryWrapper<SysUser>().eq("username", username).eq("status", DataStatus.NORMAL.name()));
     }

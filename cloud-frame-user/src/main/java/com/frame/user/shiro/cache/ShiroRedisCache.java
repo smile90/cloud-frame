@@ -16,17 +16,17 @@ import java.util.concurrent.TimeUnit;
  * @author: duanchangqing90
  * @date: 2018/12/28
  */
-public class RedisCache<K, V> implements Cache<K, V> {
+public class ShiroRedisCache<K, V> implements Cache<K, V> {
 
     private RedisTemplate<K, V> redisTemplate;
     /*默认超时一个小时*/
     private Duration timeout = Duration.ofMillis(60L);
 
-    public RedisCache(RedisTemplate<K, V> redisTemplate) {
+    public ShiroRedisCache(RedisTemplate<K, V> redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
 
-    public RedisCache(RedisTemplate<K, V> redisTemplate, Duration timeout) {
+    public ShiroRedisCache(RedisTemplate<K, V> redisTemplate, Duration timeout) {
         this.redisTemplate = redisTemplate;
         if (timeout != null) {
             this.timeout = timeout;

@@ -30,6 +30,12 @@ public class AuthProperties {
         private boolean enableValidCode = true;
         /*验证码超时时间：默认5分钟*/
         private Duration validCodeTimeout = Duration.ofMinutes(5L);
+        /*记住我前端参数name*/
+        private String rememberMeName = "rememberMe";
+        /*记住我*/
+        private boolean enableRememberMe = true;
+        /*记住我超时时间：默认7天*/
+        private Duration rememberMeTimeout = Duration.ofDays(7L);
     }
 
     @Data
