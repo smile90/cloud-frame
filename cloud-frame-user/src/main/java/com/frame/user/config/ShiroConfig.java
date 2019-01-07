@@ -9,6 +9,7 @@ import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy;
 import org.apache.shiro.authc.pam.ModularRealmAuthenticator;
 import org.apache.shiro.realm.Realm;
+import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
@@ -42,6 +43,15 @@ public class ShiroConfig {
     @Bean
     public ShiroRedisCacheManager shiroRedisCacheManager() {
         return new ShiroRedisCacheManager(redisTemplate, authProperties.getCache().getTimeout());
+    }
+
+    /**
+     * Session管理
+     * @return
+     */
+    @Bean
+    public SessionManager sessionManager() {
+        return new ShiroSessionManager();
     }
 
     /**
@@ -83,8 +93,38 @@ public class ShiroConfig {
     @Bean
     public Authenticator authenticator() {
         ModularRealmAuthenticator authenticator = new ModularRealmAuthenticator();
-        authenticator.setAuthenticationStrategy(new AtLeastOneSuccessfulStrategy());
+        authenticator.setAuthenticationStrategy(new ShiroAtLeastOneSuccessfulStrategy());
+
+        Collection<Realm> realms = new ArrayList<>();
+        realms.add(userPwdRealm());
+        realms.add(tokenRealm());
+        authenticator.setRealms(realms);
+
         return authenticator;
+    }
+
+    /**
+     * 记住登录Cookie策略
+     * @return
+     */
+    @Bean
+    public Cookie rememberMeCookie() {
+        // cookie对应前端的checkbox的name = rememberMe
+        SimpleCookie simpleCookie = new SimpleCookie(authProperties.getLogin().getRememberMeName());
+        // cookie失效时间
+        simpleCookie.setMaxAge((int) authProperties.getLogin().getRememberMeTimeout().getSeconds());
+        return simpleCookie;
+    }
+
+    /**
+     * 记住登录管理
+     * @return
+     */
+    @Bean
+    public CookieRememberMeManager rememberMeManager() {
+        CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
+        cookieRememberMeManager.setCookie(rememberMeCookie());
+        return cookieRememberMeManager;
     }
 
     /**
@@ -96,34 +136,14 @@ public class ShiroConfig {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         // 缓存管理
         securityManager.setCacheManager(shiroRedisCacheManager());
+        // Session管理
+        securityManager.setSessionManager(sessionManager());
         // 认证逻辑
         securityManager.setAuthenticator(authenticator());
-        // 认证实际处理类
-        Collection<Realm> realms = new ArrayList<>();
-        realms.add(userPwdRealm());
-        realms.add(tokenRealm());
-        securityManager.setRealms(realms);
+
+        // 记住登录
+        securityManager.setRememberMeManager(rememberMeManager());
         return securityManager;
-    }
-
-    @Bean
-    public Cookie rememberMeCookie() {
-        // cookie对应前端的checkbox的name = rememberMe
-        SimpleCookie simpleCookie = new SimpleCookie(authProperties.getLogin().getRememberMeName());
-        // cookie失效时间
-        simpleCookie.setMaxAge((int) authProperties.getLogin().getRememberMeTimeout().getSeconds());
-        return simpleCookie;
-    }
-
-    /**
-     * cookie管理对象
-     * @return
-     */
-    @Bean
-    public CookieRememberMeManager rememberMeManager() {
-        CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
-        cookieRememberMeManager.setCookie(rememberMeCookie());
-        return cookieRememberMeManager;
     }
 
     /**

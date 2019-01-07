@@ -38,7 +38,6 @@ public class SysLoginService {
 
     /**
      * 登录
-     *
      * @param loginUser
      * @return
      */
@@ -48,16 +47,18 @@ public class SysLoginService {
         try {
             // 获取错误次数，不存在为0
             Integer time = Optional.ofNullable(redisTemplate.opsForValue().get(RedisKeyConstant.USER_LOGIN_ERROR_TIME_PRE + token.getUsername())).orElse(Integer.valueOf(0));
-            // 登录错误次数少于设定次数，执行登录，否则，登录失败
-            if (time.intValue() < authProperties.getLogin().getErrorTime().intValue()) {
-                subject.login(token);
-                // 登录成功，删除错误次数
-                redisTemplate.delete(RedisKeyConstant.USER_LOGIN_ERROR_TIME_PRE + token.getUsername());
-                return ResponseBean.success();
-            } else {
+            // 启用登录错误限制 并且 登录错误次数大于等于设定次数，直接登录失败
+            if (authProperties.getLogin().isEnableErrorTime()
+                && time.intValue() >= authProperties.getLogin().getMaxErrorTime().intValue()) {
                 log.error("login time error.");
                 return ResponseBean.getInstance(AuthMsgResult.LOGIN_TIME_ERROR);
             }
+
+            // 执行登录
+            subject.login(token);
+            // 登录成功处理
+            loginSuccess(token);
+            return ResponseBean.success();
         } catch (AuthException e) {
             // 登录错误，累加
             incrementErrorTime(token);
@@ -77,7 +78,6 @@ public class SysLoginService {
 
     /**
      * 退出
-     *
      * @return
      */
     public ResponseBean logout() {
@@ -93,7 +93,6 @@ public class SysLoginService {
 
     /**
      * 累加错误次数
-     *
      * @param token
      */
     private void incrementErrorTime(UsernamePasswordToken token) {
@@ -101,4 +100,14 @@ public class SysLoginService {
         redisTemplate.boundValueOps(RedisKeyConstant.USER_LOGIN_ERROR_TIME_PRE + token.getUsername()).expire(authProperties.getLogin().getErrorTimeout().getSeconds(), TimeUnit.SECONDS);
     }
 
+    /**
+     * 登录成功处理
+     *   删除累计错误次数
+     * @param token
+     */
+    private void loginSuccess(UserFormToken token) {
+        if (authProperties.getLogin().isEnableErrorTime()) {
+            redisTemplate.delete(RedisKeyConstant.USER_LOGIN_ERROR_TIME_PRE + token.getUsername());
+        }
+    }
 }
