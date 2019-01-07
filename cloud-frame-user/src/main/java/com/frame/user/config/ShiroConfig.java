@@ -6,7 +6,6 @@ import com.frame.user.shiro.cache.ShiroRedisCacheManager;
 import com.google.common.collect.Maps;
 import org.apache.shiro.authc.Authenticator;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
-import org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy;
 import org.apache.shiro.authc.pam.ModularRealmAuthenticator;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.session.mgt.SessionManager;
@@ -94,12 +93,6 @@ public class ShiroConfig {
     public Authenticator authenticator() {
         ModularRealmAuthenticator authenticator = new ModularRealmAuthenticator();
         authenticator.setAuthenticationStrategy(new ShiroAtLeastOneSuccessfulStrategy());
-
-        Collection<Realm> realms = new ArrayList<>();
-        realms.add(userPwdRealm());
-        realms.add(tokenRealm());
-        authenticator.setRealms(realms);
-
         return authenticator;
     }
 
@@ -134,12 +127,17 @@ public class ShiroConfig {
     @Bean
     public DefaultWebSecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
+
         // 缓存管理
         securityManager.setCacheManager(shiroRedisCacheManager());
         // Session管理
         securityManager.setSessionManager(sessionManager());
         // 认证逻辑
         securityManager.setAuthenticator(authenticator());
+        Collection<Realm> realms = new ArrayList<>();
+        realms.add(userPwdRealm());
+        realms.add(tokenRealm());
+        securityManager.setRealms(realms);
 
         // 记住登录
         securityManager.setRememberMeManager(rememberMeManager());
@@ -153,13 +151,19 @@ public class ShiroConfig {
     @Bean
     public ShiroFilterFactoryBean shiroFilterFactoryBean() {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
+//        全部使用JSON进行响应
+//        shiroFilterFactoryBean.setLoginUrl("/sys/loginPage");
+//        shiroFilterFactoryBean.setSuccessUrl("/sys/index");
+//        shiroFilterFactoryBean.setUnauthorizedUrl("/sys/unAuth");
+
         // 权限管理器
         shiroFilterFactoryBean.setSecurityManager(securityManager());
 
         // 默认拦截器
         Map<String, Filter> filterMap = Maps.newLinkedHashMap();
-        // 认证过滤器修改了未授权信息通过Response回写，而不是跳转页面
-        filterMap.put("authc", new UserPwdAuthenticationFilter());
+        // 修改了未授权信息通过Response回写json，而不是跳转页面
+        filterMap.put("user", new ShiroUserFilter());
+        filterMap.put("authc", new ShiroFormAuthenticationFilter());
         // 增加URL过滤器
         filterMap.put("requestURL", urlPathMatchingFilter());
         shiroFilterFactoryBean.setFilters(filterMap);
@@ -175,11 +179,24 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/sys/logout", "anon");
         filterChainDefinitionMap.put("/error", "anon");
         // 记住我后可访问地址
-        filterChainDefinitionMap.put("/sys/index/**", "authc,requestURL");
+        filterChainDefinitionMap.put("/test/**", "user");
+        filterChainDefinitionMap.put("/sys/index", "user");
         // 登录后可访问地址
-        filterChainDefinitionMap.put("/sys/index", "authc");
+        filterChainDefinitionMap.put("/sys/user/index", "authc");
         // 必须登录授权并有权限
         filterChainDefinitionMap.put("/**", "authc,requestURL");
+
+        // 请求配置拦截器 TODO
+//        Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
+//        authProperties.getUrl().getFilterChainDefinitionMap()
+//                .entrySet().stream().forEach(entry -> {
+//            // 如果Key不为空
+//            Optional.ofNullable(entry.getKey()).ifPresent(key -> {
+//                Arrays.stream(key.split(authProperties.getUrl().getSplit()))
+//                        .forEach(url -> filterChainDefinitionMap.put(url.trim(), entry.getValue()));
+//            });
+//        });
+
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
     }

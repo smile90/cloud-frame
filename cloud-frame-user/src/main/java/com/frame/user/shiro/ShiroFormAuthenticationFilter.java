@@ -12,11 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 
 /**
- * 用户密码认证过滤器
- * 对没有登录的请求进行拦截, 全部返回json信息. 覆盖掉shiro原本的跳转login.jsp的拦截方式
+ * 重写该过滤器，主要为了处理失败后的方式
+ * 返回json信息，而不是进行页面跳转
  */
 @Slf4j
-public class UserPwdAuthenticationFilter extends FormAuthenticationFilter {
+public class ShiroFormAuthenticationFilter extends FormAuthenticationFilter {
 
     @Override
     protected boolean onAccessDenied(ServletRequest request, ServletResponse response) {

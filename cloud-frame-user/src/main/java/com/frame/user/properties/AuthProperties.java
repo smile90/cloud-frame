@@ -1,11 +1,12 @@
 package com.frame.user.properties;
 
-import lombok.Data;
 import lombok.ToString;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 权限属性
@@ -18,6 +19,8 @@ import java.time.Duration;
 public class AuthProperties {
     /*登录参数*/
     private Login login = new Login();
+    /*URL参数*/
+    private Url url = new Url();
     /*缓存参数*/
     private Cache cache = new Cache();
 
@@ -27,6 +30,14 @@ public class AuthProperties {
 
     public void setLogin(Login login) {
         this.login = login;
+    }
+
+    public Url getUrl() {
+        return url;
+    }
+
+    public void setUrl(Url url) {
+        this.url = url;
     }
 
     public Cache getCache() {
@@ -133,9 +144,41 @@ public class AuthProperties {
         }
     }
 
-    @Data
+    @ToString
+    public class Url {
+        /*URL映射*/
+        private Map<String, String> filterChainDefinitionMap = new HashMap<>();
+        /*分隔符：默认为逗号（,）*/
+        private String split = ",";
+
+        public Map<String, String> getFilterChainDefinitionMap() {
+            return filterChainDefinitionMap;
+        }
+
+        public void setFilterChainDefinitionMap(Map<String, String> filterChainDefinitionMap) {
+            this.filterChainDefinitionMap = filterChainDefinitionMap;
+        }
+
+        public String getSplit() {
+            return split;
+        }
+
+        public void setSplit(String split) {
+            this.split = split;
+        }
+    }
+
+    @ToString
     public class Cache {
         /*Shiro超时时间：默认15分钟*/
         private Duration timeout = Duration.ofMinutes(15L);
+
+        public Duration getTimeout() {
+            return timeout;
+        }
+
+        public void setTimeout(Duration timeout) {
+            this.timeout = timeout;
+        }
     }
 }

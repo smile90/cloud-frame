@@ -132,3 +132,15 @@ mybatis-plus:
 logging:
   level:
     com.frame.user: DEBUG
+
+auth:
+  login:
+    enable-error-time: false
+#  TODO
+#  url:
+#    filter-chain-definition-map:
+#      "'/', '/favicon.ico', /static/**, /validCode/**, /error" : "anon"
+#      "/sys/login, /sys/logout" : "anon"
+#      "/test/**, /sys/index" : "user"
+#      "/sys/user/index" : "authc"
+#      "/**" : "authc, requestURL"
