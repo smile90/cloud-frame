@@ -1,4 +1,4 @@
-package com.frame.user.shiro;
+package com.frame.user.shiro.filter;
 
 import com.alibaba.fastjson.JSONObject;
 import com.frame.common.frame.base.bean.ResponseBean;

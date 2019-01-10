@@ -2,7 +2,7 @@ package com.frame.test;
 
 import com.frame.user.enums.AuthMsgResult;
 import com.frame.user.exception.AuthException;
-import com.frame.user.shiro.SysAuthMatcher;
+import com.frame.user.shiro.matcher.SysAuthMatcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

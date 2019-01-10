@@ -1,4 +1,4 @@
-package com.frame.user.shiro;
+package com.frame.user.shiro.matcher;
 
 import com.frame.common.frame.base.enums.YesNo;
 import com.frame.user.constant.RoleKeyConstant;

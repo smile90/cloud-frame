@@ -1,9 +1,12 @@
-package com.frame.user.shiro;
+package com.frame.user.shiro.realm;
 
+import com.frame.common.frame.base.enums.UserStatus;
+import com.frame.user.entity.SysUser;
 import com.frame.user.entity.SysUserRole;
 import com.frame.user.enums.AuthMsgResult;
 import com.frame.user.exception.AuthException;
 import com.frame.user.service.SysUserRoleService;
+import com.frame.user.service.SysUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -22,6 +25,8 @@ import java.util.stream.Collectors;
 @Slf4j
 public abstract class AbstractRealm extends AuthorizingRealm {
 
+    @Autowired
+    private SysUserService sysUserService;
     @Autowired
     private SysUserRoleService sysUserRoleService;
 
@@ -56,6 +61,31 @@ public abstract class AbstractRealm extends AuthorizingRealm {
     private Set<String> getPermissions(String username) {
         // TODO
         return new HashSet<>();
+    }
+
+    /**
+     * 获取用户对象
+     * @param username
+     * @return
+     */
+    protected SysUser getSysUser(String username) {
+        return sysUserService.findByUsername(username);
+    }
+
+    /**
+     * 校验用户状态
+     * @param sysUser
+     */
+    protected void validUserStatus(SysUser sysUser) {
+        // 校验用户状态
+        UserStatus userStatus = sysUser.getUserStatus();
+        Optional.ofNullable(userStatus).orElseThrow(() -> new AuthException(AuthMsgResult.USER_STATUS_ERROR));
+        switch (userStatus) {
+            case DELETED: throw new AuthException(AuthMsgResult.USER_DELETED_ERROR);
+            case EXPIRED: throw new AuthException(AuthMsgResult.USER_EXPIRED_ERROR);
+            case DISABLED: throw new AuthException(AuthMsgResult.USER_DISABLED_ERROR);
+            case LOCKED: throw new AuthException(AuthMsgResult.USER_LOCKED_ERROR);
+        }
     }
 
 }

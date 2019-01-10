@@ -1,4 +1,4 @@
-package com.frame.user.shiro;
+package com.frame.user.shiro.token;
 
 import lombok.Getter;
 import lombok.Setter;

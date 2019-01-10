@@ -1,4 +1,4 @@
-package com.frame.user.shiro;
+package com.frame.user.shiro.matcher;
 
 import org.apache.shiro.subject.Subject;
 

@@ -19,10 +19,14 @@ import java.util.Map;
 public class AuthProperties {
     /*登录参数*/
     private Login login = new Login();
+    /*java web token参数*/
+    private Jwt jwt = new Jwt();
     /*URL参数*/
     private Url url = new Url();
     /*缓存参数*/
     private Cache cache = new Cache();
+    /*设备参数*/
+    private Device device = new Device();
 
     public Login getLogin() {
         return login;
@@ -30,6 +34,14 @@ public class AuthProperties {
 
     public void setLogin(Login login) {
         this.login = login;
+    }
+
+    public Jwt getJwt() {
+        return jwt;
+    }
+
+    public void setJwt(Jwt jwt) {
+        this.jwt = jwt;
     }
 
     public Url getUrl() {
@@ -48,6 +60,14 @@ public class AuthProperties {
         this.cache = cache;
     }
 
+    public Device getDevice() {
+        return device;
+    }
+
+    public void setDevice(Device device) {
+        this.device = device;
+    }
+
     @ToString
     public class Login {
         /*是否启用最大登录错误数限制*/
@@ -56,8 +76,6 @@ public class AuthProperties {
         private Integer maxErrorTime = 5;
         /*失败超时时间：默认15分钟*/
         private Duration errorTimeout = Duration.ofMinutes(15L);
-        /*请求中，token对应name：默认为token*/
-        private String tokenName = "token";
 
         /*是否启用验证码*/
         private boolean enableValidCode = true;
@@ -93,14 +111,6 @@ public class AuthProperties {
 
         public void setErrorTimeout(Duration errorTimeout) {
             this.errorTimeout = errorTimeout;
-        }
-
-        public String getTokenName() {
-            return tokenName;
-        }
-
-        public void setTokenName(String tokenName) {
-            this.tokenName = tokenName;
         }
 
         public boolean isEnableValidCode() {
@@ -145,6 +155,50 @@ public class AuthProperties {
     }
 
     @ToString
+    public class Jwt {
+        /*秘钥*/
+        private String secret = "123456";
+        /*请求中，token对应name：默认为token*/
+        private String tokenName = "token";
+        /*短超时时间：默认为30分钟*/
+        private Duration shortTimeout = Duration.ofMinutes(30L);
+        /*长超时时间：默认为7天*/
+        private Duration longTimeout = Duration.ofDays(7L);
+
+        public String getSecret() {
+            return secret;
+        }
+
+        public void setSecret(String secret) {
+            this.secret = secret;
+        }
+
+        public String getTokenName() {
+            return tokenName;
+        }
+
+        public void setTokenName(String tokenName) {
+            this.tokenName = tokenName;
+        }
+
+        public Duration getShortTimeout() {
+            return shortTimeout;
+        }
+
+        public void setShortTimeout(Duration shortTimeout) {
+            this.shortTimeout = shortTimeout;
+        }
+
+        public Duration getLongTimeout() {
+            return longTimeout;
+        }
+
+        public void setLongTimeout(Duration longTimeout) {
+            this.longTimeout = longTimeout;
+        }
+    }
+
+    @ToString
     public class Url {
         /*URL映射*/
         private Map<String, String> filterChainDefinitionMap = new HashMap<>();
@@ -181,4 +235,24 @@ public class AuthProperties {
             this.timeout = timeout;
         }
     }
+
+    @ToString
+    public class Device {
+        /*设备来源name：默认为deviceSource*/
+        private String deviceSourceName = "deviceSource";
+
+        public String getDeviceSourceName() {
+            return deviceSourceName;
+        }
+
+        public void setDeviceSourceName(String deviceSourceName) {
+            this.deviceSourceName = deviceSourceName;
+        }
+    }
+
+    public class User {
+        /*真实姓名name：默认为realname*/
+        private String realnameName = "realname";
+    }
+
 }

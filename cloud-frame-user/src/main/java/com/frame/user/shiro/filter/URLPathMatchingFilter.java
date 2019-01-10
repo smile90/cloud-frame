@@ -1,8 +1,9 @@
-package com.frame.user.shiro;
+package com.frame.user.shiro.filter;
 
 import com.alibaba.fastjson.JSONObject;
 import com.frame.common.frame.base.bean.ResponseBean;
 import com.frame.user.enums.AuthMsgResult;
+import com.frame.user.shiro.matcher.SysAuthMatcher;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.subject.Subject;
@@ -26,6 +27,11 @@ public class URLPathMatchingFilter extends AuthorizationFilter implements PathCo
 
     @Setter
     private SysAuthMatcher sysAuthMatcher;
+
+    public URLPathMatchingFilter(SysAuthMatcher sysAuthMatcher) {
+        super();
+        this.sysAuthMatcher = sysAuthMatcher;
+    }
 
     /**
      * 这里启动时不做特殊处理

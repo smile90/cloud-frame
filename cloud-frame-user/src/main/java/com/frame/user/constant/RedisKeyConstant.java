@@ -11,6 +11,7 @@ public class RedisKeyConstant {
     public static final String USER_LOGIN_ERROR_TIME_PRE = "userLoginErrorTime:";
     /*用户登录验证码*/
     public static final String USER_LOGIN_VALID_CODE_PRE = "userLoginValidCode:";
+
     /*Shiro缓存前缀*/
     public static final String SHIRO_CACHE_PRE = "shiroCache:";
 

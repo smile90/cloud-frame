@@ -3,10 +3,13 @@ package com.frame.user.service;
 import com.frame.common.frame.base.bean.ResponseBean;
 import com.frame.user.bean.LoginUser;
 import com.frame.user.constant.RedisKeyConstant;
+import com.frame.user.entity.SysUser;
 import com.frame.user.enums.AuthMsgResult;
 import com.frame.user.exception.AuthException;
 import com.frame.user.properties.AuthProperties;
-import com.frame.user.shiro.UserFormToken;
+import com.frame.user.shiro.token.JWTToken;
+import com.frame.user.shiro.token.UserFormToken;
+import com.frame.user.shiro.util.JWTUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -15,7 +18,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
@@ -31,13 +37,19 @@ import java.util.concurrent.TimeUnit;
 public class SysLoginService {
 
     @Autowired
+    private RedisTemplate<String, Integer> redisTemplate;
+    @Autowired
     private AuthProperties authProperties;
+    @Autowired
+    private JWTUtil jwtUtil;
 
     @Autowired
-    private RedisTemplate<String, Integer> redisTemplate;
+    private SysUserService sysUserService;
+
 
     /**
      * 登录
+     *
      * @param loginUser
      * @return
      */
@@ -49,16 +61,21 @@ public class SysLoginService {
             Integer time = Optional.ofNullable(redisTemplate.opsForValue().get(RedisKeyConstant.USER_LOGIN_ERROR_TIME_PRE + token.getUsername())).orElse(Integer.valueOf(0));
             // 启用登录错误限制 并且 登录错误次数大于等于设定次数，直接登录失败
             if (authProperties.getLogin().isEnableErrorTime()
-                && time.intValue() >= authProperties.getLogin().getMaxErrorTime().intValue()) {
+                    && time.intValue() >= authProperties.getLogin().getMaxErrorTime().intValue()) {
                 log.error("login time error.");
                 return ResponseBean.getInstance(AuthMsgResult.LOGIN_TIME_ERROR);
             }
 
-            // 执行登录
+            // 执行用户名密码授权
             subject.login(token);
+            // 执行JWT授权
+            JWTToken jwtToken = createJWTToken((String) SecurityUtils.getSubject().getPrincipal());
+            subject.login(jwtToken);
+
             // 登录成功处理
-            loginSuccess(token);
-            return ResponseBean.success();
+            loginSuccess(token.getUsername());
+
+            return ResponseBean.successContent(jwtToken);
         } catch (AuthException e) {
             // 登录错误，累加
             incrementErrorTime(token);
@@ -102,12 +119,28 @@ public class SysLoginService {
 
     /**
      * 登录成功处理
-     *   删除累计错误次数
-     * @param token
+     * 删除累计错误次数
+     * @param username
      */
-    private void loginSuccess(UserFormToken token) {
+    private void loginSuccess(String username) {
         if (authProperties.getLogin().isEnableErrorTime()) {
-            redisTemplate.delete(RedisKeyConstant.USER_LOGIN_ERROR_TIME_PRE + token.getUsername());
+            redisTemplate.delete(RedisKeyConstant.USER_LOGIN_ERROR_TIME_PRE + username);
         }
+    }
+
+    /**
+     * 创建Token
+     * @param username
+     * @return
+     */
+    private JWTToken createJWTToken(String username) {
+        SysUser sysUser = sysUserService.findByUsername(username);
+
+        // 获取Token，如果已经存在，用原来的，不存在生成Token
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String deviceSource = jwtUtil.getDeviceSource(request);
+        String credentials = jwtUtil.createToken(sysUser.getUsername(), sysUser.getRealname(), jwtUtil.getDeviceSource(request));
+
+        return new JWTToken(sysUser.getUsername(), credentials, sysUser.getRealname(), deviceSource);
     }
 }

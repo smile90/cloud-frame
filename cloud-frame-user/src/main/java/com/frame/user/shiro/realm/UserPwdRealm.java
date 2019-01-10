@@ -1,4 +1,4 @@
-package com.frame.user.shiro;
+package com.frame.user.shiro.realm;
 
 import com.frame.common.frame.base.enums.UserStatus;
 import com.frame.user.entity.SysUser;
@@ -7,6 +7,7 @@ import com.frame.user.exception.AuthException;
 import com.frame.user.properties.AuthProperties;
 import com.frame.user.service.SysUserService;
 import com.frame.user.service.ValidCodeService;
+import com.frame.user.shiro.token.UserFormToken;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -29,8 +30,6 @@ public class UserPwdRealm extends AbstractRealm {
     private AuthProperties authProperties;
     @Autowired
     private ValidCodeService validCodeService;
-    @Autowired
-    private SysUserService sysUserService;
 
     /**
      * 只处理UserFormToken
@@ -51,18 +50,19 @@ public class UserPwdRealm extends AbstractRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         log.debug("doGetAuthenticationInfo {}", authenticationToken);
-        // 为空
         Optional.ofNullable(authenticationToken).orElseThrow(() -> new AuthException(AuthMsgResult.USER_PWD_ERROR));
+
         // 转换类型
         UserFormToken token = (UserFormToken) authenticationToken;
 
-        // 校验验证码
-        Optional.ofNullable(token.getValidCode()).orElseThrow(() -> new AuthException(AuthMsgResult.VALID_CODE_ERROR));
-        String validCodeKey =  ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest().getSession().getId();
-        // 验证 && 验证不通过：验证码错误
-        if (authProperties.getLogin().isEnableValidCode() && !validCodeService.valid(validCodeKey, token.getValidCode())) {
-            throw new AuthException(AuthMsgResult.VALID_CODE_ERROR);
-        } else {
+        // 验证
+        if (authProperties.getLogin().isEnableValidCode()) {
+            Optional.ofNullable(token.getValidCode()).orElseThrow(() -> new AuthException(AuthMsgResult.VALID_CODE_ERROR));
+            // 验证不通过：验证码错误
+            String validCodeKey =  ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest().getSession().getId();
+            if (!validCodeService.valid(validCodeKey, token.getValidCode())) {
+                throw new AuthException(AuthMsgResult.VALID_CODE_ERROR);
+            }
             validCodeService.deleteValidCode(validCodeKey);
         }
 
@@ -71,18 +71,11 @@ public class UserPwdRealm extends AbstractRealm {
         Optional.ofNullable(token.getPassword()).orElseThrow(() -> new AuthException(AuthMsgResult.USER_PWD_ERROR));
 
         // 获取用户
-        SysUser sysUser = sysUserService.findByUsername(token.getUsername());
+        SysUser sysUser = getSysUser(token.getUsername());
         Optional.ofNullable(sysUser).orElseThrow(() -> new AuthException(AuthMsgResult.USER_PWD_ERROR));
 
         // 校验用户状态
-        UserStatus userStatus = sysUser.getUserStatus();
-        Optional.ofNullable(userStatus).orElseThrow(() -> new AuthException(AuthMsgResult.USER_STATUS_ERROR));
-        switch (userStatus) {
-            case DELETED: throw new AuthException(AuthMsgResult.USER_DELETED_ERROR);
-            case EXPIRED: throw new AuthException(AuthMsgResult.USER_EXPIRED_ERROR);
-            case DISABLED: throw new AuthException(AuthMsgResult.USER_DISABLED_ERROR);
-            case LOCKED: throw new AuthException(AuthMsgResult.USER_LOCKED_ERROR);
-        }
+        validUserStatus(sysUser);
 
         // 构建凭证
         return new SimpleAuthenticationInfo(sysUser.getUsername(), sysUser.getPassword(), sysUser.getRealname());

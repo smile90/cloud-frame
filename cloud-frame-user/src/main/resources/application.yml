@@ -135,6 +135,7 @@ logging:
 
 auth:
   login:
+    enable-valid-code: false
     enable-error-time: false
 #  TODO
 #  url:

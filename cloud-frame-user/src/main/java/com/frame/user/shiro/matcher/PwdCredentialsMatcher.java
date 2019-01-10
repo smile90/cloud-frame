@@ -1,4 +1,4 @@
-package com.frame.user.shiro;
+package com.frame.user.shiro.matcher;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -8,12 +8,12 @@ import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
- * 使用Spring BCrypt算法进行密码校验
+ * 密码校验：使用Spring BCrypt算法
  * @author: duanchangqing90
  * @date: 2018/12/14
  */
 @Slf4j
-public class BCryptCredentialsMatcher implements CredentialsMatcher {
+public class PwdCredentialsMatcher implements CredentialsMatcher {
 
     @Override
     public boolean doCredentialsMatch(AuthenticationToken authenticationToken, AuthenticationInfo info) {

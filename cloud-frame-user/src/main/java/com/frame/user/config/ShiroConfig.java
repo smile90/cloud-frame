@@ -1,8 +1,19 @@
 package com.frame.user.config;
 
 import com.frame.user.properties.AuthProperties;
-import com.frame.user.shiro.*;
+import com.frame.user.shiro.ShiroAtLeastOneSuccessfulStrategy;
+import com.frame.user.shiro.ShiroSessionManager;
 import com.frame.user.shiro.cache.ShiroRedisCacheManager;
+import com.frame.user.shiro.filter.JWTAuthenticationFilter;
+import com.frame.user.shiro.filter.ShiroFormAuthenticationFilter;
+import com.frame.user.shiro.filter.ShiroUserFilter;
+import com.frame.user.shiro.filter.URLPathMatchingFilter;
+import com.frame.user.shiro.matcher.JWTMatcher;
+import com.frame.user.shiro.matcher.PwdCredentialsMatcher;
+import com.frame.user.shiro.matcher.SysAuthMatcher;
+import com.frame.user.shiro.realm.JWTRealm;
+import com.frame.user.shiro.realm.UserPwdRealm;
+import com.frame.user.shiro.util.JWTUtil;
 import com.google.common.collect.Maps;
 import org.apache.shiro.authc.Authenticator;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
@@ -34,6 +45,8 @@ public class ShiroConfig {
     private RedisTemplate<String, Object> redisTemplate;
     @Autowired
     private SysAuthMatcher sysAuthByRoleMatcher;
+    @Autowired
+    private JWTUtil jwtUtil;
 
     /**
      * 缓存管理
@@ -58,8 +71,13 @@ public class ShiroConfig {
      * @return
      */
     @Bean
-    public CredentialsMatcher bCryptCredentialsMatcher() {
-        return new BCryptCredentialsMatcher();
+    public CredentialsMatcher pwdCredentialsMatcher() {
+        return new PwdCredentialsMatcher();
+    }
+
+    @Bean
+    public CredentialsMatcher jWTMatcher() {
+        return new JWTMatcher();
     }
 
     /**
@@ -70,7 +88,7 @@ public class ShiroConfig {
     public Realm userPwdRealm() {
         UserPwdRealm realm = new UserPwdRealm();
         // 密码校验类
-        realm.setCredentialsMatcher(bCryptCredentialsMatcher());
+        realm.setCredentialsMatcher(pwdCredentialsMatcher());
         realm.setCacheManager(shiroRedisCacheManager());
         return realm;
     }
@@ -80,8 +98,9 @@ public class ShiroConfig {
      * @return
      */
     @Bean
-    public Realm tokenRealm() {
-        TokenRealm realm = new TokenRealm();
+    public Realm jwtRealm() {
+        JWTRealm realm = new JWTRealm();
+        realm.setCredentialsMatcher(jWTMatcher());
         return realm;
     }
 
@@ -136,7 +155,7 @@ public class ShiroConfig {
         securityManager.setAuthenticator(authenticator());
         Collection<Realm> realms = new ArrayList<>();
         realms.add(userPwdRealm());
-        realms.add(tokenRealm());
+        realms.add(jwtRealm());
         securityManager.setRealms(realms);
 
         // 记住登录
@@ -163,9 +182,12 @@ public class ShiroConfig {
         Map<String, Filter> filterMap = Maps.newLinkedHashMap();
         // 修改了未授权信息通过Response回写json，而不是跳转页面
         filterMap.put("user", new ShiroUserFilter());
-        filterMap.put("authc", new ShiroFormAuthenticationFilter());
+//        filterMap.put("form", new ShiroFormAuthenticationFilter());
+
+        // 重新定义登录权限校验，使用JWT进行校验
+        filterMap.put("authc", new JWTAuthenticationFilter(jwtUtil));
         // 增加URL过滤器
-        filterMap.put("requestURL", urlPathMatchingFilter());
+        filterMap.put("requestURL", new URLPathMatchingFilter(sysAuthByRoleMatcher));
         shiroFilterFactoryBean.setFilters(filterMap);
 
         // 请求配置拦截器
@@ -201,9 +223,4 @@ public class ShiroConfig {
         return shiroFilterFactoryBean;
     }
 
-    private URLPathMatchingFilter urlPathMatchingFilter() {
-        URLPathMatchingFilter urlPathMatchingFilter = new URLPathMatchingFilter();
-        urlPathMatchingFilter.setSysAuthMatcher(sysAuthByRoleMatcher);
-        return urlPathMatchingFilter;
-    }
 }
