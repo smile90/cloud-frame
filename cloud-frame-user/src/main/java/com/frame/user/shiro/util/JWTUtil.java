@@ -4,8 +4,9 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.frame.user.constant.SystemConstant;
 import com.frame.user.properties.AuthProperties;
-import com.frame.user.shiro.token.JWTToken;
+import com.frame.user.shiro.token.UserJWTToken;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,25 +39,33 @@ public class JWTUtil {
      * @param deviceSource
      * @return
      */
-    public String createToken(String username, String realname, String deviceSource) {
-        if (!StringUtils.hasText(username) || !StringUtils.hasText(realname)) {
+    public AuthenticationToken createAuthenticationToken(String username, String realname, String deviceSource, String host) {
+        if (!StringUtils.hasText(username) || !StringUtils.hasText(realname) || !StringUtils.hasText(deviceSource)) {
             return null;
         }
+        Algorithm algorithm = Algorithm.HMAC256(authProperties.getJwt().getSecret());
 
         LocalDate now = LocalDate.now();
         LocalDate expires = now.plusDays(authProperties.getJwt().getLongTimeout().toDays());
-
-        Algorithm algorithm = Algorithm.HMAC256(authProperties.getJwt().getSecret());
-        //create jwt
         String jwt = JWT.create()
-                .withClaim(authProperties.getDevice().getDeviceSourceName(), deviceSource)
-                .withClaim(REALNAME_NAME, realname)
                 .withSubject(username)
+                .withIssuer(SystemConstant.SYSTEM_CODE)
                 .withIssuedAt(Date.from(now.atStartOfDay(ZoneId.systemDefault()).toInstant()))
                 .withExpiresAt(Date.from(expires.atStartOfDay(ZoneId.systemDefault()).toInstant()))
+                .withAudience(deviceSource)
+                .withClaim(REALNAME_NAME, realname)
                 .sign(algorithm);
-        log.debug("create token. username:{}, deviceSource:{}, token:{}", username, deviceSource, jwt);
-        return jwt;
+        DecodedJWT decodedJWT = JWT.decode(jwt);
+        UserJWTToken token = new UserJWTToken(username, jwt);
+        token.setRealname(realname);
+        token.setSignature(decodedJWT.getSignature());
+        token.setIssuer(decodedJWT.getIssuer());
+        token.setIssuedAt(decodedJWT.getIssuedAt());
+        token.setExpiresAt(decodedJWT.getExpiresAt());
+        token.setAudience(decodedJWT.getAudience());
+        token.setHost(host);
+        log.debug("create token. username:{}, deviceSource:{}, token:{}", username, deviceSource, token);
+        return token;
     }
 
     /**
@@ -78,13 +87,13 @@ public class JWTUtil {
 
         LocalDate now = LocalDate.now();
         LocalDate expires = now.plusDays(authProperties.getJwt().getLongTimeout().toDays());
-        //create jwt
         String jwt = JWT.create()
-                .withClaim(authProperties.getDevice().getDeviceSourceName(), decodedJWT.getClaim(authProperties.getDevice().getDeviceSourceName()).asString())
-                .withClaim(REALNAME_NAME, decodedJWT.getClaim(REALNAME_NAME).asString())
                 .withSubject(decodedJWT.getSubject())
+                .withIssuer(SystemConstant.SYSTEM_CODE)
                 .withIssuedAt(Date.from(now.atStartOfDay(ZoneId.systemDefault()).toInstant()))
                 .withExpiresAt(Date.from(expires.atStartOfDay(ZoneId.systemDefault()).toInstant()))
+                .withAudience(decodedJWT.getClaim(authProperties.getDevice().getDeviceSourceName()).asString())
+                .withClaim(REALNAME_NAME, decodedJWT.getClaim(REALNAME_NAME).asString())
                 .sign(algorithm);
         return jwt;
     }
@@ -117,11 +126,22 @@ public class JWTUtil {
      * @return
      */
     public AuthenticationToken getAuthenticationToken(HttpServletRequest request) {
-        String token = getToken(request);
-        if (!StringUtils.hasText(token)) {
+        String jwt = getToken(request);
+        if (!StringUtils.hasText(jwt)) {
+            log.debug("token is null.");
             return null;
         }
-        return new JWTToken(getUsername(token), token, getRealname(token), getDeviceSource(token));
+        DecodedJWT decodedJWT = JWT.decode(jwt);
+        UserJWTToken token = new UserJWTToken(decodedJWT.getSubject(), jwt);
+        token.setRealname(decodedJWT.getClaim(REALNAME_NAME).asString());
+        token.setSignature(decodedJWT.getSignature());
+        token.setIssuer(decodedJWT.getIssuer());
+        token.setIssuedAt(decodedJWT.getIssuedAt());
+        token.setExpiresAt(decodedJWT.getExpiresAt());
+        token.setAudience(decodedJWT.getAudience());
+        token.setHost(request.getRemoteHost());
+        log.debug("getAuthenticationToken. token:{}", token);
+        return token;
     }
 
     public String getUsername(String token) {
@@ -134,34 +154,6 @@ public class JWTUtil {
             }
         } catch (Exception e) {
             log.error("getUsername from token error. token:{}", token, e);
-            return null;
-        }
-    }
-
-    public String getRealname(String token) {
-        try {
-            if (StringUtils.hasText(token)) {
-                DecodedJWT decodedJWT = JWT.decode(token);
-                return decodedJWT.getClaim(REALNAME_NAME).asString();
-            } else {
-                return null;
-            }
-        } catch (Exception e) {
-            log.error("getRealname from token error. token:{}", token, e);
-            return null;
-        }
-    }
-
-    public String getDeviceSource(String token) {
-        try {
-            if (StringUtils.hasText(token)) {
-                DecodedJWT decodedJWT = JWT.decode(token);
-                return decodedJWT.getClaim(authProperties.getDevice().getDeviceSourceName()).asString();
-            } else {
-                return null;
-            }
-        } catch (Exception e) {
-            log.error("getDeviceSource from token error. token:{}", token, e);
             return null;
         }
     }

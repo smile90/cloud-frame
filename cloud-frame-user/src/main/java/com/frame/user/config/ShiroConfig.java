@@ -2,10 +2,8 @@ package com.frame.user.config;
 
 import com.frame.user.properties.AuthProperties;
 import com.frame.user.shiro.ShiroAtLeastOneSuccessfulStrategy;
-import com.frame.user.shiro.ShiroSessionManager;
 import com.frame.user.shiro.cache.ShiroRedisCacheManager;
 import com.frame.user.shiro.filter.JWTAuthenticationFilter;
-import com.frame.user.shiro.filter.ShiroFormAuthenticationFilter;
 import com.frame.user.shiro.filter.ShiroUserFilter;
 import com.frame.user.shiro.filter.URLPathMatchingFilter;
 import com.frame.user.shiro.matcher.JWTMatcher;
@@ -19,6 +17,7 @@ import org.apache.shiro.authc.Authenticator;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authc.pam.ModularRealmAuthenticator;
 import org.apache.shiro.realm.Realm;
+import org.apache.shiro.session.mgt.DefaultSessionManager;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
@@ -63,7 +62,9 @@ public class ShiroConfig {
      */
     @Bean
     public SessionManager sessionManager() {
-        return new ShiroSessionManager();
+        DefaultSessionManager manager = new DefaultSessionManager();
+        manager.setSessionValidationSchedulerEnabled(false);
+        return manager;
     }
 
     /**
@@ -151,6 +152,7 @@ public class ShiroConfig {
         securityManager.setCacheManager(shiroRedisCacheManager());
         // Session管理
         securityManager.setSessionManager(sessionManager());
+
         // 认证逻辑
         securityManager.setAuthenticator(authenticator());
         Collection<Realm> realms = new ArrayList<>();

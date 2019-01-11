@@ -1,9 +1,10 @@
 package com.frame.user.shiro.realm;
 
+import com.frame.user.bean.UserInfo;
 import com.frame.user.entity.SysUser;
 import com.frame.user.enums.AuthMsgResult;
 import com.frame.user.exception.AuthException;
-import com.frame.user.shiro.token.JWTToken;
+import com.frame.user.shiro.token.UserJWTToken;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -26,7 +27,7 @@ public class JWTRealm extends AbstractRealm {
      */
     @Override
     public Class getAuthenticationTokenClass() {
-        return JWTToken.class;
+        return UserJWTToken.class;
     }
 
     /**
@@ -41,7 +42,7 @@ public class JWTRealm extends AbstractRealm {
         Optional.ofNullable(authenticationToken).orElseThrow(() -> new AuthException(AuthMsgResult.USER_PWD_ERROR));
 
         // 转换类型
-        JWTToken token = (JWTToken) authenticationToken;
+        UserJWTToken token = (UserJWTToken) authenticationToken;
 
         // 用户名或密码为空
         Optional.ofNullable(token.getClientKey()).orElseThrow(() -> new AuthException(AuthMsgResult.USER_PWD_ERROR));
@@ -54,6 +55,6 @@ public class JWTRealm extends AbstractRealm {
         validUserStatus(sysUser);
 
         // 构建凭证
-        return new SimpleAuthenticationInfo(sysUser.getUsername(), token.getCredentials(), sysUser.getRealname());
+        return new SimpleAuthenticationInfo(new UserInfo(sysUser.getUsername(), sysUser.getRealname()), token.getCredentials(), sysUser.getRealname());
     }
 }

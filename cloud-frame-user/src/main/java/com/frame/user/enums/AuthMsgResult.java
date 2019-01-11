@@ -18,6 +18,7 @@ public enum AuthMsgResult implements MsgResult {
     LOGIN_TIME_ERROR(SystemConstant.SYSTEM_CODE + AuthMsgResult.MODULE_CODE + "0008", "login time error", "登录错误次数超出最大次数"),
     VALID_CODE_ERROR(SystemConstant.SYSTEM_CODE + AuthMsgResult.MODULE_CODE + "0009", "valid code error", "验证码错误"),
     USER_PWD_ERROR(SystemConstant.SYSTEM_CODE + AuthMsgResult.MODULE_CODE + "0010", "user or password error", "用户名/密码错误"),
+    USER_PWD_PARAM_ERROR(SystemConstant.SYSTEM_CODE + AuthMsgResult.MODULE_CODE + "0012", "user or password error", "用户名/密码为空"),
 
     LOGOUT_ERROR(SystemConstant.SYSTEM_CODE + AuthMsgResult.MODULE_CODE + "1000", "auth error", "退出错误"),
 

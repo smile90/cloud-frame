@@ -29,26 +29,6 @@ public class JWTAuthenticationFilter extends AuthenticatingFilter {
     }
 
     @Override
-    protected boolean onAccessDenied(ServletRequest request, ServletResponse response) {
-        PrintWriter out = null;
-        HttpServletResponse res = (HttpServletResponse) response;
-        try {
-            res.setCharacterEncoding("UTF-8");
-            res.setContentType("application/json");
-            out = response.getWriter();
-            out.println(JSONObject.toJSONString(ResponseBean.getInstance(AuthMsgResult.NOT_AUTH_ERROR)));
-        } catch (Exception e) {
-            log.error("onAccessDenied error.", e);
-        } finally {
-            if (null != out) {
-                out.flush();
-                out.close();
-            }
-        }
-        return false;
-    }
-
-    @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
         try {
             return super.isAccessAllowed(request, response, mappedValue) ||
@@ -72,7 +52,27 @@ public class JWTAuthenticationFilter extends AuthenticatingFilter {
     }
 
     @Override
-    protected AuthenticationToken createToken(ServletRequest request, ServletResponse response) throws Exception {
+    protected AuthenticationToken createToken(ServletRequest request, ServletResponse response) {
         return jwtUtil.getAuthenticationToken(WebUtils.toHttp(request));
+    }
+
+    @Override
+    protected boolean onAccessDenied(ServletRequest request, ServletResponse response) {
+        PrintWriter out = null;
+        HttpServletResponse res = (HttpServletResponse) response;
+        try {
+            res.setCharacterEncoding("UTF-8");
+            res.setContentType("application/json");
+            out = response.getWriter();
+            out.println(JSONObject.toJSONString(ResponseBean.getInstance(AuthMsgResult.NOT_LOGIN_ERROR)));
+        } catch (Exception e) {
+            log.error("onAccessDenied error.", e);
+        } finally {
+            if (null != out) {
+                out.flush();
+                out.close();
+            }
+        }
+        return false;
     }
 }

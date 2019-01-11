@@ -1,6 +1,7 @@
 package com.frame.user.shiro.realm;
 
 import com.frame.common.frame.base.enums.UserStatus;
+import com.frame.user.bean.UserInfo;
 import com.frame.user.entity.SysUser;
 import com.frame.user.enums.AuthMsgResult;
 import com.frame.user.exception.AuthException;
@@ -57,10 +58,9 @@ public class UserPwdRealm extends AbstractRealm {
 
         // 验证
         if (authProperties.getLogin().isEnableValidCode()) {
-            Optional.ofNullable(token.getValidCode()).orElseThrow(() -> new AuthException(AuthMsgResult.VALID_CODE_ERROR));
             // 验证不通过：验证码错误
-            String validCodeKey =  ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest().getSession().getId();
-            if (!validCodeService.valid(validCodeKey, token.getValidCode())) {
+            String validCodeKey = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest().getSession().getId();
+            if (!validCodeService.valid(validCodeKey, Optional.of(token.getValidCode()).get())) {
                 throw new AuthException(AuthMsgResult.VALID_CODE_ERROR);
             }
             validCodeService.deleteValidCode(validCodeKey);
@@ -78,6 +78,6 @@ public class UserPwdRealm extends AbstractRealm {
         validUserStatus(sysUser);
 
         // 构建凭证
-        return new SimpleAuthenticationInfo(sysUser.getUsername(), sysUser.getPassword(), sysUser.getRealname());
+        return new SimpleAuthenticationInfo(new UserInfo(sysUser.getUsername(), sysUser.getRealname()), sysUser.getPassword(), sysUser.getRealname());
     }
 }
