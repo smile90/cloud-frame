@@ -47,21 +47,16 @@ public class SysAuthByRoleMatcher implements SysAuthMatcher {
     @Autowired
     private SysFunctionService sysFunctionService;
 
-    /**
-     * 配置路径权限
-     */
-    @Override
-    public void processPathConfig() {
-        // TODO
-        log.info("processPathConfig");
-    }
-
     @Override
     public String[] getPathConfig(ServletRequest request) {
         String path = getPathWithinApplication(request);
         String method = getHttpMethodWithinApplication(request);
+        return getPathConfig(path, method);
+    }
 
-        // 如果是禁用请求，只有超级管理员可以访问
+    @Override
+    public String[] getPathConfig(String path, String method) {
+        // 请求如果禁用，只有超级管理员可以访问
         List<SysFunction> disableFunctions = sysFunctionService.findAllDisable();
         disableFunctions = Optional.ofNullable(disableFunctions).orElse(Collections.emptyList());
         boolean isDisableFunction = disableFunctions.stream()
@@ -86,18 +81,17 @@ public class SysAuthByRoleMatcher implements SysAuthMatcher {
                 .filter(f -> match(f, method, path))
                 .map(s -> s.getModuleCode())
                 .collect(Collectors.toSet());
-        // 未查询到对应功能，说明未配置，只允许管理员访问
+        // 未查询到对应功能，说明未配置，只允许超级管理员访问
         if (functionModules == null || functionModules.isEmpty()) {
             log.warn("getPathConfig end. method:{}, path:{}, isDisableFunction:{}, isEnableNoValidateFunction:{}, functionModules:{}", path, isDisableFunction, isEnableNoValidateFunction, functionModules);
             return new String[] { RoleKeyConstant.SUPER_ADMIN };
         }
-        // 未查询到对应模块，说明未配置，只允许管理员访问
+        // 未查询到对应模块，说明未配置，只允许超级管理员访问
         List<SysModule> modules = sysModuleService.find(functionModules);
         if (modules == null || modules.isEmpty()) {
             log.warn("getPathConfig end. method:{}, path:{}, isDisableFunction:{}, isEnableNoValidateFunction:{}, functionModules:{}, modules:{}", path, isDisableFunction, isEnableNoValidateFunction, functionModules, modules);
             return new String[] { RoleKeyConstant.SUPER_ADMIN };
         }
-
         // 模块如果禁用，只有超级管理员可以访问
         boolean isDisableModule = modules.stream()
                 .anyMatch(m -> !YesNo.Y.equals(m.getUseable()));
@@ -105,8 +99,7 @@ public class SysAuthByRoleMatcher implements SysAuthMatcher {
             log.warn("getPathConfig end. method:{}, path:{}, isDisableFunction:{}, isEnableNoValidateFunction:{}, isDisableModule:{}, functionModules:{}, modules:{}", path, isDisableFunction, isEnableNoValidateFunction, isDisableModule, functionModules, modules);
             return new String[] { RoleKeyConstant.SUPER_ADMIN };
         }
-
-        // 未查询到对应角色，说明未配置，只有超级管理员可以访问；如果配置了，返回对应角色
+        // 未查询到对应角色，说明未配置，只有超级管理员可以访问
         List<SysRoleModule> sysRoleModules = sysRoleModuleService.find(functionModules);
         if (sysRoleModules == null || sysRoleModules.isEmpty()) {
             log.warn("getPathConfig end. method:{}, path:{}, isDisableFunction:{}, isEnableNoValidateFunction:{}, isDisableModule:{}, functionModules:{}, modules:{}, sysRoleModules:{}", path, isDisableFunction, isEnableNoValidateFunction, isDisableModule, functionModules, modules, sysRoleModules);
@@ -117,6 +110,7 @@ public class SysAuthByRoleMatcher implements SysAuthMatcher {
             log.warn("getPathConfig end. method:{}, path:{}, isDisableFunction:{}, isEnableNoValidateFunction:{}, isDisableModule:{}, functionModules:{}, modules:{}, sysRoleModules:{}, roles:{}", path, isDisableFunction, isEnableNoValidateFunction, isDisableModule, functionModules, modules, sysRoleModules, roles);
             return new String[] { RoleKeyConstant.SUPER_ADMIN };
         }
+        // 如果全部未启用，只要超级管理员可以访问；否则，返回对应启用角色
         Set<String> enableRoles = roles.stream().filter(m -> !YesNo.Y.equals(m.getUseable()))
                 .map(SysRole::getCode).collect(Collectors.toSet());
         if (enableRoles == null || enableRoles.isEmpty()) {
@@ -135,7 +129,6 @@ public class SysAuthByRoleMatcher implements SysAuthMatcher {
             return method.equalsIgnoreCase(function.getHttpMethod()) && pathMatcher.match(function.getUrl(), url);
         }
     }
-
     protected String getPathWithinApplication(ServletRequest request) {
         return WebUtils.getPathWithinApplication(WebUtils.toHttp(request));
     }

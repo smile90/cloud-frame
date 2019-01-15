@@ -1,6 +1,7 @@
 package com.frame.user.shiro.realm;
 
 import com.frame.common.frame.base.enums.UserStatus;
+import com.frame.user.bean.UserInfo;
 import com.frame.user.entity.SysUser;
 import com.frame.user.entity.SysUserRole;
 import com.frame.user.enums.AuthMsgResult;
@@ -39,15 +40,15 @@ public abstract class AbstractRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         Optional.ofNullable(principals).orElseThrow(() -> new AuthException(AuthMsgResult.AUTH_ERROR));
         // 获取用户名（此处会优先从缓存取）
-        String username = (String) getAvailablePrincipal(principals);
-        Set<String> roles = getRoles(username);
-        Set<String> permissions = getPermissions(username);
+        UserInfo userinfo = (UserInfo) getAvailablePrincipal(principals);
+        Set<String> roles = getRoles(userinfo.getUsername());
+        Set<String> permissions = getPermissions(userinfo.getUsername());
 
         // 配置权限
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         info.setRoles(roles);
         info.setStringPermissions(permissions);
-        log.debug("doGetAuthorizationInfo username:{}, roles:{}, permissions:{}", username, roles, permissions);
+        log.debug("doGetAuthorizationInfo userinfo:{}, roles:{}, permissions:{}", userinfo, roles, permissions);
         return info;
     }
 

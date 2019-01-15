@@ -12,14 +12,17 @@ import javax.servlet.ServletRequest;
 public interface SysAuthMatcher {
 
     /**
-     * 处理路径配置
-     */
-    void processPathConfig();
-
-    /**
      * 获取路径配置（此处是角色标识）
      * @param request
      * @return
      */
     String[] getPathConfig(ServletRequest request);
+
+    /**
+     * 获取路径配置（此处是角色标识）
+     * @param path
+     * @param method
+     * @return
+     */
+    String[] getPathConfig(String path, String method);
 }
