@@ -4,6 +4,7 @@ import com.frame.user.bean.LoginUser;
 import com.frame.user.service.SysLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,7 +15,7 @@ public class SysLoginController {
     @Autowired
     private SysLoginService sysLoginService;
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public Object login(LoginUser loginUser) {
         return sysLoginService.login(loginUser);
     }

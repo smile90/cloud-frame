@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy;
 import org.apache.shiro.realm.Realm;
 
@@ -25,8 +26,9 @@ public class ShiroAtLeastOneSuccessfulStrategy extends AtLeastOneSuccessfulStrat
         if (t != null) {
             if (t instanceof AuthException) {
                 throw (AuthException) t;
+            } else if (t instanceof IncorrectCredentialsException) {
+                throw new AuthException(AuthMsgResult.USER_PWD_ERROR);
             } else {
-                log.debug(null, t);
                 throw new AuthException(AuthMsgResult.LOGIN_ERROR);
             }
         }

@@ -50,7 +50,7 @@ public class UserPwdRealm extends AbstractRealm {
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-        log.debug("doGetAuthenticationInfo {}", authenticationToken);
+        log.debug("doGetAuthenticationInfo begin. {}", authenticationToken);
         Optional.ofNullable(authenticationToken).orElseThrow(() -> new AuthException(AuthMsgResult.USER_PWD_ERROR));
 
         // 转换类型
@@ -77,6 +77,7 @@ public class UserPwdRealm extends AbstractRealm {
         // 校验用户状态
         validUserStatus(sysUser);
 
+        log.debug("doGetAuthenticationInfo end. {}", authenticationToken);
         // 构建凭证
         return new SimpleAuthenticationInfo(new UserInfo(sysUser.getUsername(), sysUser.getRealname()), sysUser.getPassword(), sysUser.getRealname());
     }

@@ -12,6 +12,7 @@ import org.apache.shiro.web.filter.PathConfigProcessor;
 import org.apache.shiro.web.filter.authz.AuthorizationFilter;
 
 import javax.servlet.Filter;
+import javax.servlet.FilterChain;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
@@ -45,18 +46,26 @@ public class URLPathMatchingFilter extends AuthorizationFilter implements PathCo
         return this;
     }
 
+    @Override
+    protected boolean preHandle(ServletRequest request, ServletResponse response) {
+        return false;
+    }
+
     /**
      * 获取对应请求的配置，然后调用鉴权方法
      * @param request
      * @param response
-     * @return
      * @throws Exception
      */
     @Override
-    protected boolean preHandle(ServletRequest request, ServletResponse response) {
+    protected void postHandle(ServletRequest request, ServletResponse response) throws Exception {
         Object mappedValue = sysAuthMatcher.getPathConfig(request);
         log.debug("mappedValue:{}", mappedValue);
-        return isAccessAllowed(request, response, mappedValue) || onAccessDenied(request, response, mappedValue);
+        if (isAccessAllowed(request, response, mappedValue)) {
+            onAccessSuccess(request, response);
+        } else {
+            onAccessDenied(request, response, mappedValue);
+        }
     }
 
     @Override
@@ -80,6 +89,30 @@ public class URLPathMatchingFilter extends AuthorizationFilter implements PathCo
         return match;
     }
 
+    /**
+     * 此处不进行跳转，直接响应成功
+     * @param request
+     * @param response
+     * @throws Exception
+     */
+    protected void onAccessSuccess(ServletRequest request, ServletResponse response) {
+        PrintWriter out = null;
+        HttpServletResponse res = (HttpServletResponse) response;
+        try {
+            res.setCharacterEncoding("UTF-8");
+            res.setContentType("application/json");
+            out = response.getWriter();
+            out.println(JSONObject.toJSONString(ResponseBean.success()));
+        } catch (Exception e) {
+            log.error("executeChain error.", e);
+        } finally {
+            if (null != out) {
+                out.flush();
+                out.close();
+            }
+        }
+    }
+
     @Override
     protected boolean onAccessDenied(ServletRequest request, ServletResponse response, Object mappedValue) {
         PrintWriter out = null;
@@ -99,4 +132,5 @@ public class URLPathMatchingFilter extends AuthorizationFilter implements PathCo
         }
         return false;
     }
+
 }

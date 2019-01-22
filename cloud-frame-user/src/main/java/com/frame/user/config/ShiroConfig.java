@@ -63,7 +63,7 @@ public class ShiroConfig {
     @Bean
     public SessionManager sessionManager() {
         DefaultSessionManager manager = new DefaultSessionManager();
-        manager.setSessionValidationSchedulerEnabled(false);
+        manager.setSessionValidationSchedulerEnabled(authProperties.getLogin().isEnableSession());
         return manager;
     }
 

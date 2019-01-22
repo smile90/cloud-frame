@@ -41,6 +41,7 @@ public class JWTUtil {
      */
     public AuthenticationToken createAuthenticationToken(String username, String realname, String deviceSource, String host) {
         if (!StringUtils.hasText(username) || !StringUtils.hasText(realname) || !StringUtils.hasText(deviceSource)) {
+            log.error("username or realname or deviceSource is null. username:{},realname:{},deviceSource:{}", username, realname, deviceSource);
             return null;
         }
         Algorithm algorithm = Algorithm.HMAC256(authProperties.getJwt().getSecret());

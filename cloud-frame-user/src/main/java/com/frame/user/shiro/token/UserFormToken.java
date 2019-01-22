@@ -2,6 +2,7 @@ package com.frame.user.shiro.token;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.UsernamePasswordToken;
 
@@ -11,6 +12,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
  * @date: 2018/12/27
  */
 @Slf4j
+@ToString
 public class UserFormToken extends UsernamePasswordToken {
 
     @Setter

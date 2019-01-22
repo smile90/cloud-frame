@@ -10,6 +10,7 @@ import java.util.Map;
 
 /**
  * 权限属性
+ *
  * @author: duanchangqing90
  * @date: 2018/12/17
  */
@@ -17,6 +18,8 @@ import java.util.Map;
 @Configuration
 @ConfigurationProperties(prefix = "auth", ignoreInvalidFields = true)
 public class AuthProperties {
+    /*跨域参数*/
+    private Cors cors = new Cors();
     /*登录参数*/
     private Login login = new Login();
     /*java web token参数*/
@@ -27,6 +30,14 @@ public class AuthProperties {
     private Cache cache = new Cache();
     /*设备参数*/
     private Device device = new Device();
+
+    public Cors getCors() {
+        return cors;
+    }
+
+    public void setCors(Cors cors) {
+        this.cors = cors;
+    }
 
     public Login getLogin() {
         return login;
@@ -69,6 +80,40 @@ public class AuthProperties {
     }
 
     @ToString
+    public class Cors {
+        /*域名*/
+        private String allowedOrigin;
+        /*头*/
+        private String allowedHeader;
+        /*方法*/
+        private String allowedMethod;
+
+        public String getAllowedOrigin() {
+            return allowedOrigin;
+        }
+
+        public void setAllowedOrigin(String allowedOrigin) {
+            this.allowedOrigin = allowedOrigin;
+        }
+
+        public String getAllowedHeader() {
+            return allowedHeader;
+        }
+
+        public void setAllowedHeader(String allowedHeader) {
+            this.allowedHeader = allowedHeader;
+        }
+
+        public String getAllowedMethod() {
+            return allowedMethod;
+        }
+
+        public void setAllowedMethod(String allowedMethod) {
+            this.allowedMethod = allowedMethod;
+        }
+    }
+
+    @ToString
     public class Login {
         /*是否启用最大登录错误数限制*/
         private boolean enableErrorTime = true;
@@ -88,6 +133,9 @@ public class AuthProperties {
         private boolean enableRememberMe = true;
         /*记住我超时时间：默认7天*/
         private Duration rememberMeTimeout = Duration.ofDays(7L);
+
+        /*是否启用session*/
+        private boolean enableSession = true;
 
         public boolean isEnableErrorTime() {
             return enableErrorTime;
@@ -151,6 +199,14 @@ public class AuthProperties {
 
         public void setRememberMeTimeout(Duration rememberMeTimeout) {
             this.rememberMeTimeout = rememberMeTimeout;
+        }
+
+        public boolean isEnableSession() {
+            return enableSession;
+        }
+
+        public void setEnableSession(boolean enableSession) {
+            this.enableSession = enableSession;
         }
     }
 
