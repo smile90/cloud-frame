@@ -130,9 +130,9 @@ mybatis-plus:
     map-underscore-to-camel-case: true
     cache-enabled: false
 
-logging:
-  level:
-    com.frame.user: DEBUG
+#logging:
+#  level:
+#    com.frame.user: DEBUG
 
 auth:
   cors:

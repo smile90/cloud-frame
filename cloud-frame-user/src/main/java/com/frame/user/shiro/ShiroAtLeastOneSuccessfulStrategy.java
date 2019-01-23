@@ -25,11 +25,11 @@ public class ShiroAtLeastOneSuccessfulStrategy extends AtLeastOneSuccessfulStrat
         Throwable t = exceptions.get();
         if (t != null) {
             if (t instanceof AuthException) {
-                throw (AuthException) t;
+                throw  new AuthenticationException(t);
             } else if (t instanceof IncorrectCredentialsException) {
-                throw new AuthException(AuthMsgResult.USER_PWD_ERROR);
+                throw new AuthenticationException(new AuthException(AuthMsgResult.USER_PWD_ERROR));
             } else {
-                throw new AuthException(AuthMsgResult.LOGIN_ERROR);
+                throw  new AuthenticationException(new AuthException(AuthMsgResult.LOGIN_ERROR));
             }
         }
         return super.afterAllAttempts(token, aggregate);

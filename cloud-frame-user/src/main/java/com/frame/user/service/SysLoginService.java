@@ -71,24 +71,17 @@ public class SysLoginService {
             loginSuccess(loginUser);
             // 返回结果
             return ResponseBean.successContent(JSONObject.toJSON(userJwtToken));
-        } catch (AuthException e) {
-            // 登录错误，累加
-            incrementErrorTime(loginUser);
-            if (log.isDebugEnabled()) {
-                log.error("login error", e);
-            } else {
-                log.error("login error. {}", e.getMessage());
-            }
-            return ResponseBean.getInstance(e.getErrorCode(), e.getMessage(), e.getShowMsg(), null);
         } catch (Exception e) {
             // 登录错误，累加
             incrementErrorTime(loginUser);
             if (log.isDebugEnabled()) {
-                log.error("login error", e);
+                log.error("login error. loginUser:{}", loginUser, e);
             } else {
-                log.error("login error. {}", e.getMessage());
+                log.error("login error. loginUser:{}. {}", loginUser, e.getMessage());
             }
-            if (e.getCause() instanceof AuthException) {
+            if (e instanceof AuthException) {
+                return ResponseBean.getInstance(((AuthException) e).getErrorCode(), e.getMessage(), ((AuthException) e).getShowMsg(), null);
+            } else if (e.getCause() instanceof AuthException) {
                 return ResponseBean.getInstance(((AuthException) e.getCause()).getErrorCode(), e.getCause().getMessage(), ((AuthException) e.getCause()).getShowMsg(), null);
             } else {
                 return ResponseBean.getInstance(AuthMsgResult.USER_PWD_ERROR);
