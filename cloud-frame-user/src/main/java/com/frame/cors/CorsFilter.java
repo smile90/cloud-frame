@@ -1,6 +1,5 @@
-package com.frame.user.cors;
+package com.frame.cors;
 
-import com.frame.user.properties.AuthProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -30,7 +29,7 @@ import java.util.Optional;
 public class CorsFilter extends GenericFilterBean {
 
     @Autowired
-    private AuthProperties authProperties;
+    private CorsProperties corsProperties;
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
@@ -46,7 +45,7 @@ public class CorsFilter extends GenericFilterBean {
 
     public void corf(HttpServletRequest request,HttpServletResponse response) {
         String requestOrigin = request.getHeader("origin");
-        Optional.ofNullable(authProperties.getCors().getAllowedOrigin()).ifPresent(origins -> {
+        Optional.ofNullable(corsProperties.getAllowedOrigin()).ifPresent(origins -> {
             Arrays.stream(origins.split(",")).forEach(origin -> {
                 if(StringUtils.hasText(requestOrigin) && origins.contains(requestOrigin)) {
                     response.setHeader("Access-Control-Allow-Origin", requestOrigin);
@@ -54,8 +53,8 @@ public class CorsFilter extends GenericFilterBean {
             });
         });
 
-        response.setHeader("Access-Control-Allow-Methods", authProperties.getCors().getAllowedMethod());
-        response.setHeader("Access-Control-Allow-Headers", authProperties.getCors().getAllowedHeader());
+        response.setHeader("Access-Control-Allow-Methods", corsProperties.getAllowedMethod());
+        response.setHeader("Access-Control-Allow-Headers", corsProperties.getAllowedHeader());
         response.setHeader("Access-Control-Allow-Credentials", "true");
         response.setHeader("Access-Control-Max-Age", "3600");
     }

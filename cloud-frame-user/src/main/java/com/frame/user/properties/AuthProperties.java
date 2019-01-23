@@ -18,8 +18,6 @@ import java.util.Map;
 @Configuration
 @ConfigurationProperties(prefix = "auth", ignoreInvalidFields = true)
 public class AuthProperties {
-    /*跨域参数*/
-    private Cors cors = new Cors();
     /*登录参数*/
     private Login login = new Login();
     /*java web token参数*/
@@ -30,14 +28,6 @@ public class AuthProperties {
     private Cache cache = new Cache();
     /*设备参数*/
     private Device device = new Device();
-
-    public Cors getCors() {
-        return cors;
-    }
-
-    public void setCors(Cors cors) {
-        this.cors = cors;
-    }
 
     public Login getLogin() {
         return login;
@@ -77,40 +67,6 @@ public class AuthProperties {
 
     public void setDevice(Device device) {
         this.device = device;
-    }
-
-    @ToString
-    public class Cors {
-        /*域名*/
-        private String allowedOrigin;
-        /*头*/
-        private String allowedHeader;
-        /*方法*/
-        private String allowedMethod;
-
-        public String getAllowedOrigin() {
-            return allowedOrigin;
-        }
-
-        public void setAllowedOrigin(String allowedOrigin) {
-            this.allowedOrigin = allowedOrigin;
-        }
-
-        public String getAllowedHeader() {
-            return allowedHeader;
-        }
-
-        public void setAllowedHeader(String allowedHeader) {
-            this.allowedHeader = allowedHeader;
-        }
-
-        public String getAllowedMethod() {
-            return allowedMethod;
-        }
-
-        public void setAllowedMethod(String allowedMethod) {
-            this.allowedMethod = allowedMethod;
-        }
     }
 
     @ToString
@@ -304,11 +260,6 @@ public class AuthProperties {
         public void setDeviceSourceName(String deviceSourceName) {
             this.deviceSourceName = deviceSourceName;
         }
-    }
-
-    public class User {
-        /*真实姓名name：默认为realname*/
-        private String realnameName = "realname";
     }
 
 }

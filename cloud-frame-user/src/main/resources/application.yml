@@ -134,11 +134,12 @@ mybatis-plus:
 #  level:
 #    com.frame.user: DEBUG
 
+cors:
+  allowed-origin: "http://127.0.0.1:9999"
+  allowed-method: GET,HEAD,POST,PUT,DELETE,TRACE,OPTIONS,PATCH
+  allowed-header: token
+
 auth:
-  cors:
-    allowed-origin: "http://127.0.0.1:9999"
-    allowed-method: GET,HEAD,POST,PUT,DELETE,TRACE,OPTIONS,PATCH
-    allowed-header: token
   login:
     enable-valid-code: false
     enable-error-time: false
