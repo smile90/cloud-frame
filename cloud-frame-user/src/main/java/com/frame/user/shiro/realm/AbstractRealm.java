@@ -1,12 +1,17 @@
 package com.frame.user.shiro.realm;
 
 import com.frame.common.frame.base.enums.UserStatus;
+import com.frame.common.frame.base.enums.YesNo;
 import com.frame.user.bean.UserInfo;
+import com.frame.user.entity.SysFunction;
+import com.frame.user.entity.SysModule;
+import com.frame.user.entity.SysRole;
 import com.frame.user.entity.SysUser;
-import com.frame.user.entity.SysUserRole;
 import com.frame.user.enums.AuthMsgResult;
 import com.frame.user.exception.AuthException;
-import com.frame.user.service.SysUserRoleService;
+import com.frame.user.service.SysFunctionService;
+import com.frame.user.service.SysModuleService;
+import com.frame.user.service.SysRoleService;
 import com.frame.user.service.SysUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -29,7 +34,11 @@ public abstract class AbstractRealm extends AuthorizingRealm {
     @Autowired
     private SysUserService sysUserService;
     @Autowired
-    private SysUserRoleService sysUserRoleService;
+    private SysRoleService sysRoleService;
+    @Autowired
+    private SysModuleService sysModuleService;
+    @Autowired
+    private SysFunctionService sysFunctionService;
 
     /**
      * 授权
@@ -53,15 +62,35 @@ public abstract class AbstractRealm extends AuthorizingRealm {
     }
 
     private Set<String> getRoles(String username) {
-        List<SysUserRole> sysUserRoles = Optional.ofNullable(sysUserRoleService.findByUsername(username)).orElse(Collections.emptyList());
-        return sysUserRoles.stream()
-                .map(SysUserRole::getRoleCode)
+        List<SysRole> sysRoles = Optional.ofNullable(
+                sysRoleService.findByUsername(username, YesNo.Y)
+            ).orElse(Collections.emptyList());
+
+        return sysRoles.stream()
+                .map(SysRole::getCode)
                 .collect(Collectors.toSet());
     }
 
     private Set<String> getPermissions(String username) {
-        // TODO
-        return new HashSet<>();
+        // 获取角色，如果角色为空，则权限为空
+        Set<String> roleCodes = getRoles(username);
+        if (roleCodes == null || roleCodes.isEmpty()) {
+            return null;
+        }
+
+        // 获取模块，如果模块为空，则权限为空
+        List<SysModule> sysModules = Optional.ofNullable(
+                sysModuleService.findByRoleCode(roleCodes, YesNo.Y)
+            ).orElse(Collections.emptyList());
+        if (sysModules == null || !sysModules.isEmpty()) {
+            return null;
+        }
+
+        // 查询可用权限并返回
+        List<SysFunction> sysFunctions = Optional.ofNullable(
+                sysFunctionService.findByModuleCode(sysModules.stream().map(SysModule::getCode).collect(Collectors.toList()), YesNo.Y)
+            ).orElse(Collections.emptyList());
+        return sysFunctions.stream().map(SysFunction::getCode).collect(Collectors.toSet());
     }
 
     /**

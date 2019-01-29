@@ -5,10 +5,8 @@ import com.frame.user.constant.RoleKeyConstant;
 import com.frame.user.entity.SysFunction;
 import com.frame.user.entity.SysModule;
 import com.frame.user.entity.SysRole;
-import com.frame.user.entity.SysRoleModule;
 import com.frame.user.service.SysFunctionService;
 import com.frame.user.service.SysModuleService;
-import com.frame.user.service.SysRoleModuleService;
 import com.frame.user.service.SysRoleService;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -41,8 +39,6 @@ public class SysAuthByRoleMatcher implements SysAuthMatcher {
     @Autowired
     private SysRoleService sysRoleService;
     @Autowired
-    private SysRoleModuleService sysRoleModuleService;
-    @Autowired
     private SysModuleService sysModuleService;
     @Autowired
     private SysFunctionService sysFunctionService;
@@ -66,7 +62,7 @@ public class SysAuthByRoleMatcher implements SysAuthMatcher {
             return new String[] { RoleKeyConstant.SUPER_ADMIN };
         }
 
-        // 如果是启用并无需验证请求
+        // 如果是启用并无需验证请求，不需要角色
         List<SysFunction> enableNoValidateFunctions = Optional.ofNullable(sysFunctionService.findAllEnable(YesNo.N)).orElse(Collections.emptyList());
         boolean isEnableNoValidateFunction = enableNoValidateFunctions.stream()
                 .anyMatch(f -> match(f, method, path));
@@ -77,48 +73,28 @@ public class SysAuthByRoleMatcher implements SysAuthMatcher {
 
         // 如果是启用并需要验证请求，获取对应角色
         List<SysFunction> enableValidateFunction = Optional.ofNullable(sysFunctionService.findAllEnable(YesNo.Y)).orElse(Collections.emptyList());
-        Set<String> functionModules = enableValidateFunction.stream()
+        Set<String> moduleCodes = enableValidateFunction.stream()
                 .filter(f -> match(f, method, path))
                 .map(s -> s.getModuleCode())
                 .collect(Collectors.toSet());
-        // 未查询到对应功能，说明未配置，只允许超级管理员访问
-        if (functionModules == null || functionModules.isEmpty()) {
-            log.warn("getPathConfig end. method:{}, path:{}, isDisableFunction:{}, isEnableNoValidateFunction:{}, functionModules:{}", path, isDisableFunction, isEnableNoValidateFunction, functionModules);
+        // 未查询到启用功能，说明未配置，只允许超级管理员访问
+        if (moduleCodes == null || moduleCodes.isEmpty()) {
+            log.warn("getPathConfig end. method:{}, path:{}, isDisableFunction:{}, isEnableNoValidateFunction:{}, moduleCodes:{}", path, isDisableFunction, isEnableNoValidateFunction, moduleCodes);
             return new String[] { RoleKeyConstant.SUPER_ADMIN };
         }
-        // 未查询到对应模块，说明未配置，只允许超级管理员访问
-        List<SysModule> modules = sysModuleService.find(functionModules);
+        // 未查询到可用模块，说明未配置，只允许超级管理员访问
+        List<SysModule> modules = sysModuleService.find(moduleCodes, YesNo.Y);
         if (modules == null || modules.isEmpty()) {
-            log.warn("getPathConfig end. method:{}, path:{}, isDisableFunction:{}, isEnableNoValidateFunction:{}, functionModules:{}, modules:{}", path, isDisableFunction, isEnableNoValidateFunction, functionModules, modules);
+            log.warn("getPathConfig end. method:{}, path:{}, isDisableFunction:{}, isEnableNoValidateFunction:{}, moduleCodes:{}, modules:{}", path, isDisableFunction, isEnableNoValidateFunction, moduleCodes, modules);
             return new String[] { RoleKeyConstant.SUPER_ADMIN };
         }
-        // 模块如果禁用，只有超级管理员可以访问
-        boolean isDisableModule = modules.stream()
-                .anyMatch(m -> !YesNo.Y.equals(m.getUseable()));
-        if (isDisableModule) {
-            log.warn("getPathConfig end. method:{}, path:{}, isDisableFunction:{}, isEnableNoValidateFunction:{}, isDisableModule:{}, functionModules:{}, modules:{}", path, isDisableFunction, isEnableNoValidateFunction, isDisableModule, functionModules, modules);
-            return new String[] { RoleKeyConstant.SUPER_ADMIN };
-        }
-        // 未查询到对应角色，说明未配置，只有超级管理员可以访问
-        List<SysRoleModule> sysRoleModules = sysRoleModuleService.find(functionModules);
-        if (sysRoleModules == null || sysRoleModules.isEmpty()) {
-            log.warn("getPathConfig end. method:{}, path:{}, isDisableFunction:{}, isEnableNoValidateFunction:{}, isDisableModule:{}, functionModules:{}, modules:{}, sysRoleModules:{}", path, isDisableFunction, isEnableNoValidateFunction, isDisableModule, functionModules, modules, sysRoleModules);
-            return new String[] { RoleKeyConstant.SUPER_ADMIN };
-        }
-        List<SysRole> roles = sysRoleService.find(sysRoleModules.stream().map(SysRoleModule::getRoleCode).collect(Collectors.toList()));
+        // 未查询到可用角色，说明未配置，只有超级管理员可以访问
+        List<SysRole> roles = sysRoleService.findByModuleCode(modules.stream().map(SysModule::getCode).collect(Collectors.toList()), YesNo.Y);
+        log.warn("getPathConfig end. method:{}, path:{}, isDisableFunction:{}, isEnableNoValidateFunction:{}, isDisableModule:{}, moduleCodes:{}, modules:{}, roles:{}", path, isDisableFunction, isEnableNoValidateFunction, moduleCodes, modules, roles);
         if (roles == null || roles.isEmpty()) {
-            log.warn("getPathConfig end. method:{}, path:{}, isDisableFunction:{}, isEnableNoValidateFunction:{}, isDisableModule:{}, functionModules:{}, modules:{}, sysRoleModules:{}, roles:{}", path, isDisableFunction, isEnableNoValidateFunction, isDisableModule, functionModules, modules, sysRoleModules, roles);
-            return new String[] { RoleKeyConstant.SUPER_ADMIN };
-        }
-        // 如果全部未启用，只要超级管理员可以访问；否则，返回对应启用角色
-        Set<String> enableRoles = roles.stream().filter(m -> !YesNo.Y.equals(m.getUseable()))
-                .map(SysRole::getCode).collect(Collectors.toSet());
-        if (enableRoles == null || enableRoles.isEmpty()) {
-            log.warn("getPathConfig end. method:{}, path:{}, enableRoles:{}, isDisableFunction:{}, isEnableNoValidateFunction:{}, isDisableModule:{}, functionModules:{}, modules:{}, sysRoleModules:{}, roles:{}", enableRoles, path, isDisableFunction, isEnableNoValidateFunction, isDisableModule, functionModules, modules, sysRoleModules, roles);
             return new String[] { RoleKeyConstant.SUPER_ADMIN };
         } else {
-            log.debug("getPathConfig end. method:{}, path:{}, enableRoles:{}, isDisableFunction:{}, isEnableNoValidateFunction:{}, isDisableModule:{}, functionModules:{}, modules:{}, sysRoleModules:{}, roles:{}", enableRoles, path, isDisableFunction, isEnableNoValidateFunction, isDisableModule, functionModules, modules, sysRoleModules, roles);
-            return enableRoles.toArray(new String[0]);
+            return roles.stream().map(SysRole::getCode).collect(Collectors.toList()).toArray(new String[0]);
         }
     }
 

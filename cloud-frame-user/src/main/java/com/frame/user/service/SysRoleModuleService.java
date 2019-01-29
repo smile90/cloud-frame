@@ -13,20 +13,30 @@ import java.util.List;
 
 @Slf4j
 @Service
-public class SysRoleModuleService extends ServiceImpl<SysRoleModuleMapper, SysRoleModule> {
+class SysRoleModuleService extends ServiceImpl<SysRoleModuleMapper, SysRoleModule> {
 
     @Cacheable(value = "user:roleModules", key = "'allRoleModules'")
     public List<SysRoleModule> findAll() {
-        return baseMapper.selectList(new QueryWrapper<>());
+        return list();
     }
 
-    @Cacheable(value = "user:roleModules", key = "#moduleCode")
-    public List<SysRoleModule> find(String moduleCode) {
+    @Cacheable(value = "user:roleModules:moduleCode", key = "#moduleCode")
+    public List<SysRoleModule> findByModuleCode(String moduleCode) {
         return baseMapper.selectList(new QueryWrapper<SysRoleModule>().eq("module_code", moduleCode));
     }
 
-    @Cacheable(value = "user:roleModules", key = "#moduleCodes")
-    public List<SysRoleModule> find(Collection<String> moduleCodes) {
+    @Cacheable(value = "user:roleModules:moduleCode", key = "#moduleCodes")
+    public List<SysRoleModule> findByModuleCode(Collection<String> moduleCodes) {
         return baseMapper.selectList(new QueryWrapper<SysRoleModule>().in("module_code", moduleCodes));
+    }
+
+    @Cacheable(value = "user:roleModules:roleCode", key = "#roleCode")
+    public List<SysRoleModule> findByRoleCode(String roleCode) {
+        return baseMapper.selectList(new QueryWrapper<SysRoleModule>().eq("role_code", roleCode));
+    }
+
+    @Cacheable(value = "user:roleModules:roleCode", key = "#roleCodes")
+    public List<SysRoleModule> findByRoleCode(Collection<String> roleCodes) {
+        return baseMapper.selectList(new QueryWrapper<SysRoleModule>().in("role_code", roleCodes));
     }
 }
