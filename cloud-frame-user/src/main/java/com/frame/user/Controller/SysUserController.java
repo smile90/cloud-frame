@@ -8,6 +8,7 @@ import com.frame.mybatis.search.ValueType;
 import com.frame.user.entity.SysUser;
 import com.frame.user.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -23,11 +24,18 @@ public class SysUserController {
     @Autowired
     private SysUserService sysUserService;
 
+    @InitBinder("page")
+    public void initUser(WebDataBinder binder) {
+        binder.setFieldDefaultPrefix("page.");
+    }
+
     @GetMapping("/listPage")
-    public Object listPage(Page<SysUser> page, @RequestParam Map<String,String> map) {
+    public Object listPage(@ModelAttribute("page") Page<SysUser> page, @RequestParam Map<String,String> map) {
         SearchBuilder<SysUser> builder = new SearchBuilder<SysUser>()
-            .build("realname", SearchType.LIKE, ValueType.STRING, map.get("realname"))
-            .build("username", SearchType.EQ, ValueType.STRING, map.get("username"));
+            .build("user_id", SearchType.EQ, ValueType.STRING, map.get("userId"))
+            .build("user_no", SearchType.EQ, ValueType.STRING, map.get("userNo"))
+            .build("username", SearchType.EQ, ValueType.STRING, map.get("username"))
+            .build("realname", SearchType.LIKE, ValueType.STRING, map.get("realname"));
         return ResponseBean.successContent(sysUserService.page(page, builder.build()));
     }
 
