@@ -90,6 +90,9 @@ public class AuthProperties {
         /*记住我超时时间：默认7天*/
         private Duration rememberMeTimeout = Duration.ofDays(7L);
 
+        /*是否启用权限*/
+        private boolean enableAuth = true;
+
         /*是否启用session*/
         private boolean enableSession = true;
 
@@ -155,6 +158,14 @@ public class AuthProperties {
 
         public void setRememberMeTimeout(Duration rememberMeTimeout) {
             this.rememberMeTimeout = rememberMeTimeout;
+        }
+
+        public boolean isEnableAuth() {
+            return enableAuth;
+        }
+
+        public void setEnableAuth(boolean enableAuth) {
+            this.enableAuth = enableAuth;
         }
 
         public boolean isEnableSession() {

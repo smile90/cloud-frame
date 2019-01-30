@@ -32,7 +32,7 @@ public enum AuthMsgResult implements MsgResult {
         this.showMsg = showMsg;
     }
 
-    public static final String MODULE_CODE = "0001";
+    public static final String MODULE_CODE = "0010";
 
     private String code;
     private String msg;

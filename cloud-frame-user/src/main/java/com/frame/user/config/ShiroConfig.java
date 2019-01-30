@@ -201,28 +201,19 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/validCode/**", "anon");
         filterChainDefinitionMap.put("/sys/login", "anon");
         filterChainDefinitionMap.put("/sys/logout", "anon");
-
         filterChainDefinitionMap.put("/sys/menu", "anon");
+//        // 记住我后可访问地址
+//        filterChainDefinitionMap.put("/test/**", "user");
+//        filterChainDefinitionMap.put("/sys/index", "user");
+//        // 登录后可访问地址
+//        filterChainDefinitionMap.put("/sys/user/index", "authc");
 
-        filterChainDefinitionMap.put("/error", "anon");
-        // 记住我后可访问地址
-        filterChainDefinitionMap.put("/test/**", "user");
-        filterChainDefinitionMap.put("/sys/index", "user");
-        // 登录后可访问地址
-        filterChainDefinitionMap.put("/sys/user/index", "authc");
-        // 必须登录授权并有权限
-        filterChainDefinitionMap.put("/**", "authc,requestURL");
-
-        // 请求配置拦截器 TODO
-//        Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
-//        authProperties.getUrl().getFilterChainDefinitionMap()
-//                .entrySet().stream().forEach(entry -> {
-//            // 如果Key不为空
-//            Optional.ofNullable(entry.getKey()).ifPresent(key -> {
-//                Arrays.stream(key.split(authProperties.getUrl().getSplit()))
-//                        .forEach(url -> filterChainDefinitionMap.put(url.trim(), entry.getValue()));
-//            });
-//        });
+        // 未启用权限，所有请求放过
+        if (!authProperties.getLogin().isEnableAuth()) {
+            filterChainDefinitionMap.put("/**", "authc");
+        } else {
+            filterChainDefinitionMap.put("/**", "authc,requestURL");
+        }
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;

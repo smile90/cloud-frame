@@ -9,6 +9,9 @@ import com.frame.common.frame.base.interfaces.MsgResult;
  * @date: 2018/12/17
  */
 public class AuthException extends BaseRuntimeException {
+
+    private static final long serialVersionUID = 1L;
+
     public AuthException(String errorCode, String message) {
         super(errorCode, message);
     }

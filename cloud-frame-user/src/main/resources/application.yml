@@ -143,6 +143,7 @@ auth:
   login:
     enable-valid-code: false
     enable-error-time: false
+    enable-auth: false
 #  TODO
 #  url:
 #    filter-chain-definition-map:
