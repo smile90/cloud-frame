@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>cloud-frame</artifactId>
-    <name>Spring Cloud框架服务</name>
+    <name>Spring Cloud业务服务-父包</name>
     <packaging>pom</packaging>
     <version>1.0.0</version>
 
