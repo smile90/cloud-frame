@@ -48,6 +48,13 @@
         </dependency>
         <!-- end::dependency-eureka -->
 
+        <!-- tag::dependency-sleuth -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-sleuth</artifactId>
+        </dependency>
+        <!-- end::dependency-sleuth -->
+
         <!-- tag::dependency-boot-admin-client -->
         <dependency>
             <groupId>de.codecentric</groupId>

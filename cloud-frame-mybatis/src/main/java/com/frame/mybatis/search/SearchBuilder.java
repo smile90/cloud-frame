@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.frame.mybatis.enums.MybatisMsgResult;
 import com.frame.mybatis.exception.SearchException;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.shiro.util.StringUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 

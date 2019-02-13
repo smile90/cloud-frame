@@ -2,7 +2,7 @@ package com.frame.mybatis.search;
 
 import com.google.common.collect.Lists;
 import lombok.Data;
-import org.apache.shiro.util.StringUtils;
+import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

@@ -1,7 +1,7 @@
 package com.frame.mybatis.enums;
 
 import com.frame.common.frame.base.interfaces.MsgResult;
-import com.frame.user.constant.SystemConstant;
+import com.frame.mybatis.constant.SystemConstant;
 
 /**
  * MyBatis信息结果
