@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>cloud-frame-user</artifactId>
-    <name>Spring Boot业务服务-用户</name>
+    <name>Spring Cloud业务服务-用户</name>
     <packaging>jar</packaging>
 
     <properties>
