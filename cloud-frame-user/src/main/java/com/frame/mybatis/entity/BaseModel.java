@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.Version;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.frame.common.frame.base.enums.DataStatus;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -18,26 +19,28 @@ import java.util.Date;
 @Data
 public class BaseModel extends Model implements Serializable {
 
-	@TableId
-	protected Long id;
+    @TableId
+    protected Long id;
 
-	@Version
-	protected Long optimistic = 0L;
+    @Version
+    protected Long optimistic = 0L;
 
-	protected String status = DataStatus.NORMAL.name();
+    protected String status = DataStatus.NORMAL.name();
 
-	protected String description;
+    protected String description;
 
-	protected String createUser;
+    protected String createUser;
 
-	protected Date createTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    protected Date createTime;
 
-	protected String updateUser;
+    protected String updateUser;
 
-	protected Date updateTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    protected Date updateTime;
 
-	@Override
-	protected Serializable pkVal() {
-		return this.id;
-	}
+    @Override
+    protected Serializable pkVal() {
+        return this.id;
+    }
 }

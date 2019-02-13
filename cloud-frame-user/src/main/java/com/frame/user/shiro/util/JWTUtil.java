@@ -160,12 +160,17 @@ public class JWTUtil {
     }
 
     public String getDeviceSource(HttpServletRequest request) {
-        String deviceSource = request.getParameter(authProperties.getDevice().getDeviceSourceName());
+        // 先从请求头取
+        String deviceSource = request.getHeader(authProperties.getDevice().getDeviceSourceName());
         if (StringUtils.hasText(deviceSource) && !"null".equalsIgnoreCase(deviceSource)) {
             return deviceSource;
-        } else {
-            return null;
         }
+        // 再从请求参数中去
+        deviceSource = request.getParameter(authProperties.getDevice().getDeviceSourceName());
+        if (StringUtils.hasText(deviceSource) && !"null".equalsIgnoreCase(deviceSource)) {
+            return deviceSource;
+        }
+        return null;
     }
 
     public String getToken(HttpServletRequest request) {

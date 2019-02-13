@@ -1,6 +1,5 @@
 package com.frame.user.entity;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.frame.common.frame.base.enums.UserStatus;
 import com.frame.mybatis.entity.BaseModel;
@@ -27,7 +26,6 @@ public class SysUser extends BaseModel {
     private String realname;
     /*密码*/
     @JsonIgnore
-    @JSONField(serialize = false)
     private String password;
     /*类别*/
     private String typeCode;

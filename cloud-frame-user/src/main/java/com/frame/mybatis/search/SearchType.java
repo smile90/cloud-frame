@@ -14,7 +14,8 @@ public enum SearchType {
 	GT("GT", "大于"),
 	LE("LE", "小于等于"),
 	LT("LT", "小于"),
-	IN("IN", "包含");
+	IN("IN", "包含"),
+	NOT_IN("NOT_IN", "不包含");
 
 	private String name;
 	private String text;

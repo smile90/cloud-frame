@@ -1,6 +1,8 @@
 package com.frame.mybatis.search;
 
+import com.google.common.collect.Lists;
 import lombok.Data;
+import org.apache.shiro.util.StringUtils;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -39,6 +41,17 @@ public class SearchData {
 	}
 
     public Object getRealValue() {
+        switch (searchType) {
+            case IN:
+                return more();
+            case NOT_IN:
+                return more();
+            default:
+                return one();
+        }
+    }
+
+    public Object one() {
         switch (valueType) {
             case INTEGER:
                 return Integer.valueOf(value);
@@ -54,35 +67,56 @@ public class SearchData {
                 return LocalDateTime.parse(value, DateTimeFormatter.ISO_LOCAL_DATE);
             case DATETIME:
                 return LocalDateTime.parse(value, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            default:
+                return value;
+        }
+    }
 
-            case LIST_INTEGER: {
+    public List<?> more() {
+        switch (valueType) {
+            case INTEGER: {
                 return Arrays.stream(value.split(","))
+                        .filter(v -> StringUtils.hasText(v))
                         .map(v -> Integer.valueOf(v.trim()))
                         .collect(Collectors.toList());
             }
-            case LIST_LONG: {
+            case LONG: {
                 return Arrays.stream(value.split(","))
+                        .filter(v -> StringUtils.hasText(v))
                         .map(v -> Long.valueOf(v.trim()))
                         .collect(Collectors.toList());
             }
-            case LIST_FLOAT: {
+            case FLOAT: {
                 return Arrays.stream(value.split(","))
+                        .filter(v -> StringUtils.hasText(v))
                         .map(v -> Float.valueOf(v.trim()))
                         .collect(Collectors.toList());
             }
-            case LIST_DOUBLE: {
+            case DOUBLE: {
                 return Arrays.stream(value.split(","))
+                        .filter(v -> StringUtils.hasText(v))
                         .map(v -> Double.valueOf(v.trim()))
                         .collect(Collectors.toList());
             }
-            case LIST_STRING: {
+            case STRING: {
                 return Arrays.stream(value.split(","))
+                        .filter(v -> StringUtils.hasText(v))
                         .map(v -> v.trim())
                         .collect(Collectors.toList());
             }
-
+            case DATE: {
+                return Arrays.stream(value.split(","))
+                        .filter(v -> StringUtils.hasText(v))
+                        .map(v -> LocalDateTime.parse(v.trim(), DateTimeFormatter.ISO_LOCAL_DATE))
+                        .collect(Collectors.toList());
+            }
+            case DATETIME:
+                return Arrays.stream(value.split(","))
+                        .filter(v -> StringUtils.hasText(v))
+                        .map(v -> LocalDateTime.parse(v.trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+                        .collect(Collectors.toList());
             default:
-                return value;
+                return Lists.newArrayList(value);
         }
     }
 

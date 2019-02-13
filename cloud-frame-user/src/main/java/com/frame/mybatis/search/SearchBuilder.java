@@ -1,26 +1,22 @@
 package com.frame.mybatis.search;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.frame.mybatis.enums.MybatisMsgResult;
 import com.frame.mybatis.exception.SearchException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.util.StringUtils;
 
+import java.util.List;
+
 @Slf4j
 public class SearchBuilder<T> {
 
-    private QueryWrapper<T> entityWrapper = new QueryWrapper<>();
+    private QueryWrapper<T> wrapper = new QueryWrapper<>();
 
     public SearchBuilder() {}
 
     public SearchBuilder<T> build(String name, SearchType searchType, ValueType valueType, String value) {
-        // 为空，直接跳过，什么也不做
-        if (!StringUtils.hasText(name) || searchType == null || valueType == null || !StringUtils.hasText(value)) {
-            return this;
-        } else {
-            return build(new SearchData(name, searchType, valueType, value));
-        }
+        return build(new SearchData(name, searchType, valueType, value));
     }
 
     public SearchBuilder<T> build(SearchData searchData) {
@@ -28,41 +24,48 @@ public class SearchBuilder<T> {
         if (searchData == null
                 || !StringUtils.hasText(searchData.getName())
                 || searchData.getSearchType() == null
-                || searchData.getValueType() == null
-                || !StringUtils.hasText(searchData.getValue())) {
+                || searchData.getValueType() == null) {
+            log.warn("searchData param is null. name:{},searchType:{},valueType:{},value:{}", searchData.getName(), searchData.getSearchType(), searchData.getValueType(), searchData.getValue());
+            return this;
+        }
+        if(!StringUtils.hasText(searchData.getValue())) {
             return this;
         }
         switch (searchData.getSearchType()) {
             case EQ: {
-                entityWrapper.eq(searchData.getName(), searchData.getRealValue());
+                wrapper.eq(searchData.getName(), searchData.getRealValue());
                 break;
             }
             case NE: {
-                entityWrapper.ne(searchData.getName(), searchData.getRealValue());
+                wrapper.ne(searchData.getName(), searchData.getRealValue());
                 break;
             }
             case LT: {
-                entityWrapper.lt(searchData.getName(), searchData.getRealValue());
+                wrapper.lt(searchData.getName(), searchData.getRealValue());
                 break;
             }
             case LE: {
-                entityWrapper.le(searchData.getName(), searchData.getRealValue());
+                wrapper.le(searchData.getName(), searchData.getRealValue());
                 break;
             }
             case GT: {
-                entityWrapper.gt(searchData.getName(), searchData.getRealValue());
+                wrapper.gt(searchData.getName(), searchData.getRealValue());
                 break;
             }
             case GE: {
-                entityWrapper.ge(searchData.getName(), searchData.getRealValue());
+                wrapper.ge(searchData.getName(), searchData.getRealValue());
                 break;
             }
             case IN: {
-                entityWrapper.in(searchData.getName(), searchData.getRealValue());
+                wrapper.in(searchData.getName(), (List) searchData.getRealValue());
+                break;
+            }
+            case NOT_IN: {
+                wrapper.notIn(searchData.getName(), (List) searchData.getRealValue());
                 break;
             }
             case LIKE: {
-                entityWrapper.like(searchData.getName(), searchData.getRealValue());
+                wrapper.like(searchData.getName(), searchData.getRealValue());
                 break;
             }
             default:
@@ -73,7 +76,7 @@ public class SearchBuilder<T> {
         return this;
     }
 
-    public Wrapper<T> build() {
-        return entityWrapper;
+    public QueryWrapper<T> build() {
+        return wrapper;
     }
 }

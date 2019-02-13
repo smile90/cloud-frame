@@ -64,7 +64,7 @@ public class SysLoginService {
             HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
             subject = SecurityUtils.getSubject();
             UserInfo userInfo = (UserInfo) subject.getPrincipal();
-            AuthenticationToken userJwtToken = jwtUtil.createAuthenticationToken(userInfo.getUsername() ,userInfo.getRealname(), loginUser.getDeviceSource(), request.getRemoteHost());
+            AuthenticationToken userJwtToken = jwtUtil.createAuthenticationToken(userInfo.getUsername() ,userInfo.getRealname(), jwtUtil.getDeviceSource(request), request.getRemoteHost());
             subject.login(userJwtToken);
 
             // 登录成功处理

@@ -197,13 +197,13 @@ public class ShiroConfig {
         // 无权限可访问地址
         filterChainDefinitionMap.put("/", "anon");
         filterChainDefinitionMap.put("/favicon.ico", "anon");
+        filterChainDefinitionMap.put("/test/**", "anon");
 
         filterChainDefinitionMap.put("/validCode/**", "anon");
         filterChainDefinitionMap.put("/sys/login", "anon");
         filterChainDefinitionMap.put("/sys/logout", "anon");
         filterChainDefinitionMap.put("/sys/menu", "anon");
 //        // 记住我后可访问地址
-//        filterChainDefinitionMap.put("/test/**", "user");
 //        filterChainDefinitionMap.put("/sys/index", "user");
 //        // 登录后可访问地址
 //        filterChainDefinitionMap.put("/sys/user/index", "authc");

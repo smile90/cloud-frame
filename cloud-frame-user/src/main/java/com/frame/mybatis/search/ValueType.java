@@ -15,12 +15,6 @@ public enum ValueType {
 	STRING("STRING", "字符串"),
 	DATE("DATE", "日期"),
 	DATETIME("DATETIME", "日期时间"),
-
-    LIST_INTEGER("LIST_INTEGER", "整形列表"),
-    LIST_LONG("LIST_LONG", "长整形列表"),
-    LIST_FLOAT("LIST_FLOAT", "单精度浮点型列表"),
-    LIST_DOUBLE("LIST_DOUBLE", "双精度浮点型列表"),
-    LIST_STRING("LIST_STRING", "字符列表")
 	;
 
 	private String name;

@@ -182,7 +182,7 @@ public class AuthProperties {
         /*秘钥*/
         private String secret = "123456";
         /*请求中，token对应name：默认为token*/
-        private String tokenName = "token";
+        private String tokenName = "bossToken";
         /*短超时时间：默认为30分钟*/
         private Duration shortTimeout = Duration.ofMinutes(30L);
         /*长超时时间：默认为7天*/
