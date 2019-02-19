@@ -15,11 +15,13 @@
 
     <modules>
         <module>cloud-frame-user</module>
+        <module>cloud-user-client</module>
         <module>cloud-frame-gateway</module>
     </modules>
 
     <properties>
         <common-frame.version>1.0.0</common-frame.version>
+        <cloud-frame.version>1.0.0</cloud-frame.version>
     </properties>
 
     <dependencies>
@@ -27,6 +29,11 @@
             <groupId>com.frame</groupId>
             <artifactId>common-frame-base</artifactId>
             <version>${common-frame.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.frame</groupId>
+            <artifactId>cloud-user-client</artifactId>
+            <version>${cloud-frame.version}</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>

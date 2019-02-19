@@ -6,6 +6,7 @@ import com.frame.common.frame.base.bean.ResponseBean;
 import com.frame.gateway.SystemMsgResult;
 import com.frame.gateway.properties.AuthProperties;
 import com.frame.gateway.util.AuthUtil;
+import com.frame.user.client.BossAuthConstant;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import lombok.extern.slf4j.Slf4j;
@@ -107,12 +108,12 @@ public class AuthFilter extends ZuulFilter {
 
         // 转发用户信息
         try {
-            JSONObject infoData = new JSONObject();
-            infoData.put(authProperties.getJwt().getTokenName(), token);
-            ResponseBean result = authClient.getInfoJWT(infoData);
+            JSONObject reqData = new JSONObject();
+            reqData.put(authProperties.getJwt().getTokenName(), token);
+            ResponseBean result = authClient.getInfoJWT(reqData);
             log.debug("get info end. token:{}, url:[{}]-[{}], result:{}", token, url, method, result);
 
-            RequestContext.getCurrentContext().addZuulRequestHeader(authProperties.getRequest().getAuthName(), JSONObject.toJSONString(result.getContent()));
+            RequestContext.getCurrentContext().addZuulRequestHeader(BossAuthConstant.BOSS_AUTH_USER_KEY, JSONObject.toJSONString(result.getContent()));
             log.debug("auth filter end. token:{}, url:[{}]-[{}]", token, url, method);
             return null;
         } catch(Exception e) {

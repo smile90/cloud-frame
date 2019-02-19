@@ -19,7 +19,6 @@ public class AuthProperties {
 
     private Session session = new Session();
     private Jwt jwt = new Jwt();
-    private Request request = new Request();
     private Device device = new Device();
 
     @Data
@@ -32,12 +31,6 @@ public class AuthProperties {
     public class Jwt {
         /*请求中，token对应name：默认为token*/
         private String tokenName = "bossToken";
-    }
-
-    @Data
-    public class Request {
-        /*请求中，token对应name：默认为token*/
-        private String authName = "bossAuthUser";
     }
 
     @Data
