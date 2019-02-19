@@ -45,7 +45,6 @@ public class JWTInfoProcesser implements AuthenticationInfoProcesser {
     public AuthenticationInfo getInfo(AuthenticationToken token) {
         if (token == null || !StringUtils.hasText(token.getToken())
             || !StringUtils.hasText(token.getPrincipal())) {
-            log.warn("get info is null. token:{}", token);
             return null;
         }
         SysUser sysUser = Optional.ofNullable(sysUserService.findByUsername(token.getPrincipal())).orElseThrow(() -> new AuthException(AuthMsgResult.USER_NOT_EXIT));
