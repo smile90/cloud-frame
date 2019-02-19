@@ -12,10 +12,10 @@ import com.frame.user.entity.SysModule;
 import com.frame.user.entity.SysRole;
 import com.frame.user.mapper.SysMenuMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.shiro.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -31,7 +31,6 @@ public class SysMenuService extends ServiceImpl<SysMenuMapper, SysMenu> {
     @Autowired
     private SysRoleService sysRoleService;
 
-    @Cacheable(value = "user:menus:menuCode", key = "#menuCode + '_' + #useable")
     public SysMenu find(String menuCode, YesNo useable) {
         QueryWrapper query = new QueryWrapper<SysMenu>().eq("code", menuCode);
         if (useable != null) {
@@ -40,7 +39,6 @@ public class SysMenuService extends ServiceImpl<SysMenuMapper, SysMenu> {
         return getOne(query);
     }
 
-    @Cacheable(value = "user:menus:menuCode", key = "#menuCodes + '_' + #useable")
     public List<SysMenu> find(Collection menuCodes, YesNo useable) {
         QueryWrapper query = new QueryWrapper<SysMenu>().in("code", menuCodes);
         if (useable != null) {
@@ -49,7 +47,6 @@ public class SysMenuService extends ServiceImpl<SysMenuMapper, SysMenu> {
         return list(query);
     }
 
-    @Cacheable(value = "user:menus:moduleCode", key = "#moduleCode + '_' + #useable")
     public List<SysMenu> findByModuleCode(String moduleCode, YesNo useable) {
         List<SysMenuModule> sysMenuModules = Optional.ofNullable(sysMenuModuleService.findByModuleCode(moduleCode))
                 .orElse(Collections.emptyList());
@@ -57,7 +54,6 @@ public class SysMenuService extends ServiceImpl<SysMenuMapper, SysMenu> {
         return find(menuCodes, useable);
     }
 
-    @Cacheable(value = "user:menus:moduleCode", key = "#moduleCodes + '_' + #useable")
     public List<SysMenu> findByModuleCode(Collection moduleCodes, YesNo useable) {
         List<SysMenuModule> sysMenuModules = Optional.ofNullable(sysMenuModuleService.findByModuleCode(moduleCodes))
                 .orElse(Collections.emptyList());
@@ -65,7 +61,6 @@ public class SysMenuService extends ServiceImpl<SysMenuMapper, SysMenu> {
         return find(menuCodes, useable);
     }
 
-    @Cacheable(value = "user:menus:roleCode", key = "#roleCode + '_' + #useable")
     public List<SysMenu> findByRoleCode(String roleCode, YesNo useable) {
         List<SysModule> sysModules = Optional.ofNullable(sysModuleService.findByRoleCode(roleCode, useable))
                 .orElse(Collections.emptyList());
@@ -77,7 +72,6 @@ public class SysMenuService extends ServiceImpl<SysMenuMapper, SysMenu> {
         }
     }
 
-    @Cacheable(value = "user:menus:roleCode", key = "#roleCodes + '_' + #useable")
     public List<SysMenu> findByRoleCode(Collection roleCodes, YesNo useable) {
         List<SysModule> sysModules = Optional.ofNullable(sysModuleService.findByRoleCode(roleCodes, useable))
                 .orElse(Collections.emptyList());
@@ -89,7 +83,6 @@ public class SysMenuService extends ServiceImpl<SysMenuMapper, SysMenu> {
         }
     }
 
-    @Cacheable(value = "user:menus:username", key = "#username + '_' + #useable")
     public List<SysMenu> findByUsername(String username, YesNo useable) {
         List<SysRole> roles = sysRoleService.findByUsername(username, useable);
         if (roles == null || roles.isEmpty()) {

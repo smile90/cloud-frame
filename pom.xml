@@ -15,6 +15,7 @@
 
     <modules>
         <module>cloud-frame-user</module>
+        <module>cloud-frame-gateway</module>
     </modules>
 
     <properties>
@@ -54,6 +55,13 @@
             <artifactId>spring-cloud-starter-sleuth</artifactId>
         </dependency>
         <!-- end::dependency-sleuth -->
+
+        <!-- tag::dependency-feign -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <!-- tag::dependency-feign -->
 
         <!-- tag::dependency-boot-admin-client -->
         <dependency>

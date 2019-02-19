@@ -132,7 +132,7 @@ mybatis-plus:
 
 logging:
   level:
-    com.frame.user: DEBUG
+    com.frame.user.auth: DEBUG
 
 cors:
   allowed-origin: "http://127.0.0.1:9999"
@@ -143,9 +143,9 @@ cors:
 #  default-pwd: 12345Qwert
 auth:
   login:
-    enable-valid-code: false
+    enable-valid-code: true
     enable-error-time: false
-    enable-auth: false
+    enable-auth: true
 #  TODO
 #  url:
 #    filter-chain-definition-map:

@@ -45,6 +45,7 @@ public class ValidCodeController {
 
         // 生成验证码
         String capText = validCodeService.createValidCode(req.getSession().getId());
+        log.debug("key:{},cacheValidCode:{}", req.getSession().getId(), capText);
 
         // 响应图片
         ServletOutputStream out = null;

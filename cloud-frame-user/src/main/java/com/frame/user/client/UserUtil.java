@@ -1,8 +1,7 @@
 package com.frame.user.client;
 
+import com.alibaba.fastjson.JSONObject;
 import com.frame.common.frame.base.constants.CommonConstant;
-import com.frame.user.bean.UserInfo;
-import org.apache.shiro.SecurityUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -16,17 +15,23 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class UserUtil {
 
+    /** 运营用户名标识 */
+    public static final String BOSS_AUTH_USER_KEY = "bossAuthUser";
+    public static final String BOSS_USERNAME_KEY = "username";
+
     public static String getBossUsername() {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         // 先从请求头取
-        String username = request.getHeader(CommonConstant.BOSS_USERNAME_KEY);
-        if (StringUtils.hasText(username) && !"null".equalsIgnoreCase(username)) {
-            return username;
+        String bossAuthUser = request.getHeader(BOSS_AUTH_USER_KEY);
+        if (StringUtils.hasText(bossAuthUser) && !"null".equalsIgnoreCase(bossAuthUser)) {
+            JSONObject user = JSONObject.parseObject(bossAuthUser, JSONObject.class);
+            return user.getString(BOSS_USERNAME_KEY);
         }
         // 再从请求参数中去
-        username = request.getParameter(CommonConstant.BOSS_USERNAME_KEY);
-        if (StringUtils.hasText(username) && !"null".equalsIgnoreCase(username)) {
-            return username;
+        bossAuthUser = request.getHeader(BOSS_AUTH_USER_KEY);
+        if (StringUtils.hasText(bossAuthUser) && !"null".equalsIgnoreCase(bossAuthUser)) {
+            JSONObject user = JSONObject.parseObject(bossAuthUser, JSONObject.class);
+            return user.getString(BOSS_USERNAME_KEY);
         }
         return null;
     }

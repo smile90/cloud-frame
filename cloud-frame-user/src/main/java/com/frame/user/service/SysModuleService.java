@@ -9,7 +9,6 @@ import com.frame.user.entity.SysRoleModule;
 import com.frame.user.mapper.SysModuleMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -24,7 +23,6 @@ public class SysModuleService extends ServiceImpl<SysModuleMapper, SysModule> {
     @Autowired
     private SysRoleService sysRoleService;
 
-    @Cacheable(value = "user:modules:moduleCode", key = "#moduleCode + '_' + #useable")
     public SysModule find(String moduleCode, YesNo useable) {
         QueryWrapper query = new QueryWrapper<SysModule>().eq("code", moduleCode);
         if (useable != null) {
@@ -33,7 +31,6 @@ public class SysModuleService extends ServiceImpl<SysModuleMapper, SysModule> {
         return getOne(query);
     }
 
-    @Cacheable(value = "user:modules:moduleCode", key = "#moduleCodes + '_' + #useable")
     public List<SysModule> find(Collection moduleCodes, YesNo useable) {
         QueryWrapper query = new QueryWrapper<SysModule>().in("code", moduleCodes);
         if (useable != null) {
@@ -42,7 +39,6 @@ public class SysModuleService extends ServiceImpl<SysModuleMapper, SysModule> {
         return list(query);
     }
 
-    @Cacheable(value = "user:modules:roleCode", key = "#roleCode + '_' + #useable")
     public List<SysModule> findByRoleCode(String roleCode, YesNo useable) {
         List<SysRoleModule> sysRoleModules = Optional.ofNullable(sysRoleModuleService.findByRoleCode(roleCode))
                                                 .orElse(Collections.emptyList());
@@ -54,7 +50,6 @@ public class SysModuleService extends ServiceImpl<SysModuleMapper, SysModule> {
         }
     }
 
-    @Cacheable(value = "user:modules:roleCode", key = "#roleCodes + '_' + #useable")
     public List<SysModule> findByRoleCode(Collection roleCodes, YesNo useable) {
         List<SysRoleModule> sysRoleModules = Optional.ofNullable(sysRoleModuleService.findByRoleCode(roleCodes))
                 .orElse(Collections.emptyList());
@@ -66,7 +61,6 @@ public class SysModuleService extends ServiceImpl<SysModuleMapper, SysModule> {
         }
     }
 
-    @Cacheable(value = "user:modules:username", key = "#username + '_' + #useable")
     public List<SysModule> findByUsername(String username, YesNo useable) {
         List<SysRole> roles = sysRoleService.findByUsername(username, useable);
         if (roles == null || roles.isEmpty()) {
