@@ -7,15 +7,14 @@ import com.frame.mybatis.search.SearchType;
 import com.frame.mybatis.search.ValueType;
 import com.frame.user.entity.SysUser;
 import com.frame.user.enums.UserMsgResult;
-import com.frame.user.properties.UserProperties;
 import com.frame.user.service.SysUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * @author: duanchangqing90
@@ -28,8 +27,6 @@ public class SysUserController {
 
     @Autowired
     private SysUserService sysUserService;
-    @Autowired
-    private UserProperties userProperties;
 
     @InitBinder("page")
     public void initUser(WebDataBinder binder) {
@@ -56,13 +53,57 @@ public class SysUserController {
     @PostMapping("/save")
     public Object save(SysUser bean) {
         try {
-            bean.setUserId(UUID.randomUUID().toString());
-            bean.setPassword(userProperties.getDefaultPwd());
             sysUserService.save(bean);
             return ResponseBean.success();
         } catch (Exception e) {
             log.error("save error. bean:{}", bean, e);
             return ResponseBean.getInstance(UserMsgResult.SYSTEM_ERROR);
         }
+    }
+
+    @PostMapping("/update/{id}")
+    public Object update(@PathVariable("id") String id, SysUser bean) {
+        try {
+            SysUser entity = sysUserService.getById(id);
+            if (entity != null) {
+                entity.setUserNo(bean.getUserNo());
+                entity.setUsername(bean.getUsername());
+                entity.setRealname(bean.getRealname());
+                entity.setTypeCode(bean.getTypeCode());
+                entity.setPhoneNo(bean.getPhoneNo());
+                entity.setEmail(bean.getEmail());
+                entity.setDescription(bean.getDescription());
+                entity.setUserStatus(bean.getUserStatus());
+                entity.setStatus(bean.getStatus());
+                sysUserService.updateById(entity);
+            }
+            return ResponseBean.success();
+        } catch (Exception e) {
+            log.error("update error. id:{},bean:{}", id, bean, e);
+            return ResponseBean.getInstance(UserMsgResult.SYSTEM_ERROR);
+        }
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public Object delete(@PathVariable("id") String id) {
+        try {
+            sysUserService.deleteById(id);
+            return ResponseBean.success();
+        } catch (Exception e) {
+            log.error("delete error. id:{}", id, e);
+            return ResponseBean.getInstance(UserMsgResult.SYSTEM_ERROR);
+        }
+    }
+
+    @DeleteMapping("/delete")
+    public Object delete(@RequestParam("ids[]") String[] ids) {
+        try {
+            sysUserService.deleteByIds(Arrays.asList(ids));
+            return ResponseBean.success();
+        } catch (Exception e) {
+            log.error("delete error. ids:{}", ids, e);
+            return ResponseBean.getInstance(UserMsgResult.SYSTEM_ERROR);
+        }
+
     }
 }

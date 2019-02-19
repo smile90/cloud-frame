@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.frame.common.frame.base.enums.DataStatus;
 import com.frame.common.frame.base.enums.UserStatus;
 import com.frame.common.frame.base.enums.YesNo;
-import com.frame.user.client.UserUtil;
+import com.frame.user.client.BossAuthUtil;
 import com.frame.user.entity.SysFunction;
 import com.frame.user.entity.SysModule;
 import com.frame.user.entity.SysRole;
@@ -13,11 +13,13 @@ import com.frame.user.entity.SysUser;
 import com.frame.user.enums.AuthMsgResult;
 import com.frame.user.exception.AuthException;
 import com.frame.user.mapper.SysUserMapper;
+import com.frame.user.properties.UserProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -25,6 +27,8 @@ import java.util.stream.Collectors;
 @Service
 public class SysUserService extends ServiceImpl<SysUserMapper, SysUser> {
 
+    @Autowired
+    private UserProperties userProperties;
     @Autowired
     private SysRoleService sysRoleService;
     @Autowired
@@ -99,15 +103,40 @@ public class SysUserService extends ServiceImpl<SysUserMapper, SysUser> {
 
     @Override
     public boolean save(SysUser entity) {
+        entity.setUserId(UUID.randomUUID().toString());
+        entity.setPassword(userProperties.getDefaultPwd());
         entity.setCreateTime(new Date());
-        entity.setCreateUser(UserUtil.getBossUsername());
+        entity.setCreateUser(BossAuthUtil.getUsername());
         return super.save(entity);
     }
 
     @Override
     public boolean updateById(SysUser entity) {
         entity.setUpdateTime(new Date());
-        entity.setUpdateUser(UserUtil.getBossUsername());
+        entity.setUpdateUser(BossAuthUtil.getUsername());
         return super.updateById(entity);
+    }
+
+    public boolean deleteById(Serializable id) {
+        SysUser entity = getById(id);
+        if (entity != null) {
+            entity.setUserStatus(UserStatus.DELETED);
+            entity.setUpdateTime(new Date());
+            entity.setUpdateUser(BossAuthUtil.getUsername());
+        }
+        return super.updateById(entity);
+    }
+
+    public boolean deleteByIds(Collection<? extends Serializable> idList) {
+        Collection<SysUser> users = listByIds(idList);
+        if (users != null) {
+            users.stream().forEach(entity -> {
+                entity.setUserStatus(UserStatus.DELETED);
+                entity.setUpdateTime(new Date());
+                entity.setUpdateUser(BossAuthUtil.getUsername());
+            });
+            updateBatchById(users);
+        }
+        return true;
     }
 }

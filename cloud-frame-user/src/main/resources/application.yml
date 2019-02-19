@@ -130,9 +130,9 @@ mybatis-plus:
     map-underscore-to-camel-case: true
     cache-enabled: false
 
-logging:
-  level:
-    com.frame.user.auth: DEBUG
+#logging:
+#  level:
+#    com.frame.user.auth: DEBUG
 
 cors:
   allowed-origin: "http://127.0.0.1:9999"

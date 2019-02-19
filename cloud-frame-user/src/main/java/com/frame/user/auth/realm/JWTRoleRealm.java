@@ -83,7 +83,7 @@ public class JWTRoleRealm implements LoginRealm, PermissionsRealm {
         String[] rolesArray = sysAuthMatcher.getPathConfig(((HttpResource) resource).getMethod(), ((HttpResource) resource).getUrl());
         // 路径无需角色
         if (rolesArray == null || rolesArray.length == 0) {
-            log.warn("not access auth. resource:{}", resource);
+            log.debug("not access auth. resource:{}", resource);
         } else {
             AuthenticationInfo info = Optional.ofNullable(infoManager.getInfo(token.getClass(), token)).orElseThrow(() -> new AuthException(AuthMsgResult.NOT_LOGIN_ERROR));
             log.debug("valid permissions end. resource:{},roles:{},info:{},token:{}", resource, rolesArray, info, token);
