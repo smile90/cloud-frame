@@ -71,6 +71,7 @@ public class InfoManager {
         } catch (AuthException e) {
             throw e;
         } catch (Exception e) {
+            log.error("info manager error.", e);
             throw new AuthException(AuthMsgResult.LOGIN_ERROR);
         }
     }
@@ -96,6 +97,7 @@ public class InfoManager {
         } catch (AuthException e) {
             throw e;
         } catch (Exception e) {
+            log.error("info manager error.", e);
             throw new AuthException(AuthMsgResult.LOGIN_ERROR);
         }
     }

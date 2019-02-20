@@ -8,7 +8,6 @@ import com.frame.user.auth.login.LoginManager;
 import com.frame.user.auth.token.AuthenticationToken;
 import com.frame.user.auth.token.UserJWTToken;
 import com.frame.user.auth.token.UserPwdToken;
-import com.frame.user.auth.util.JWTUtil;
 import com.frame.user.enums.AuthMsgResult;
 import com.frame.user.exception.AuthException;
 import com.frame.user.properties.AuthProperties;
@@ -16,10 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -32,8 +28,6 @@ import java.util.Map;
 @EnableConfigurationProperties(AuthProperties.class)
 public class SysLoginService {
 
-    @Autowired
-    private JWTUtil jwtUtil;
     @Autowired
     private LoginManager loginManager;
     @Autowired

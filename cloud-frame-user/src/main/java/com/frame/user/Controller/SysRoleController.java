@@ -5,9 +5,9 @@ import com.frame.common.frame.base.bean.ResponseBean;
 import com.frame.mybatis.search.SearchBuilder;
 import com.frame.mybatis.search.SearchType;
 import com.frame.mybatis.search.ValueType;
-import com.frame.user.entity.SysUser;
+import com.frame.user.entity.SysRole;
 import com.frame.user.enums.UserMsgResult;
-import com.frame.user.service.SysUserService;
+import com.frame.user.service.SysRoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.WebDataBinder;
@@ -18,11 +18,11 @@ import java.util.Map;
 
 @Slf4j
 @RestController
-@RequestMapping("/adminUser")
-public class SysUserController {
+@RequestMapping("/adminRole")
+public class SysRoleController {
 
     @Autowired
-    private SysUserService sysUserService;
+    private SysRoleService roleService;
 
     @InitBinder("page")
     public void initUser(WebDataBinder binder) {
@@ -30,26 +30,23 @@ public class SysUserController {
     }
 
     @GetMapping("/listPage")
-    public Object listPage(@ModelAttribute("page") Page<SysUser> page, @RequestParam Map<String,String> map) {
-        SearchBuilder builder = new SearchBuilder<SysUser>()
-            .build("user_id", SearchType.EQ, ValueType.STRING, map.get("userId"))
-            .build("user_no", SearchType.EQ, ValueType.STRING, map.get("userNo"))
-            .build("username", SearchType.EQ, ValueType.STRING, map.get("username"))
-            .build("realname", SearchType.LIKE, ValueType.STRING, map.get("realname"))
-            .build("user_status", SearchType.IN, ValueType.STRING, map.get("userStatus"))
-            .build("status", SearchType.EQ, ValueType.STRING, map.get("status"));
-        return ResponseBean.successContent(sysUserService.page(page, builder.build()));
+    public Object listPage(@ModelAttribute("page") Page<SysRole> page, @RequestParam Map<String,String> map) {
+        SearchBuilder builder = new SearchBuilder<SysRole>()
+            .build("code", SearchType.EQ, ValueType.STRING, map.get("code"))
+            .build("name", SearchType.LIKE, ValueType.STRING, map.get("name"))
+            .build("useable", SearchType.EQ, ValueType.STRING, map.get("useable"));
+        return ResponseBean.successContent(roleService.page(page, builder.build()));
     }
 
     @GetMapping("/get/{id}")
     public Object one(@PathVariable("id") String id) {
-        return ResponseBean.successContent(sysUserService.getById(id));
+        return ResponseBean.successContent(roleService.getById(id));
     }
 
     @PostMapping("/save")
-    public Object save(SysUser bean) {
+    public Object save(SysRole bean) {
         try {
-            sysUserService.save(bean);
+            roleService.save(bean);
             return ResponseBean.success();
         } catch (Exception e) {
             log.error("save error. bean:{}", bean, e);
@@ -58,20 +55,17 @@ public class SysUserController {
     }
 
     @PostMapping("/update/{id}")
-    public Object update(@PathVariable("id") String id, SysUser bean) {
+    public Object update(@PathVariable("id") String id, SysRole bean) {
         try {
-            SysUser entity = sysUserService.getById(id);
+            SysRole entity = roleService.getById(id);
             if (entity != null) {
-                entity.setUserNo(bean.getUserNo());
-                entity.setUsername(bean.getUsername());
-                entity.setRealname(bean.getRealname());
+                entity.setCode(bean.getCode());
                 entity.setTypeCode(bean.getTypeCode());
-                entity.setPhoneNo(bean.getPhoneNo());
-                entity.setEmail(bean.getEmail());
+                entity.setName(bean.getName());
+                entity.setUseable(bean.getUseable());
                 entity.setDescription(bean.getDescription());
-                entity.setUserStatus(bean.getUserStatus());
                 entity.setStatus(bean.getStatus());
-                sysUserService.updateById(entity);
+                roleService.updateById(entity);
             }
             return ResponseBean.success();
         } catch (Exception e) {
@@ -83,7 +77,7 @@ public class SysUserController {
     @DeleteMapping("/delete/{id}")
     public Object delete(@PathVariable("id") String id) {
         try {
-            sysUserService.deleteById(id);
+            roleService.deleteById(id);
             return ResponseBean.success();
         } catch (Exception e) {
             log.error("delete error. id:{}", id, e);
@@ -94,11 +88,12 @@ public class SysUserController {
     @DeleteMapping("/delete")
     public Object delete(@RequestParam("ids[]") String[] ids) {
         try {
-            sysUserService.deleteByIds(Arrays.asList(ids));
+            roleService.deleteByIds(Arrays.asList(ids));
             return ResponseBean.success();
         } catch (Exception e) {
             log.error("delete error. ids:{}", ids, e);
             return ResponseBean.getInstance(UserMsgResult.SYSTEM_ERROR);
         }
+
     }
 }

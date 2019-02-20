@@ -74,6 +74,7 @@ public class LoginManager {
         } catch (AuthException e) {
             throw e;
         } catch (Exception e) {
+            log.error("login manager error.", e);
             throw new AuthException(AuthMsgResult.LOGIN_ERROR);
         }
     }
@@ -102,6 +103,7 @@ public class LoginManager {
         } catch (AuthException e) {
             throw e;
         } catch (Exception e) {
+            log.error("login manager error.", e);
             throw new AuthException(AuthMsgResult.LOGOUT_ERROR);
         }
     }

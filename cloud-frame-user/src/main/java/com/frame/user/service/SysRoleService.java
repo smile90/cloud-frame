@@ -3,6 +3,7 @@ package com.frame.user.service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.frame.common.frame.base.enums.YesNo;
+import com.frame.user.client.BossAuthUtil;
 import com.frame.user.entity.SysRole;
 import com.frame.user.entity.SysRoleModule;
 import com.frame.user.entity.SysUserRole;
@@ -11,10 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.io.Serializable;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -76,6 +75,44 @@ public class SysRoleService extends ServiceImpl<SysRoleMapper, SysRole> {
             roles = find(roleCodes, useable);
         }
         return roles;
+    }
+
+
+    @Override
+    public boolean save(SysRole entity) {
+        entity.setCreateTime(new Date());
+        entity.setCreateUser(BossAuthUtil.getUsername());
+        return super.save(entity);
+    }
+
+    @Override
+    public boolean updateById(SysRole entity) {
+        entity.setUpdateTime(new Date());
+        entity.setUpdateUser(BossAuthUtil.getUsername());
+        return super.updateById(entity);
+    }
+
+    public boolean deleteById(Serializable id) {
+        SysRole entity = getById(id);
+        if (entity != null) {
+            sysRoleModuleService.remove(new QueryWrapper<SysRoleModule>().eq("role_code", entity.getCode()));
+            sysUserRoleService.remove(new QueryWrapper<SysUserRole>().eq("role_code", entity.getCode()));
+            return super.removeById(id);
+        } else {
+            return false;
+        }
+    }
+
+    public boolean deleteByIds(Collection<? extends Serializable> idList) {
+        Collection<SysRole> entities = listByIds(idList);
+        if (entities != null && !entities.isEmpty()) {
+            List<String> roleCodes = entities.stream().map(entity -> entity.getCode()).collect(Collectors.toList());
+            sysRoleModuleService.remove(new QueryWrapper<SysRoleModule>().in("role_code", roleCodes));
+            sysUserRoleService.remove(new QueryWrapper<SysUserRole>().in("role_code", roleCodes));
+            return super.removeByIds(idList);
+        } else {
+            return false;
+        }
     }
 
 }

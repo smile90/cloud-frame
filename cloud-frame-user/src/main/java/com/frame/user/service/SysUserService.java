@@ -57,7 +57,7 @@ public class SysUserService extends ServiceImpl<SysUserMapper, SysUser> {
      * @param username
      * @return
      */
-    @Cacheable(value = "user:roles", key = "#username", unless="#result == null")
+    @Cacheable(value = "user:roles", key = "#username", condition = "#username != null", unless="#result == null")
     public Set<String> getRoles(String username) {
         List<SysRole> sysRoles = Optional.ofNullable(
                 sysRoleService.findByUsername(username, YesNo.Y)
@@ -73,7 +73,7 @@ public class SysUserService extends ServiceImpl<SysUserMapper, SysUser> {
      * @param username
      * @return
      */
-    @Cacheable(value = "user:permissions", key = "#username", unless="#result == null")
+    @Cacheable(value = "user:permissions", key = "#username", condition = "#username != null", unless="#result == null")
     public Set<String> getPermissions(String username) {
         // 获取角色，如果角色为空，则权限为空
         Set<String> roleCodes = getRoles(username);
@@ -96,7 +96,7 @@ public class SysUserService extends ServiceImpl<SysUserMapper, SysUser> {
         return sysFunctions.stream().map(SysFunction::getCode).collect(Collectors.toSet());
     }
 
-    @Cacheable(value = "user:user", key = "#username", unless="#result == null")
+    @Cacheable(value = "user:user", key = "#username", condition = "#username != null", unless="#result == null")
     public SysUser findByUsername(String username) {
         return getOne(new QueryWrapper<SysUser>().eq("username", username).eq("status", DataStatus.NORMAL.name()));
     }

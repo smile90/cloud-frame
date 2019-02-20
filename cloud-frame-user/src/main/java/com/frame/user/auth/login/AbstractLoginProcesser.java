@@ -56,7 +56,7 @@ public abstract class AbstractLoginProcesser implements LoginProcesser {
     @Override
     final public AuthenticationInfo login(LoginToken token) throws AuthException {
         try {
-            log.info("login begin. token:{}", token);
+            log.debug("login begin. token:{}", token);
             // 校验登录
             AuthenticationInfo info = volidLogin(token);
             // 登录成功，清空
@@ -64,7 +64,7 @@ public abstract class AbstractLoginProcesser implements LoginProcesser {
             // 完善信息
             completeInfo(info);
 
-            log.info("login end. token:{}", token);
+            log.debug("login end. token:{}", token);
             return info;
         } catch (Exception e) {
             // 登录错误，累加
