@@ -74,7 +74,7 @@ public class AuthFilter extends ZuulFilter {
                 ResponseBean result = authClient.validLoginJWT(data);
                 log.debug("valid login end. data:{}, url:[{}]-[{}], result:{}", data, url, method, result);
 
-                if (!result.isSuccess()) {
+                if (!result.getSuccess()) {
                     ctx.setSendZuulResponse(false);
                     ctx.getResponse().setStatus(HttpStatus.SC_FORBIDDEN);
                     ctx.getResponse().setContentType("application/json;charset=UTF-8");
@@ -89,7 +89,7 @@ public class AuthFilter extends ZuulFilter {
                 ResponseBean result = authClient.validAuthJWT(data);
                 log.debug("valid auth end. data:{}, url:[{}]-[{}], result:{}", data, url, method, result);
 
-                if (!result.isSuccess()) {
+                if (!result.getSuccess()) {
                     ctx.setSendZuulResponse(false);
                     ctx.getResponse().setContentType("application/json;charset=UTF-8");
                     ctx.setResponseBody(JSONObject.toJSONString(result));
@@ -100,7 +100,7 @@ public class AuthFilter extends ZuulFilter {
         } catch (Exception e) {
             ctx.setSendZuulResponse(false);
             ctx.getResponse().setContentType("application/json;charset=UTF-8");
-            ctx.setResponseBody(JSONObject.toJSONString(ResponseBean.getInstance(SystemMsgResult.SYSTEM_ERROR)));
+            ctx.setResponseBody(JSONObject.toJSONString(ResponseBean.error(SystemMsgResult.SYSTEM_ERROR)));
             log.error("valid error. token:{}, url:[{}]-[{}]", token, url, method, e);
             log.debug("auth filter end. token:{}, url:[{}]-[{}]", token, url, method);
             return null;

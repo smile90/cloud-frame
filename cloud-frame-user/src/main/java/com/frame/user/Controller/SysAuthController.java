@@ -68,9 +68,9 @@ public class SysAuthController {
                 log.error("validUser error. data:{}", data, e.getLocalizedMessage());
             }
             if (e instanceof AuthException || e.getCause() instanceof AuthException) {
-                return ResponseBean.getInstance(AuthMsgResult.NOT_LOGIN_ERROR);
+                return ResponseBean.error(AuthMsgResult.NOT_LOGIN_ERROR);
             } else {
-                return ResponseBean.getInstance(AuthMsgResult.AUTH_ERROR);
+                return ResponseBean.error(AuthMsgResult.AUTH_ERROR);
             }
         }
     }
@@ -92,9 +92,9 @@ public class SysAuthController {
                 log.error("volidPermissions error. data:{}", data, e.getLocalizedMessage());
             }
             if (e instanceof AuthException || e.getCause() instanceof AuthException) {
-                return ResponseBean.getInstance(AuthMsgResult.NOT_AUTH_ERROR);
+                return ResponseBean.error(AuthMsgResult.NOT_AUTH_ERROR);
             } else {
-                return ResponseBean.getInstance(AuthMsgResult.AUTH_ERROR);
+                return ResponseBean.error(AuthMsgResult.AUTH_ERROR);
             }
         }
     }
@@ -119,7 +119,7 @@ public class SysAuthController {
             } else {
                 log.error("getInfo error. data:{}", data, e.getLocalizedMessage());
             }
-            return ResponseBean.getInstance(AuthMsgResult.AUTH_ERROR);
+            return ResponseBean.error(AuthMsgResult.AUTH_ERROR);
         }
     }
 
@@ -133,7 +133,7 @@ public class SysAuthController {
             } else {
                 log.error("login error. data:{}", data, e.getLocalizedMessage());
             }
-            return ResponseBean.getInstance(AuthMsgResult.LOGIN_ERROR);
+            return ResponseBean.error(AuthMsgResult.LOGIN_ERROR);
         }
     }
 
@@ -147,7 +147,7 @@ public class SysAuthController {
             } else {
                 log.error("logout error. data:{}", data, e.getLocalizedMessage());
             }
-            return ResponseBean.getInstance(AuthMsgResult.LOGOUT_ERROR);
+            return ResponseBean.error(AuthMsgResult.LOGOUT_ERROR);
         }
     }
 

@@ -1,7 +1,9 @@
 package com.frame.user.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.frame.common.frame.base.bean.ResponseBean;
+import com.frame.common.frame.base.enums.UserStatus;
 import com.frame.mybatis.search.SearchBuilder;
 import com.frame.mybatis.search.SearchType;
 import com.frame.mybatis.search.ValueType;
@@ -10,6 +12,7 @@ import com.frame.user.enums.UserMsgResult;
 import com.frame.user.service.SysUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +33,7 @@ public class SysUserController {
     }
 
     @GetMapping("/listPage")
-    public Object listPage(@ModelAttribute("page") Page<SysUser> page, @RequestParam Map<String,String> map) {
+    public Object initPage(@ModelAttribute("page") Page<SysUser> page, @RequestParam Map<String,String> map) {
         SearchBuilder builder = new SearchBuilder<SysUser>()
             .build("user_id", SearchType.EQ, ValueType.STRING, map.get("userId"))
             .build("user_no", SearchType.EQ, ValueType.STRING, map.get("userNo"))
@@ -46,6 +49,18 @@ public class SysUserController {
         return ResponseBean.successContent(sysUserService.getById(id));
     }
 
+    @GetMapping("/exist/{code}")
+    public Object exist(@PathVariable("code") String code, @RequestParam(required = false) String id) {
+        QueryWrapper qw = new QueryWrapper<SysUser>()
+                .eq("username", code)
+                .notIn("user_status", UserStatus.DELETED);
+        if (StringUtils.hasText(id)) {
+            qw.ne("id", id);
+        }
+        int count = sysUserService.count(qw);
+        return count > 0 ? ResponseBean.successContent(true) : ResponseBean.successContent(false);
+    }
+
     @PostMapping("/save")
     public Object save(SysUser bean) {
         try {
@@ -53,7 +68,7 @@ public class SysUserController {
             return ResponseBean.success();
         } catch (Exception e) {
             log.error("save error. bean:{}", bean, e);
-            return ResponseBean.getInstance(UserMsgResult.SYSTEM_ERROR);
+            return ResponseBean.error(UserMsgResult.SYSTEM_ERROR);
         }
     }
 
@@ -76,7 +91,7 @@ public class SysUserController {
             return ResponseBean.success();
         } catch (Exception e) {
             log.error("update error. id:{},bean:{}", id, bean, e);
-            return ResponseBean.getInstance(UserMsgResult.SYSTEM_ERROR);
+            return ResponseBean.error(UserMsgResult.SYSTEM_ERROR);
         }
     }
 
@@ -87,7 +102,7 @@ public class SysUserController {
             return ResponseBean.success();
         } catch (Exception e) {
             log.error("delete error. id:{}", id, e);
-            return ResponseBean.getInstance(UserMsgResult.SYSTEM_ERROR);
+            return ResponseBean.error(UserMsgResult.SYSTEM_ERROR);
         }
     }
 
@@ -98,7 +113,7 @@ public class SysUserController {
             return ResponseBean.success();
         } catch (Exception e) {
             log.error("delete error. ids:{}", ids, e);
-            return ResponseBean.getInstance(UserMsgResult.SYSTEM_ERROR);
+            return ResponseBean.error(UserMsgResult.SYSTEM_ERROR);
         }
     }
 }

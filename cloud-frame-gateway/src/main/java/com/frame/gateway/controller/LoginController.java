@@ -39,14 +39,14 @@ public class LoginController {
             req.put("deviceSource", authUtil.getDeviceSource(request));
             ResponseBean result = authClient.login(req);
             log.debug("login end. result:{}", result);
-            if (result.isSuccess() && result.getContent() != null) {
+            if (result.getSuccess() && result.getContent() != null) {
                 JSONObject token = JSONObject.parseObject(JSONObject.toJSONString(result.getContent()), JSONObject.class);
                 request.getSession().setAttribute(authProperties.getSession().getTokenName(), (token != null ? token.get("token") : null));
             }
             return result;
         } catch (Exception e) {
             log.error("logout error. data:{}", data, e);
-            return ResponseBean.getInstance(SystemMsgResult.SYSTEM_ERROR);
+            return ResponseBean.error(SystemMsgResult.SYSTEM_ERROR);
         }
     }
 
@@ -58,13 +58,13 @@ public class LoginController {
             data.put(authProperties.getJwt().getTokenName(), token);
 
             ResponseBean result = authClient.logout(data);
-            if (result.isSuccess()) {
+            if (result.getSuccess()) {
                 request.getSession().setAttribute(authProperties.getSession().getTokenName(), null);
             }
             return result;
         } catch (Exception e) {
             log.error("logout error.", e);
-            return ResponseBean.getInstance(SystemMsgResult.SYSTEM_ERROR);
+            return ResponseBean.error(SystemMsgResult.SYSTEM_ERROR);
         }
     }
 }

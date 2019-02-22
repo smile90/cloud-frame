@@ -5,6 +5,8 @@ import com.frame.common.frame.base.enums.UserStatus;
 import com.frame.mybatis.entity.BaseModel;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * 用户实体
  * @author: duanchangqing90
@@ -21,8 +23,11 @@ public class SysUser extends BaseModel {
     /*邮箱*/
     private String email;
     /*手机号*/
+    @NotNull(message = "{user.user.realname.NotNull}")
+
     private String phoneNo;
     /*真实姓名*/
+    @NotNull(message = "{user.user.realname.NotNull}")
     private String realname;
     /*密码*/
     @JsonIgnore

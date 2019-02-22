@@ -45,7 +45,7 @@ public class SysLoginService {
             // 保存信息
             Map<AuthenticationToken, AuthenticationInfo> map = infoManager.saveInfo(info);
             if (map == null || map.isEmpty()) {
-                return ResponseBean.getInstance(AuthMsgResult.LOGIN_ERROR);
+                return ResponseBean.error(AuthMsgResult.LOGIN_ERROR);
             } else {
                 // 返回JWT结果
                 AuthenticationToken jwtToken = map.keySet().stream()
@@ -60,11 +60,11 @@ public class SysLoginService {
                 log.error("login error. token:{}. {}", token, e.getMessage());
             }
             if (e instanceof AuthException) {
-                return ResponseBean.getInstance(((AuthException) e).getErrorCode(), e.getMessage(), ((AuthException) e).getShowMsg(), null);
+                return ResponseBean.error().setCode(((AuthException) e).getErrorCode()).setMsg(e.getMessage()).setShowMsg(((AuthException) e).getShowMsg());
             } else if (e.getCause() instanceof AuthException) {
-                return ResponseBean.getInstance(((AuthException) e.getCause()).getErrorCode(), e.getCause().getMessage(), ((AuthException) e.getCause()).getShowMsg(), null);
+                return ResponseBean.error().setCode(((AuthException) e.getCause()).getErrorCode()).setMsg(e.getCause().getMessage()).setShowMsg(((AuthException) e.getCause()).getShowMsg());
             } else {
-                return ResponseBean.getInstance(AuthMsgResult.LOGIN_ERROR);
+                return ResponseBean.error(AuthMsgResult.LOGIN_ERROR);
             }
         }
     }
@@ -83,7 +83,7 @@ public class SysLoginService {
             } else {
                 log.error("logout error. token:{}. {}", token, e.getMessage());
             }
-            return ResponseBean.getInstance(AuthMsgResult.LOGOUT_ERROR);
+            return ResponseBean.error(AuthMsgResult.LOGOUT_ERROR);
         }
     }
 }

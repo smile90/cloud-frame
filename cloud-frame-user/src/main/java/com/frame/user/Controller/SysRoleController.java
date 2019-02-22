@@ -1,18 +1,24 @@
 package com.frame.user.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.frame.common.frame.base.bean.ResponseBean;
 import com.frame.mybatis.search.SearchBuilder;
 import com.frame.mybatis.search.SearchType;
 import com.frame.mybatis.search.ValueType;
+import com.frame.mybatis.validate.AddGroup;
+import com.frame.mybatis.validate.UpdateGroup;
 import com.frame.user.entity.SysRole;
 import com.frame.user.enums.UserMsgResult;
 import com.frame.user.service.SysRoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.groups.Default;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -25,7 +31,7 @@ public class SysRoleController {
     private SysRoleService roleService;
 
     @InitBinder("page")
-    public void initUser(WebDataBinder binder) {
+    public void initPage(WebDataBinder binder) {
         binder.setFieldDefaultPrefix("page.");
     }
 
@@ -43,19 +49,41 @@ public class SysRoleController {
         return ResponseBean.successContent(roleService.getById(id));
     }
 
+    @GetMapping("/codeExist/{code}")
+    public Object codeExist(@PathVariable("code") String code, @RequestParam(required = false) String id) {
+        QueryWrapper qw = new QueryWrapper<SysRole>()
+                .eq("code", code);
+        if (StringUtils.hasText(id)) {
+            qw.ne("id", id);
+        }
+        int count = roleService.count(qw);
+        return count > 0 ? ResponseBean.successContent(true) : ResponseBean.successContent(false);
+    }
+
+    @GetMapping("/nameExist/{name}")
+    public Object nameExist(@PathVariable("name") String name, @RequestParam(required = false) String id) {
+        QueryWrapper qw = new QueryWrapper<SysRole>()
+                .eq("name", name);
+        if (StringUtils.hasText(id)) {
+            qw.ne("id", id);
+        }
+        int count = roleService.count(qw);
+        return count > 0 ? ResponseBean.successContent(true) : ResponseBean.successContent(false);
+    }
+
     @PostMapping("/save")
-    public Object save(SysRole bean) {
+    public Object save(@Validated({AddGroup.class, Default.class}) SysRole bean) {
         try {
             roleService.save(bean);
             return ResponseBean.success();
         } catch (Exception e) {
             log.error("save error. bean:{}", bean, e);
-            return ResponseBean.getInstance(UserMsgResult.SYSTEM_ERROR);
+            return ResponseBean.error(UserMsgResult.SYSTEM_ERROR);
         }
     }
 
     @PostMapping("/update/{id}")
-    public Object update(@PathVariable("id") String id, SysRole bean) {
+    public Object update(@PathVariable("id") String id, @Validated({UpdateGroup.class, Default.class}) SysRole bean) {
         try {
             SysRole entity = roleService.getById(id);
             if (entity != null) {
@@ -70,7 +98,7 @@ public class SysRoleController {
             return ResponseBean.success();
         } catch (Exception e) {
             log.error("update error. id:{},bean:{}", id, bean, e);
-            return ResponseBean.getInstance(UserMsgResult.SYSTEM_ERROR);
+            return ResponseBean.error(UserMsgResult.SYSTEM_ERROR);
         }
     }
 
@@ -81,7 +109,7 @@ public class SysRoleController {
             return ResponseBean.success();
         } catch (Exception e) {
             log.error("delete error. id:{}", id, e);
-            return ResponseBean.getInstance(UserMsgResult.SYSTEM_ERROR);
+            return ResponseBean.error(UserMsgResult.SYSTEM_ERROR);
         }
     }
 
@@ -92,8 +120,7 @@ public class SysRoleController {
             return ResponseBean.success();
         } catch (Exception e) {
             log.error("delete error. ids:{}", ids, e);
-            return ResponseBean.getInstance(UserMsgResult.SYSTEM_ERROR);
+            return ResponseBean.error(UserMsgResult.SYSTEM_ERROR);
         }
-
     }
 }

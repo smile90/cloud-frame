@@ -25,7 +25,7 @@ public class SysIndexController {
     public Object userInfo() {
         String username = BossAuthUtil.getUsername();
         if (!StringUtils.hasText(username)) {
-            return ResponseBean.getInstance(AuthMsgResult.NOT_LOGIN_ERROR);
+            return ResponseBean.error(AuthMsgResult.NOT_LOGIN_ERROR);
         } else {
             return ResponseBean.successContent(sysUserService.findByUsername(username));
         }
@@ -35,7 +35,7 @@ public class SysIndexController {
     public Object menu() {
         String username = BossAuthUtil.getUsername();
         if (!StringUtils.hasText(username)) {
-            return ResponseBean.getInstance(AuthMsgResult.NOT_LOGIN_ERROR);
+            return ResponseBean.error(AuthMsgResult.NOT_LOGIN_ERROR);
         } else {
             return ResponseBean.successContent(sysMenuService.findMenuJSONByUsername(username, YesNo.Y));
         }
