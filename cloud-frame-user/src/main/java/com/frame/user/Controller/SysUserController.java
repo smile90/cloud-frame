@@ -7,12 +7,16 @@ import com.frame.common.frame.base.enums.UserStatus;
 import com.frame.mybatis.search.SearchBuilder;
 import com.frame.mybatis.search.SearchType;
 import com.frame.mybatis.search.ValueType;
+import com.frame.mybatis.validate.DefaultGroup;
+import com.frame.mybatis.validate.SaveGroup;
+import com.frame.mybatis.validate.UpdateGroup;
 import com.frame.user.entity.SysUser;
 import com.frame.user.enums.UserMsgResult;
 import com.frame.user.service.SysUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,8 +53,8 @@ public class SysUserController {
         return ResponseBean.successContent(sysUserService.getById(id));
     }
 
-    @GetMapping("/exist/{code}")
-    public Object exist(@PathVariable("code") String code, @RequestParam(required = false) String id) {
+    @GetMapping("/usernameExist/{code}")
+    public Object usernameExist(@PathVariable("code") String code, @RequestParam(required = false) String id) {
         QueryWrapper qw = new QueryWrapper<SysUser>()
                 .eq("username", code)
                 .notIn("user_status", UserStatus.DELETED);
@@ -60,9 +64,31 @@ public class SysUserController {
         int count = sysUserService.count(qw);
         return count > 0 ? ResponseBean.successContent(true) : ResponseBean.successContent(false);
     }
+    @GetMapping("/phoneNoExist/{code}")
+    public Object phoneNoExist(@PathVariable("code") String code, @RequestParam(required = false) String id) {
+        QueryWrapper qw = new QueryWrapper<SysUser>()
+                .eq("phone_no", code)
+                .notIn("user_status", UserStatus.DELETED);
+        if (StringUtils.hasText(id)) {
+            qw.ne("id", id);
+        }
+        int count = sysUserService.count(qw);
+        return count > 0 ? ResponseBean.successContent(true) : ResponseBean.successContent(false);
+    }
+    @GetMapping("/emailExist/{code}")
+    public Object emailExist(@PathVariable("code") String code, @RequestParam(required = false) String id) {
+        QueryWrapper qw = new QueryWrapper<SysUser>()
+                .eq("email", code)
+                .notIn("user_status", UserStatus.DELETED);
+        if (StringUtils.hasText(id)) {
+            qw.ne("id", id);
+        }
+        int count = sysUserService.count(qw);
+        return count > 0 ? ResponseBean.successContent(true) : ResponseBean.successContent(false);
+    }
 
     @PostMapping("/save")
-    public Object save(SysUser bean) {
+    public Object save(@Validated({SaveGroup.class, DefaultGroup.class}) SysUser bean) {
         try {
             sysUserService.save(bean);
             return ResponseBean.success();
@@ -73,7 +99,7 @@ public class SysUserController {
     }
 
     @PostMapping("/update/{id}")
-    public Object update(@PathVariable("id") String id, SysUser bean) {
+    public Object update(@PathVariable("id") String id, @Validated({UpdateGroup.class, DefaultGroup.class}) SysUser bean) {
         try {
             SysUser entity = sysUserService.getById(id);
             if (entity != null) {

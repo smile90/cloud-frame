@@ -6,7 +6,8 @@ import com.frame.common.frame.base.bean.ResponseBean;
 import com.frame.mybatis.search.SearchBuilder;
 import com.frame.mybatis.search.SearchType;
 import com.frame.mybatis.search.ValueType;
-import com.frame.mybatis.validate.AddGroup;
+import com.frame.mybatis.validate.DefaultGroup;
+import com.frame.mybatis.validate.SaveGroup;
 import com.frame.mybatis.validate.UpdateGroup;
 import com.frame.user.entity.SysRole;
 import com.frame.user.enums.UserMsgResult;
@@ -18,7 +19,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.groups.Default;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -72,7 +72,7 @@ public class SysRoleController {
     }
 
     @PostMapping("/save")
-    public Object save(@Validated({AddGroup.class, Default.class}) SysRole bean) {
+    public Object save(@Validated({SaveGroup.class, DefaultGroup.class}) SysRole bean) {
         try {
             roleService.save(bean);
             return ResponseBean.success();
@@ -83,7 +83,7 @@ public class SysRoleController {
     }
 
     @PostMapping("/update/{id}")
-    public Object update(@PathVariable("id") String id, @Validated({UpdateGroup.class, Default.class}) SysRole bean) {
+    public Object update(@PathVariable("id") String id, @Validated({UpdateGroup.class, DefaultGroup.class}) SysRole bean) {
         try {
             SysRole entity = roleService.getById(id);
             if (entity != null) {

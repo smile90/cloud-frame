@@ -3,8 +3,10 @@ package com.frame.user.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.frame.common.frame.base.enums.UserStatus;
 import com.frame.mybatis.entity.BaseModel;
+import com.frame.mybatis.validate.PhoneNo;
 import lombok.Data;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -19,12 +21,15 @@ public class SysUser extends BaseModel {
     /*用户编号*/
     private String userNo;
     /*用户名*/
+    @NotNull(message = "{user.user.phoneNo.NotNull}")
     private String username;
     /*邮箱*/
+    @NotNull(message = "{user.user.email.NotNull}")
+    @Email
     private String email;
     /*手机号*/
-    @NotNull(message = "{user.user.realname.NotNull}")
-
+    @NotNull(message = "{user.user.phoneNo.NotNull}")
+    @PhoneNo
     private String phoneNo;
     /*真实姓名*/
     @NotNull(message = "{user.user.realname.NotNull}")
