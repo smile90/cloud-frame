@@ -44,7 +44,7 @@ public class SysUserController {
             .build("username", SearchType.EQ, ValueType.STRING, map.get("username"))
             .build("realname", SearchType.LIKE, ValueType.STRING, map.get("realname"))
             .build("user_status", SearchType.IN, ValueType.STRING, map.get("userStatus"))
-            .build("status", SearchType.EQ, ValueType.STRING, map.get("status"));
+            .build("status", SearchType.IN, ValueType.STRING, map.get("status"));
         return ResponseBean.successContent(sysUserService.page(page, builder.build()));
     }
 
