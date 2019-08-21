@@ -1,151 +1,64 @@
 server:
-  port: 10001
+  port: 10000
 
 info:
   name: @project.artifactId@
   version: @project.version@
   description: @project.description@
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-  endpoint:
-    health:
-      show-details: always
 
-# spring config
-spring:
-  application:
-    name: @project.artifactId@
-  jmx:
-    default-domain: @project.artifactId@
-  # session 使用 redis 管理
-  session:
-    store-type: redis
+security:
+  oauth2:
+    sso:
+      login-path: http://127.0.0.1:9999/login/login.html
+      index-path: http://127.0.0.1:9999/boss/index.html
+    baidu:
+      client:
+        client-id: r17oBL2hbSzq4GrcRmbqi81s
+        client-secret: zkqYxPfwmjKxteVNUSRrW5sZ8EvvNDIk
+        scope: basic
+        access-token-uri: https://openapi.baidu.com/oauth/2.0/token
+        user-authorization-uri: https://openapi.baidu.com/oauth/2.0/authorize
+        registered-redirect-uri: http://127.0.0.1:10000/login/baidu
+      resource:
+        user-info-uri: https://openapi.baidu.com/rest/2.0/passport/users/getInfo
+    qq:
+      client:
+        client-id: 56f645382884bfd6fea8
+        client-secret: e35cb6d4bde3a4d3fa56b8a323996cabda7af214
+        scope: get_user_info,list_album,upload_pic,do_like
+        access-token-uri: https://graph.qq.com/oauth2.0/token
+        user-authorization-uri: https://graph.qq.com/oauth2.0/authorize
+        registered-redirect-uri: http://127.0.0.1:10000/login/qq
+      resource:
+        user-info-uri: https://graph.qq.com/user/get_user_info
+    weibo:
+      client:
+        client-id: 2442386264
+        client-secret: e69a315a3f668576f783799d7a553268
+        scope: all
+        access-token-uri: https://api.weibo.com/oauth2/access_token
+        user-authorization-uri: https://api.weibo.com/oauth2/authorize
+        registered-redirect-uri: http://127.0.0.1:10000/login/weibo
+      resource:
+        user-info-uri: https://api.weibo.com/oauth2/get_token_info
+    github:
+      client:
+        client-id: 56f645382884bfd6fea8
+        client-secret: e35cb6d4bde3a4d3fa56b8a323996cabda7af214
+        access-token-uri: https://github.com/login/oauth/access_token
+        user-authorization-uri: https://github.com/login/oauth/authorize
+        registered-redirect-uri:  http://127.0.0.1:10000/login/github
+        client-authentication-scheme: form
+      resource:
+        user-info-uri: https://api.github.com/user
 
-  jackson:
-    date-format: yyyy-MM-dd HH:mm:ss
-    serialization:
-      indent_output: true
-# redis
-# redis单一模式
-  redis:
-    host: 127.0.0.1
-    port: 6379
 
-# redis哨兵模式
-#    sentinel:
-## Redis服务器master的名字
-#      master: mymaster
-## redis-sentinel的配置地址和端口
-#      nodes:
-#################redis基础配置#################
-# 密码
-    password:
-# 库
-    database: 1
-# 超时时间
-    timeout: 60S
-# redis线程池设置
-    pool:
-      jedis:
-# 连接池中的最大空闲连接，默认值也是8。
-        max-idle: 500
-#连接池中的最小空闲连接，默认值也是0。
-        min-idle: 50
-# 如果赋值为-1，则表示不限制；如果pool已经分配了maxActive个jedis实例，则此时pool的状态为exhausted(耗尽)。
-        max-active: 100
-# 等待可用连接的最大时间，单位毫秒，默认值为-1，表示永不超时。如果超过等待时间，则直接抛出JedisConnectionException
-        max-wait: 1000
-
-# 超时配置（秒）
-    expir:
-      # 默认24小时(24 * 60 * 60)
-      default-config: 86400
-      config:
-        test22: 80
-        test1: 60
-
-# dataSource
-  datasource:
-    # 基础配置，必须有，后面可以进行覆盖
-    url: jdbc:mysql://127.0.0.1:3306/sys_user?useUnicode=true&characterEncoding=UTF-8&useSSL=true
-    username: root
-    password: root
-
-    # 公共参数配置
-    druid:
-      initial-size: 5
-      min-idle: 5
-      max-active: 20
-      max-wait: 60000
-      time-between-log-stats-millis: 60000
-
-      filters: stat,wall
-#      stat-view-servlet:
-#        login-username: admin
-#        login-password: 123456
-
-      # 主数据源
-      primary:
-        name: ${spring.application.name}-primary
-        url: jdbc:mysql://127.0.0.1:3306/sys_user?useUnicode=true&characterEncoding=UTF-8&useSSL=true
-        username: root
-        password: root
-
-      # 只读数据源
-      read:
-        name: ${spring.application.name}-read
-        url: jdbc:mysql://127.0.0.1:3306/sys_user?useUnicode=true&characterEncoding=UTF-8&useSSL=true
-        username: root
-        password: root
-
-# mybatis-plus
-mybatis-plus:
-  type-aliases-package: com.**.entity.**
-  mapper-locations: classpath:mapper/**/*.xml
-  global-config:
-    # 主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
-    id-type: 3
-    # 字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
-    field-strategy: 2
-    # 驼峰下划线转换
-    db-column-underline: true
-    # 刷新mapper 调试神器
-    refresh-mapper: true
-    # 数据库大写下划线转换
-    #capital-mode: true
-    #序列接口实现类配置
-    #key-generator: com.baomidou.springboot.xxx
-    #逻辑删除配置
-    logic-delete-value: 0
-    logic-not-delete-value: 1
-    #自定义填充策略接口实现
-    #meta-object-handler: com.baomidou.springboot.xxx
-    #自定义SQL注入器
-    #sql-injector: com.baomidou.springboot.xxx
-  configuration:
-    map-underscore-to-camel-case: true
-    cache-enabled: false
-
-#logging:
-#  level:
-#    com.frame.user.auth: DEBUG
-
-#user:
-#  default-pwd: 12345Qwert
-auth:
-  login:
-    enable-valid-code: true
-    enable-error-time: false
-    enable-auth: true
-#  TODO
-#  url:
-#    filter-chain-definition-map:
-#      "'/', '/favicon.ico', /static/**, /validCode/**, /error" : "anon"
-#      "/sys/login, /sys/logout" : "anon"
-#      "/test/**, /sys/index" : "user"
-#      "/sys/user/index" : "authc"
-#      "/**" : "authc, requestURL"
+#    client:
+#      client-id: ${info.name}
+#      client-secret: 123456
+#      scope: all
+#      access-token-uri: http://127.0.0.1:20000/oauth/token
+#      user-authorization-uri: http://127.0.0.1:20000/oauth/authorize
+#    resource:
+#      userInfoUri: http://127.0.0.1:20000/auth/oauth/getInfo

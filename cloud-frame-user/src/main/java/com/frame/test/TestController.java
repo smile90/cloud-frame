@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.frame.mybatis.search.SearchBuilder;
 import com.frame.mybatis.search.SearchData;
 import com.frame.mybatis.search.SearchType;
-import com.frame.user.auth.matcher.SysAuthMatcher;
 import com.frame.user.entity.SysUser;
 import com.frame.user.enums.AuthMsgResult;
 import com.frame.user.exception.AuthException;
@@ -18,7 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 
 @Slf4j
 @RestController
@@ -26,9 +25,12 @@ import javax.servlet.http.HttpServletRequest;
 public class TestController {
 
     @Autowired
-    private SysAuthMatcher sysAuthByRoleMatcher;
-    @Autowired
     private SysUserService sysUserService;
+
+    @RequestMapping("/user")
+    public Object user(Principal user) {
+        return user;
+    }
 
     @RequestMapping("/test/{test}")
     public Object test(@PathVariable("test") String test) {
@@ -38,10 +40,6 @@ public class TestController {
     @RequestMapping("/testPath/{test}")
     public Object testPath(@PathVariable("test") String test) {
         return test;
-    }
-    @RequestMapping("/testAuth/{test}")
-    public Object testAuth(HttpServletRequest request, @PathVariable("test") String test) {
-        return sysAuthByRoleMatcher.getPathConfig(request);
     }
 
     @GetMapping("/test1")

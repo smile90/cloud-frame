@@ -6,8 +6,8 @@ import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @EnableZuulProxy
-@SpringCloudApplication
 @EnableFeignClients
+@SpringCloudApplication
 public class WebApplication {
 
     public static void main(String[] args) {

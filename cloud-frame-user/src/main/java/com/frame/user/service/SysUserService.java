@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.frame.common.frame.base.enums.DataStatus;
 import com.frame.common.frame.base.enums.UserStatus;
 import com.frame.common.frame.base.enums.YesNo;
+import com.frame.common.frame.base.utils.EmptyUtil;
 import com.frame.user.client.BossAuthUtil;
 import com.frame.user.entity.SysFunction;
 import com.frame.user.entity.SysModule;
@@ -98,13 +99,25 @@ public class SysUserService extends ServiceImpl<SysUserMapper, SysUser> {
 
     @Cacheable(value = "user:user", key = "#username", condition = "#username != null", unless="#result == null")
     public SysUser findByUsername(String username) {
-        return getOne(new QueryWrapper<SysUser>().eq("username", username).eq("status", DataStatus.NORMAL.name()));
+        return getOne(new QueryWrapper<SysUser>()
+                .eq("username", username)
+                .eq("status", DataStatus.NORMAL.name()));
+    }
+
+    @Cacheable(value = "user:user", key = "#source + ':' + #sourceId", condition = "#sourceId != null && #source != null", unless="#result == null")
+    public SysUser findBySource(String source, String sourceId) {
+        return getOne(new QueryWrapper<SysUser>()
+                .eq("user_source", source)
+                .eq("source_id", sourceId)
+                .eq("status", DataStatus.NORMAL.name()));
     }
 
     @Override
     public boolean save(SysUser entity) {
         entity.setUserId(UUID.randomUUID().toString());
-        entity.setPassword(userProperties.getDefaultPwd());
+        if (EmptyUtil.isEmpty(entity.getPassword())) {
+            entity.setPassword(userProperties.getDefaultPwd());
+        }
         entity.setCreateTime(new Date());
         entity.setCreateUser(BossAuthUtil.getUsername());
         return super.save(entity);

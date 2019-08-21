@@ -16,6 +16,10 @@ import javax.validation.constraints.NotNull;
  */
 @Data
 public class SysUser extends BaseModel {
+    /*用户来源*/
+    private String userSource;
+    /*来源ID*/
+    private String sourceId;
     /*用户id*/
     private String userId;
     /*用户编号*/

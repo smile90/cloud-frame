@@ -14,6 +14,7 @@
 
     <properties>
         <cloud-boot-redis.version>1.0.0</cloud-boot-redis.version>
+        <cloud-boot-redis.version>1.0.0</cloud-boot-redis.version>
         <cloud-boot-mybatis.version>1.0.0</cloud-boot-mybatis.version>
 
         <jwt.version>3.4.0</jwt.version>
