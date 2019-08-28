@@ -1,19 +1,60 @@
-# eureka
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://127.0.0.1:1111/eureka
-  instance:
-    prefer-ip-address: true
-    instance-id: ${spring.cloud.client.ip-address}:${server.port}
-    metadata-map:
-      user.name: "admin"      #These two are needed so that the server
-      user.password: "123456" #can access the protected client endpoints
+custom:
+  nacos:
+    server-addr: 127.0.0.1:10000
+    namespace: cf761d9a-6719-495e-9371-7f225c2c3622
+  sentinel:
+    server-addr: 10.10.128.14:12090
 
-# config
-#spring:
-#  cloud:
-#    config:
-#      discovery:
-#        enabled: true
-#        serviceId: cloud-config-server
+spring:
+  jmx:
+    default-domain: @project.artifactId@
+  application:
+    name: @project.artifactId@
+  profiles:
+    active: dev
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${custom.nacos.server-addr}
+        namespace: ${custom.nacos.namespace}
+      config:
+        file-extension: yaml
+        server-addr: ${custom.nacos.server-addr}
+        namespace: ${custom.nacos.namespace}
+        ext-config:
+          - data-id: log_file.yaml
+            group: LOG_GROUP
+            refresh: true
+          - data-id: spring_mvc.yaml
+            group: SPRING_GROUP
+            refresh: true
+          - data-id: spring_management.yaml
+            group: SPRING_GROUP
+            refresh: true
+          - data-id: mybatis-plus.yaml
+            group: MYBATIS_GROUP
+            refresh: true
+          - data-id: mysql_sys_user.yaml
+            group: DS_GROUP
+            refresh: true
+          - data-id: redis_user.yaml
+            group: REDIS_GROUP
+            refresh: true
+    sentinel:
+      eager: true
+      transport:
+        dashboard: ${custom.sentinel.server-addr}
+      datasource:
+        ds-nacos:
+          nacos:
+            server-addr: ${custom.nacos.server-addr}
+            namespace: ${custom.nacos.namespace}
+            data-type: json
+            data-id: ${spring.application.name}.json
+            group-id: SENTINEL_GROUP
+            rule-type: flow
+
+feign:
+  sentinel:
+    enabled: true

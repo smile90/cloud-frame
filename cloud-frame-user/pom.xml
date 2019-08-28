@@ -14,6 +14,7 @@
 
     <properties>
         <cloud-boot-redis.version>1.0.0</cloud-boot-redis.version>
+        <cloud-boot-redis.version>1.0.0</cloud-boot-redis.version>
         <cloud-boot-mybatis.version>1.0.0</cloud-boot-mybatis.version>
 
         <jwt.version>3.4.0</jwt.version>
@@ -54,6 +55,10 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.github.penggle</groupId>
             <artifactId>kaptcha</artifactId>
