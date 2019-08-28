@@ -97,15 +97,18 @@ public abstract class UserInfoTokenServices implements ResourceServerTokenServic
     private OAuth2Authentication extractAuthentication(Map<String, Object> map) {
         Object principal = getPrincipal(map);
 
-        // 存在：使用本地用户信息
-        // 不存在：创建
+        // 存在：使用本地用户信息；不存在：创建
         Authentication user = userService.findUser(source, principal);
+        log.debug("find user:{}", user);
         if (user == null) {
             user = userService.createUser(source, principal, map);
+            log.debug("create user:{}", user);
         }
         OAuth2Request request = new OAuth2Request(null, this.client.getClient().getClientId(), null, true, null,
                 null, null, null, null);
-        return new OAuth2Authentication(request, user);
+        OAuth2Authentication auth = new OAuth2Authentication(request, user);
+        log.debug("return auth:{}", auth);
+        return auth;
     }
 
     protected Object getPrincipal(Map<String, Object> map) {
