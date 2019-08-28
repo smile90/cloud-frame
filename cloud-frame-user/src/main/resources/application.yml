@@ -6,7 +6,6 @@ info:
   version: @project.version@
   description: @project.description@
 
-
 security:
   oauth2:
     sso:
