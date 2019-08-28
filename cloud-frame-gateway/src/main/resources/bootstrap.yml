@@ -1,15 +1,11 @@
 custom:
   nacos:
-    server-addr: 10.10.128.36:12080,10.10.128.76:12080
-    namespace: cf761d9a-6719-495e-9371-7f225c2c3622
+    server-addr: 127.0.0.1:10000
+    namespace: d16b8cae-3b26-4160-8ad3-0ba16e83f9ed
   sentinel:
-    server-addr: 10.10.128.36:12090
+    server-addr: 10.10.128.14:12090
 
 spring:
-  jmx:
-    default-domain: @project.artifactId@
-  application:
-    name: @project.artifactId@
   cloud:
     nacos:
       discovery:
@@ -20,9 +16,6 @@ spring:
         server-addr: ${custom.nacos.server-addr}
         namespace: ${custom.nacos.namespace}
         ext-config:
-          - data-id: log_file.yaml
-            group: LOG_GROUP
-            refresh: true
           - data-id: spring_mvc.yaml
             group: SPRING_GROUP
             refresh: true
@@ -38,20 +31,3 @@ spring:
           - data-id: redis_user.yaml
             group: REDIS_GROUP
             refresh: true
-    sentinel:
-      eager: true
-      transport:
-        dashboard: ${custom.sentinel.server-addr}
-      datasource:
-        ds-nacos:
-          nacos:
-            server-addr: ${custom.nacos.server-addr}
-            namespace: ${custom.nacos.namespace}
-            data-type: json
-            data-id: ${spring.application.name}.json
-            group-id: SENTINEL_GROUP
-            rule-type: flow
-
-feign:
-  sentinel:
-    enabled: true
