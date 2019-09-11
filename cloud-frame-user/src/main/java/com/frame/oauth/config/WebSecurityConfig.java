@@ -1,8 +1,12 @@
-package com.frame.oauth;
+package com.frame.oauth.config;
 
+import com.frame.oauth.ClientResources;
+import com.frame.oauth.SysOAuth2SsoProperties;
+import com.frame.oauth.impl.FrameUserInfoTokenServices;
 import com.frame.oauth.impl.GetUserInfoTokenServices;
 import com.frame.oauth.impl.UserInfoTokenServices;
 import com.frame.oauth.impl.WeiboUserInfoTokenServices;
+import com.frame.oauth.service.DefaultUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -43,16 +47,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.antMatcher("/**")
-                .authorizeRequests()
-                .antMatchers("/", "/login/**").permitAll()
-                .anyRequest().authenticated()
-                .and().csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+        http
+                // csrf 配置
+                .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                // 默认权限过滤
+                .and()
+                    .antMatcher("/**")
+                    .authorizeRequests()
+                    .antMatchers("/", "/login/**")
+                    .permitAll()
+
+                    .anyRequest()
+                    .authenticated()
+
+                // 增加第三方登录拦截器
                 .and().addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class)
+                // 异常处理
                 .exceptionHandling()
                     .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint(sysOAuth2SsoProperties.getLoginPath()))
-                .and().logout().logoutSuccessUrl(sysOAuth2SsoProperties.getLoginPath()).permitAll()
-                .and().csrf()
         ;
     }
 
@@ -60,6 +72,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         CompositeFilter filter = new CompositeFilter();
         List<Filter> filters = new ArrayList<>();
 
+        filters.add(ssoFilter("/login/frame",
+                new FrameUserInfoTokenServices(frame(), defaultUserService, "frame", sysOAuth2SsoProperties.getIndexPath())));
         filters.add(ssoFilter("/login/baidu",
                 new GetUserInfoTokenServices(baidu(), defaultUserService, "baidu", sysOAuth2SsoProperties.getIndexPath())));
         filters.add(ssoFilter("/login/qq",
@@ -73,12 +87,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return filter;
     }
 
+    private Filter ssoFilter(String path, UserInfoTokenServices tokenServices) {
+        OAuth2ClientAuthenticationProcessingFilter filter = new OAuth2ClientAuthenticationProcessingFilter(path);
+        OAuth2RestTemplate template = new OAuth2RestTemplate(tokenServices.getClient().getClient(), oauth2ClientContext);
+        filter.setRestTemplate(template);
+        tokenServices.setRestTemplate(template);
+        filter.setTokenServices(tokenServices);
+        return filter;
+    }
+
+    @Bean
+    @ConfigurationProperties("security.oauth2.frame")
+    public ClientResources frame() {
+        return new ClientResources();
+    }
     @Bean
     @ConfigurationProperties("security.oauth2.baidu")
     public ClientResources baidu() {
         return new ClientResources();
     }
-
     @Bean
     @ConfigurationProperties("security.oauth2.qq")
     public ClientResources qq() {
@@ -95,14 +122,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new ClientResources();
     }
 
-    private Filter ssoFilter(String path, UserInfoTokenServices tokenServices) {
-        OAuth2ClientAuthenticationProcessingFilter filter = new OAuth2ClientAuthenticationProcessingFilter(path);
-        OAuth2RestTemplate template = new OAuth2RestTemplate(tokenServices.getClient().getClient(), oauth2ClientContext);
-        filter.setRestTemplate(template);
-        tokenServices.setRestTemplate(template);
-        filter.setTokenServices(tokenServices);
-        return filter;
-    }
 
     @Bean
     public FilterRegistrationBean<OAuth2ClientContextFilter> oauth2ClientFilterRegistration(OAuth2ClientContextFilter filter) {

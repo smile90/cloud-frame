@@ -11,6 +11,17 @@ security:
     sso:
       login-path: http://127.0.0.1:9999/login/login.html
       index-path: http://127.0.0.1:9999/boss/index.html
+
+    frame:
+      client:
+        client-id: ${info.name}
+        client-secret: 123456
+        scope: all
+        access-token-uri: http://127.0.0.1:20002/oauth/token
+        user-authorization-uri: http://127.0.0.1:20002/oauth/authorize
+        registered-redirect-uri: http://127.0.0.1:9999/boss/index.html
+      resource:
+        user-info-uri: http://127.0.0.1:20002/pub/oauth/getInfo
     baidu:
       client:
         client-id: r17oBL2hbSzq4GrcRmbqi81s
@@ -18,7 +29,7 @@ security:
         scope: basic
         access-token-uri: https://openapi.baidu.com/oauth/2.0/token
         user-authorization-uri: https://openapi.baidu.com/oauth/2.0/authorize
-        registered-redirect-uri: http://127.0.0.1:10000/login/baidu
+        registered-redirect-uri: http://127.0.0.1:20001/login/baidu
       resource:
         user-info-uri: https://openapi.baidu.com/rest/2.0/passport/users/getInfo
     qq:
@@ -28,7 +39,7 @@ security:
         scope: get_user_info,list_album,upload_pic,do_like
         access-token-uri: https://graph.qq.com/oauth2.0/token
         user-authorization-uri: https://graph.qq.com/oauth2.0/authorize
-        registered-redirect-uri: http://127.0.0.1:10000/login/qq
+        registered-redirect-uri: http://127.0.0.1:20001/login/qq
       resource:
         user-info-uri: https://graph.qq.com/user/get_user_info
     weibo:
@@ -38,7 +49,7 @@ security:
         scope: all
         access-token-uri: https://api.weibo.com/oauth2/access_token
         user-authorization-uri: https://api.weibo.com/oauth2/authorize
-        registered-redirect-uri: http://127.0.0.1:10000/login/weibo
+        registered-redirect-uri: http://127.0.0.1:20001/login/weibo
       resource:
         user-info-uri: https://api.weibo.com/oauth2/get_token_info
     github:
@@ -47,17 +58,7 @@ security:
         client-secret: e35cb6d4bde3a4d3fa56b8a323996cabda7af214
         access-token-uri: https://github.com/login/oauth/access_token
         user-authorization-uri: https://github.com/login/oauth/authorize
-        registered-redirect-uri:  http://127.0.0.1:10000/login/github
+        registered-redirect-uri: http://127.0.0.1:20001/login/github
         client-authentication-scheme: form
       resource:
         user-info-uri: https://api.github.com/user
-
-
-#    client:
-#      client-id: ${info.name}
-#      client-secret: 123456
-#      scope: all
-#      access-token-uri: http://127.0.0.1:20000/oauth/token
-#      user-authorization-uri: http://127.0.0.1:20000/oauth/authorize
-#    resource:
-#      userInfoUri: http://127.0.0.1:20000/auth/oauth/getInfo

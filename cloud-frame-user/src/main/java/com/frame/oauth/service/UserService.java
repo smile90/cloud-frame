@@ -1,4 +1,4 @@
-package com.frame.oauth;
+package com.frame.oauth.service;
 
 import org.springframework.security.core.Authentication;
 

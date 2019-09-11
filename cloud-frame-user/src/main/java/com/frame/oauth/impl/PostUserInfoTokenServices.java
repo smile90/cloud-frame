@@ -1,7 +1,7 @@
 package com.frame.oauth.impl;
 
 import com.frame.oauth.ClientResources;
-import com.frame.oauth.UserService;
+import com.frame.oauth.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collections;
@@ -23,7 +23,7 @@ public class PostUserInfoTokenServices extends UserInfoTokenServices {
             return builderRestTemplate(accessToken).postForEntity(client.getResource().getUserInfoUri(), null, Map.class).getBody();
         } catch (Exception ex) {
             log.error("Could not fetch user details.", ex);
-            return Collections.<String, Object>singletonMap("error", "Could not fetch user details");
+            return Collections.singletonMap("error", "Could not fetch user details");
         }
     }
 

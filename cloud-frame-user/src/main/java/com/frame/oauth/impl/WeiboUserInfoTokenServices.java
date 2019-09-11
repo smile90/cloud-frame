@@ -3,7 +3,7 @@ package com.frame.oauth.impl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.frame.oauth.ClientResources;
-import com.frame.oauth.UserService;
+import com.frame.oauth.service.UserService;
 import com.frame.user.enums.OAuthMsgResult;
 import com.frame.user.exception.OAuthException;
 import lombok.extern.slf4j.Slf4j;
@@ -80,7 +80,7 @@ public class WeiboUserInfoTokenServices extends UserInfoTokenServices {
             }
         } catch (Exception ex) {
             log.error("Could not fetch user details. access_token:{}", accessToken, ex);
-            return Collections.<String, Object>singletonMap("error", "Could not fetch user details");
+            return Collections.singletonMap("error", "Could not fetch user details");
         }
     }
 

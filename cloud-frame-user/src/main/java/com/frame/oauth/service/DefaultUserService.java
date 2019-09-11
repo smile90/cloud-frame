@@ -1,4 +1,4 @@
-package com.frame.oauth;
+package com.frame.oauth.service;
 
 import com.frame.common.frame.base.enums.UserStatus;
 import com.frame.common.frame.base.utils.EmptyUtil;

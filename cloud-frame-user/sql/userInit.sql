@@ -1,5 +1,3 @@
-
-
 CREATE TABLE `sys_function`  (
   `ID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `OPTIMISTIC` bigint(20) NOT NULL DEFAULT 0 COMMENT '乐观锁',

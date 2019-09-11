@@ -1,4 +1,4 @@
-package com.frame.oauth;
+package com.frame.oauth.service;
 
 import org.springframework.boot.autoconfigure.security.oauth2.resource.AuthoritiesExtractor;
 import org.springframework.security.core.GrantedAuthority;

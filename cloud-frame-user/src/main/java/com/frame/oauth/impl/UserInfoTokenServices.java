@@ -1,9 +1,10 @@
 package com.frame.oauth.impl;
 
+import com.frame.common.frame.base.utils.EmptyUtil;
 import com.frame.oauth.ClientResources;
-import com.frame.oauth.OAuthAuthoritiesExtractor;
-import com.frame.oauth.OAuthPrincipalExtractor;
-import com.frame.oauth.UserService;
+import com.frame.oauth.service.OAuthAuthoritiesExtractor;
+import com.frame.oauth.service.OAuthPrincipalExtractor;
+import com.frame.oauth.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.AuthoritiesExtractor;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.PrincipalExtractor;
@@ -71,7 +72,7 @@ public abstract class UserInfoTokenServices implements ResourceServerTokenServic
         log.debug("get user info. path:{},accessToken:{}", this.client.getResource().getUserInfoUri(), accessToken);
         Map<String, Object> map = getUserInfo(accessToken);
         log.debug("get user info end. path:{},accessToken:{},map:{}", this.client.getResource().getUserInfoUri(), accessToken, map);
-        if (map.containsKey("error")) {
+        if (EmptyUtil.isEmpty(map) || map.containsKey("error")) {
             log.error("user info returned error. map:", map);
             throw new InvalidTokenException(accessToken);
         }
