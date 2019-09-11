@@ -22,7 +22,7 @@ public enum SystemMsgResult implements MsgResult {
     PERMISSIONS_REALMS_CFG_ERROR(SystemConstant.SYSTEM_CODE + "0021", "permissions realms not config.", "权限校验类未配置"),
     PERMISSIONS_REALMS_CFG_SUPPORTS_ERROR(SystemConstant.SYSTEM_CODE + "0022", "permissions realms not found supports config.", "权限校验类未找到匹配配置"),
 
-    SYSTEM_PARAM_ERROR(SystemConstant.SYSTEM_CODE + "9998", "system param", "系统参数错误，请重试"),
+    SYSTEM_PARAM_ERROR(SystemConstant.SYSTEM_CODE + "9998", "system param error", "系统参数错误，请重试"),
     SYSTEM_ERROR(SystemConstant.SYSTEM_CODE + "9999", "system error", "系统错误，请稍后重试")
     ;
 

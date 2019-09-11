@@ -27,7 +27,7 @@ public class FrameUserInfoTokenServices extends UserInfoTokenServices {
             if (!userInfoResult.getSuccess()) {
                 return Collections.singletonMap("error", userInfoResult.getShowMsg());
             } else {
-                return JSON.parseObject((String) userInfoResult.getContent(), Map.class);
+                return JSON.parseObject(JSON.toJSONString(userInfoResult.getContent()), Map.class);
             }
         } catch (Exception ex) {
             log.error("Could not fetch user details.", ex);

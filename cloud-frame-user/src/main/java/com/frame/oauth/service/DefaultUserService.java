@@ -1,8 +1,10 @@
 package com.frame.oauth.service;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.frame.common.frame.base.bean.ResponseBean;
 import com.frame.common.frame.base.enums.UserStatus;
+import com.frame.exception.OAuthException;
 import com.frame.oauth.beans.SysUser;
 import com.frame.remote.RemoteUserService;
 import lombok.extern.slf4j.Slf4j;
@@ -38,11 +40,11 @@ public class DefaultUserService implements UserService {
         ResponseBean responseBean = remoteUserService.findBySource(userSource, String.valueOf(principal));
         log.debug("find user. userSource:{},principal:{},response:{}", userSource, principal, responseBean);
         if (responseBean.getSuccess()) {
-            JSONObject result = JSONObject.parseObject((String) responseBean.getContent());
+            JSONObject result = JSON.parseObject(JSON.toJSONString(responseBean.getContent()));
             if (result.getJSONArray("permissions") != null) {
                 Set<SimpleGrantedAuthority> authorities = new HashSet<>();
                 for (Object permission : result.getJSONArray("permissions")) {
-                    authorities.add(new SimpleGrantedAuthority((String) permission));
+                    authorities.add(new SimpleGrantedAuthority(String.valueOf(permission)));
                 }
                 return new UsernamePasswordAuthenticationToken(principal, null, authorities);
             } else {
@@ -57,11 +59,15 @@ public class DefaultUserService implements UserService {
     public Authentication createUser(String userSource, Object principal, Map<String, Object> map) {
         SysUser user = new SysUser();
         user.setUserSource(userSource);
-        user.setSourceId((String) principal);
-        user.setUsername((String) principal);
+        user.setSourceId(String.valueOf(principal));
+        user.setUsername(String.valueOf(principal));
         user.setRealname((String) map.get("name"));
         user.setUserStatus(UserStatus.NORMAL);
-        remoteUserService.save(user);
-        return new UsernamePasswordAuthenticationToken(principal, null, defaultAuthorities);
+        ResponseBean responseBean = remoteUserService.save(user);
+        if (responseBean.getSuccess()) {
+            return new UsernamePasswordAuthenticationToken(principal, null, defaultAuthorities);
+        } else {
+            throw new OAuthException(responseBean.getCode(), responseBean.getMsg(), responseBean.getShowMsg());
+        }
     }
 }

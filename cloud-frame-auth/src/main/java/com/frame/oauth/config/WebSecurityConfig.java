@@ -36,7 +36,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
             // 权限配置
             .and().authorizeRequests()
-                .antMatchers("/", "/favicon.ico", "/pub/user/**").permitAll()
+                .antMatchers("/", "/favicon.ico").permitAll()
                 .anyRequest().authenticated()
             .and()
                 .formLogin().permitAll();

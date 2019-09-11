@@ -5,12 +5,15 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.SpringSecurityCoreVersion;
 import org.springframework.security.core.userdetails.User;
 
 import java.util.Collection;
 
 @ToString
 public class UserDetails extends User {
+
+    private static final long serialVersionUID = SpringSecurityCoreVersion.SERIAL_VERSION_UID;
 
     public UserDetails(SysUser sysUser, Collection<? extends GrantedAuthority> authorities) {
         super(sysUser.getUsername(), sysUser.getPassword(),

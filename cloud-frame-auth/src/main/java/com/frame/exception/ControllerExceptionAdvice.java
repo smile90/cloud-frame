@@ -1,19 +1,20 @@
 package com.frame.exception;
 
 import com.frame.common.frame.base.bean.ResponseBean;
-import com.frame.common.frame.base.enums.SystemResut;
 import com.frame.common.frame.base.exception.BaseRuntimeException;
 import com.frame.user.enums.SystemMsgResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,19 +29,27 @@ import java.util.stream.Collectors;
 public class ControllerExceptionAdvice {
 
 
-    @ExceptionHandler(value = BindException.class)
+    @ExceptionHandler(value = {BindException.class, MethodArgumentNotValidException.class})
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public ResponseBean bindExceptionHandler(HttpServletRequest req, Exception e) throws Exception {
-        if (log.isDebugEnabled()) {
-            log.warn("bind exception.", e);
-        } else {
-            log.warn("bind exception.{}", e.getLocalizedMessage());
+        List<String> errors = new ArrayList<>();
+        try {
+            if (e instanceof BindException) {
+                errors = ((BindException) e).getAllErrors().stream().map(error -> error.getDefaultMessage()).collect(Collectors.toList());
+            } else if (e instanceof MethodArgumentNotValidException) {
+                errors = ((MethodArgumentNotValidException) e).getBindingResult().getAllErrors().stream().map(error -> error.getDefaultMessage()).collect(Collectors.toList());
+            }
+
+            if (log.isDebugEnabled()) {
+                log.warn("bind exception. errors:{}", errors, e);
+            } else {
+                log.warn("bind exception. errors:{}", errors);
+            }
+        } catch (Exception ex) {
+            log.error("get errors error", ex);
         }
-//        BindException be = (BindException) e;
-//        List<String> errors = be.getAllErrors().stream().map(error -> error.getDefaultMessage()).collect(Collectors.toList());
-//        return ResponseBean.error(SystemResut.PARAM_ERROR).setShowMsg(errors.toString());
-        return ResponseBean.error(SystemMsgResult.SYSTEM_PARAM_ERROR);
+        return ResponseBean.error(SystemMsgResult.SYSTEM_PARAM_ERROR).setShowMsg(errors.toString());
     }
 
     /**

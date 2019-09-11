@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 @FeignClient(name = "cloud-frame-auth")
 public interface RemoteUserService {
 
-    @GetMapping("/user/findByUsername/{username}")
+    @GetMapping("/pub/user/findByUsername/{username}")
     ResponseBean findByUsername(@PathVariable("username") String username);
 
-    @GetMapping("/user/findBySource/{source}/{sourceId}")
+    @GetMapping("/pub/user/findBySource/{source}/{sourceId}")
     ResponseBean findBySource(@PathVariable("source") String source, @PathVariable("sourceId") String sourceId);
 
-    @PostMapping("/user/save")
+    @PostMapping("/pub/user/save")
     ResponseBean save(@RequestBody SysUser user);
 
 }

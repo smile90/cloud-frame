@@ -17,10 +17,11 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http
-            .antMatcher("/pub/oauth/**").authorizeRequests()
+            .antMatcher("/pub/**").authorizeRequests()
+            .antMatchers("/pub/user/**").permitAll()
             .anyRequest().authenticated()
 
-            .and()
-                .formLogin().permitAll();
+        .and()
+            .formLogin().permitAll();
     }
 }

@@ -25,14 +25,14 @@ public class SysUser extends BaseModel {
     /*用户编号*/
     private String userNo;
     /*用户名*/
-    @NotNull(message = "{user.user.phoneNo.NotNull}")
+    @NotNull(message = "{user.user.username.NotNull}")
     private String username;
     /*邮箱*/
-    @NotNull(message = "{user.user.email.NotNull}")
+//    @NotNull(message = "{user.user.email.NotNull}")
     @Email
     private String email;
     /*手机号*/
-    @NotNull(message = "{user.user.phoneNo.NotNull}")
+//    @NotNull(message = "{user.user.phoneNo.NotNull}")
     @PhoneNo
     private String phoneNo;
     /*真实姓名*/

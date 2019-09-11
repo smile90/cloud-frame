@@ -34,7 +34,7 @@ public class SysUserDetailsController {
     public ResponseBean user(Authentication auth) {
         try {
             Object user = auth.getPrincipal();
-            return ResponseBean.successContent(JSON.toJSONString(user));
+            return ResponseBean.successContent(JSON.parseObject(JSON.toJSONString(user)));
         } catch (Exception e) {
             log.error("get user info error.", e);
             return ResponseBean.error(AuthMsgResult.GET_USER_ERROR);
@@ -46,10 +46,7 @@ public class SysUserDetailsController {
         SysUser user = sysUserService.findBySource(source, sourceId);
         if (user != null) {
             Set<String> permissions = sysUserService.getPermissions(user.getUsername());
-            JSONObject result = new JSONObject();
-            result.put("user", user);
-            result.put("permissions", permissions);
-            return ResponseBean.successContent(result);
+            return ResponseBean.successContent(process2JSON(user, permissions));
         } else {
             return ResponseBean.error(AuthMsgResult.USER_NOT_EXIT);
         }
@@ -75,12 +72,7 @@ public class SysUserDetailsController {
 
     @PostMapping("/user/save")
     public ResponseBean save(@RequestBody @Validated({SaveGroup.class, DefaultGroup.class}) SysUser bean) {
-        try {
-            sysUserService.save(bean);
-            return ResponseBean.success();
-        } catch (Exception e) {
-            log.error("save error. bean:{}", bean, e);
-            return ResponseBean.error(UserMsgResult.SYSTEM_ERROR);
-        }
+        sysUserService.save(bean);
+        return ResponseBean.successContent(JSON.parseObject(JSON.toJSONString(bean)));
     }
 }
