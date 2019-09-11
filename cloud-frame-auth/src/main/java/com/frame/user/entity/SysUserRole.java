@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class SysUserRole extends BaseModel {
 
-    private String username;
+    private String userId;
     private String roleCode;
 
 }

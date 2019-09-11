@@ -41,9 +41,9 @@ public class SysRoleService extends ServiceImpl<SysRoleMapper, SysRole> {
         return list(query);
     }
 
-    public List<SysRole> findByUsername(String username, YesNo useable) {
+    public List<SysRole> findByUserId(String userId, YesNo useable) {
         List<SysRole> roles = new ArrayList<>();
-        List<SysUserRole> sysUserRoles = sysUserRoleService.findByUsername(username);
+        List<SysUserRole> sysUserRoles = sysUserRoleService.findByUserId(userId);
         if (sysUserRoles != null && !sysUserRoles.isEmpty()) {
             Set<String> roleCodes = sysUserRoles.stream()
                     .map(SysUserRole::getRoleCode)

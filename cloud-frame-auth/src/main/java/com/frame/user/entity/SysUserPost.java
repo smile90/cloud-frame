@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class SysUserPost extends BaseModel {
 
-    private String username;
+    private String userId;
     private String postCode;
 
 }

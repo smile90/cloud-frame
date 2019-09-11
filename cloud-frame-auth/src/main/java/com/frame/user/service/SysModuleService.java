@@ -61,8 +61,8 @@ public class SysModuleService extends ServiceImpl<SysModuleMapper, SysModule> {
         }
     }
 
-    public List<SysModule> findByUsername(String username, YesNo useable) {
-        List<SysRole> roles = sysRoleService.findByUsername(username, useable);
+    public List<SysModule> findByUserId(String userId, YesNo useable) {
+        List<SysRole> roles = sysRoleService.findByUserId(userId, useable);
         if (roles == null || roles.isEmpty()) {
             return null;
         }

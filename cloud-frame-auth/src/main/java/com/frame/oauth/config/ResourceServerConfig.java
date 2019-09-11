@@ -11,17 +11,16 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
  * @date: 2019/09/11
  */
 @Configuration
-//@EnableResourceServer
+@EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
-//    @Override
-//    public void configure(HttpSecurity http) throws Exception {
-//        http
-//            // Since we want the protected resources to be accessible in the UI as well we need
-//            // session creation to be allowed (it's disabled by default in 2.0.6)
-////            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-////            .and()
-//            .authorizeRequests()
-//                .antMatchers("/pub/**").access("#oauth2.hasScope('all')")
-//                .anyRequest().authenticated();
-//    }
+
+    @Override
+    public void configure(HttpSecurity http) throws Exception {
+        http
+            .antMatcher("/pub/**").authorizeRequests()
+            .anyRequest().authenticated()
+
+            .and()
+                .formLogin().permitAll();
+    }
 }

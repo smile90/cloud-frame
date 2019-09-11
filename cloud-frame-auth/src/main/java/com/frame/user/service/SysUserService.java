@@ -55,13 +55,13 @@ public class SysUserService extends ServiceImpl<SysUserMapper, SysUser> {
 
     /**
      * 获取角色
-     * @param username
+     * @param userId
      * @return
      */
-    @Cacheable(value = "user:roles", key = "#username", condition = "#username != null", unless="#result == null")
-    public Set<String> getRoles(String username) {
+    @Cacheable(value = "user:roles", key = "#userId", condition = "#userId != null", unless="#result == null")
+    public Set<String> getRoles(String userId) {
         List<SysRole> sysRoles = Optional.ofNullable(
-                sysRoleService.findByUsername(username, YesNo.Y)
+                sysRoleService.findByUserId(userId, YesNo.Y)
         ).orElse(Collections.emptyList());
 
         return sysRoles.stream()
@@ -71,13 +71,13 @@ public class SysUserService extends ServiceImpl<SysUserMapper, SysUser> {
 
     /**
      * 获取权限
-     * @param username
+     * @param userId
      * @return
      */
-    @Cacheable(value = "user:permissions", key = "#username", condition = "#username != null", unless="#result == null")
-    public Set<String> getPermissions(String username) {
+    @Cacheable(value = "user:permissions", key = "#userId", condition = "#userId != null", unless="#result == null")
+    public Set<String> getPermissions(String userId) {
         // 获取角色，如果角色为空，则权限为空
-        Set<String> roleCodes = getRoles(username);
+        Set<String> roleCodes = getRoles(userId);
         if (roleCodes == null || roleCodes.isEmpty()) {
             return null;
         }
@@ -101,6 +101,13 @@ public class SysUserService extends ServiceImpl<SysUserMapper, SysUser> {
     public SysUser findByUsername(String username) {
         return getOne(new QueryWrapper<SysUser>()
                 .eq("username", username)
+                .eq("status", DataStatus.NORMAL.name()));
+    }
+
+    @Cacheable(value = "user:user", key = "#userId", condition = "#userId != null", unless="#result == null")
+    public SysUser findByUserId(String userId) {
+        return getOne(new QueryWrapper<SysUser>()
+                .eq("user_id", userId)
                 .eq("status", DataStatus.NORMAL.name()));
     }
 

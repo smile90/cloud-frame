@@ -13,9 +13,9 @@ import java.util.List;
 @Service
 public class SysUserRoleService extends ServiceImpl<SysUserRoleMapper, SysUserRole> {
 
-    public List<SysUserRole> findByUsername(String username) {
+    public List<SysUserRole> findByUserId(String userId) {
         return baseMapper.selectList(new QueryWrapper<SysUserRole>()
-                .eq("username", username));
+                .eq("user_id", userId));
     }
 
 }

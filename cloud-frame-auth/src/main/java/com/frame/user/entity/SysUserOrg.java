@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class SysUserOrg extends BaseModel {
 
-    private String username;
+    private String userId;
     private String orgCode;
 
 }

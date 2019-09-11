@@ -83,17 +83,17 @@ public class SysMenuService extends ServiceImpl<SysMenuMapper, SysMenu> {
         }
     }
 
-    public List<SysMenu> findByUsername(String username, YesNo useable) {
-        List<SysRole> roles = sysRoleService.findByUsername(username, useable);
+    public List<SysMenu> findByUserId(String userId, YesNo useable) {
+        List<SysRole> roles = sysRoleService.findByUserId(userId, useable);
         if (roles == null || roles.isEmpty()) {
             return null;
         }
         return findByRoleCode(roles.stream().map(SysRole::getCode).collect(Collectors.toList()), useable);
     }
 
-    @Cacheable(value = "user:menuJson:username", key = "#username + '_' + #useable")
-    public JSONArray findMenuJSONByUsername(String username, YesNo useable) {
-        List<SysMenu> listMenu = findByUsername(username, useable);
+    @Cacheable(value = "user:menuJson:userId", key = "#userId + '_' + #useable")
+    public JSONArray findMenuJSONByUsername(String userId, YesNo useable) {
+        List<SysMenu> listMenu = findByUserId(userId, useable);
         return getModulesJSON(ModuleKeyConstant.MODULE_CODE_ROOT, listMenu);
     }
 
