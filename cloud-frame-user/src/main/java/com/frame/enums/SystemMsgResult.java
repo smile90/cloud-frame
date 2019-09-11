@@ -1,25 +1,25 @@
-package com.frame.user.enums;
+package com.frame.enums;
 
 import com.frame.common.frame.base.interfaces.MsgResult;
-import com.frame.user.constant.SystemConstant;
+import com.frame.constant.SystemConstant;
 
 /**
- * 权限信息结果
+ * 系统信息结果
  */
-public enum OAuthMsgResult implements MsgResult {
+public enum SystemMsgResult implements MsgResult {
 
-    OAUTH_GET_USER_INF_ERROR(SystemConstant.SYSTEM_CODE + OAuthMsgResult.MODULE_CODE + "9997", "oauth get user info error", "获取用户信息错误"),
-    OAUTH_REQUEST_ERROR(SystemConstant.SYSTEM_CODE + OAuthMsgResult.MODULE_CODE + "9998", "oauth request error", "权限请求错误"),
-    OAUTH_ERROR(SystemConstant.SYSTEM_CODE + OAuthMsgResult.MODULE_CODE + "9999", "oauth error", "权限错误")
+    SYSTEM_PARAM_ERROR(SystemConstant.SYSTEM_CODE + "9998", "system param", "系统参数错误，请重试"),
+    SYSTEM_ERROR(SystemConstant.SYSTEM_CODE + "9999", "system error", "系统错误，请稍后重试")
     ;
 
-    OAuthMsgResult(String code, String msg, String showMsg) {
+
+    public static final String MODULE_CODE = "9999";
+
+    SystemMsgResult(String code, String msg, String showMsg) {
         this.code = code;
         this.msg = msg;
         this.showMsg = showMsg;
     }
-
-    public static final String MODULE_CODE = "0020";
 
     private String code;
     private String msg;

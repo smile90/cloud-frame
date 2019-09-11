@@ -23,7 +23,7 @@ public class SysIndexController {
 
     @GetMapping("/userInfo")
     public Object userInfo() {
-        String username = BossAuthUtil.getUsername();
+        String username = BossAuthUtil.getUserId();
         if (!StringUtils.hasText(username)) {
             return ResponseBean.error(AuthMsgResult.NOT_LOGIN_ERROR);
         } else {
@@ -33,7 +33,7 @@ public class SysIndexController {
 
     @GetMapping("/menu")
     public Object menu() {
-        String username = BossAuthUtil.getUsername();
+        String username = BossAuthUtil.getUserId();
         if (!StringUtils.hasText(username)) {
             return ResponseBean.error(AuthMsgResult.NOT_LOGIN_ERROR);
         } else {

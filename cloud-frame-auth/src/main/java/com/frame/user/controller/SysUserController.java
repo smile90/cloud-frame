@@ -11,7 +11,6 @@ import com.frame.mybatis.validate.DefaultGroup;
 import com.frame.mybatis.validate.SaveGroup;
 import com.frame.mybatis.validate.UpdateGroup;
 import com.frame.user.entity.SysUser;
-import com.frame.user.enums.UserMsgResult;
 import com.frame.user.service.SysUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,57 +88,37 @@ public class SysUserController {
 
     @PostMapping("/save")
     public Object save(@Validated({SaveGroup.class, DefaultGroup.class}) SysUser bean) {
-        try {
-            sysUserService.save(bean);
-            return ResponseBean.success();
-        } catch (Exception e) {
-            log.error("save error. bean:{}", bean, e);
-            return ResponseBean.error(UserMsgResult.SYSTEM_ERROR);
-        }
+        sysUserService.save(bean);
+        return ResponseBean.success();
     }
 
     @PostMapping("/update/{id}")
     public Object update(@PathVariable("id") String id, @Validated({UpdateGroup.class, DefaultGroup.class}) SysUser bean) {
-        try {
-            SysUser entity = sysUserService.getById(id);
-            if (entity != null) {
-                entity.setUserNo(bean.getUserNo());
-                entity.setUsername(bean.getUsername());
-                entity.setRealname(bean.getRealname());
-                entity.setTypeCode(bean.getTypeCode());
-                entity.setPhoneNo(bean.getPhoneNo());
-                entity.setEmail(bean.getEmail());
-                entity.setDescription(bean.getDescription());
-                entity.setUserStatus(bean.getUserStatus());
-                entity.setStatus(bean.getStatus());
-                sysUserService.updateById(entity);
-            }
-            return ResponseBean.success();
-        } catch (Exception e) {
-            log.error("update error. id:{},bean:{}", id, bean, e);
-            return ResponseBean.error(UserMsgResult.SYSTEM_ERROR);
+        SysUser entity = sysUserService.getById(id);
+        if (entity != null) {
+            entity.setUserNo(bean.getUserNo());
+            entity.setUsername(bean.getUsername());
+            entity.setRealname(bean.getRealname());
+            entity.setTypeCode(bean.getTypeCode());
+            entity.setPhoneNo(bean.getPhoneNo());
+            entity.setEmail(bean.getEmail());
+            entity.setDescription(bean.getDescription());
+            entity.setUserStatus(bean.getUserStatus());
+            entity.setStatus(bean.getStatus());
+            sysUserService.updateById(entity);
         }
+        return ResponseBean.success();
     }
 
     @DeleteMapping("/delete/{id}")
     public Object delete(@PathVariable("id") String id) {
-        try {
-            sysUserService.deleteById(id);
-            return ResponseBean.success();
-        } catch (Exception e) {
-            log.error("delete error. id:{}", id, e);
-            return ResponseBean.error(UserMsgResult.SYSTEM_ERROR);
-        }
+        sysUserService.deleteById(id);
+        return ResponseBean.success();
     }
 
     @DeleteMapping("/delete")
     public Object delete(@RequestParam("ids[]") String[] ids) {
-        try {
-            sysUserService.deleteByIds(Arrays.asList(ids));
-            return ResponseBean.success();
-        } catch (Exception e) {
-            log.error("delete error. ids:{}", ids, e);
-            return ResponseBean.error(UserMsgResult.SYSTEM_ERROR);
-        }
+        sysUserService.deleteByIds(Arrays.asList(ids));
+        return ResponseBean.success();
     }
 }

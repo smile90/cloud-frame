@@ -1,7 +1,6 @@
 package com.frame.oauth.beans;
 
 import com.frame.common.frame.base.enums.UserStatus;
-import com.frame.user.entity.SysUser;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

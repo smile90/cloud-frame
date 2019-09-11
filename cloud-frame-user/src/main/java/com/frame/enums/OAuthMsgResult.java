@@ -1,13 +1,14 @@
-package com.frame.user.enums;
+package com.frame.enums;
 
 import com.frame.common.frame.base.interfaces.MsgResult;
-import com.frame.user.constant.SystemConstant;
+import com.frame.constant.SystemConstant;
 
 /**
  * 权限信息结果
  */
 public enum OAuthMsgResult implements MsgResult {
 
+    OAUTH_GET_USER_INF_ERROR(SystemConstant.SYSTEM_CODE + OAuthMsgResult.MODULE_CODE + "9997", "oauth get user info error", "获取用户信息错误"),
     OAUTH_REQUEST_ERROR(SystemConstant.SYSTEM_CODE + OAuthMsgResult.MODULE_CODE + "9998", "oauth request error", "权限请求错误"),
     OAUTH_ERROR(SystemConstant.SYSTEM_CODE + OAuthMsgResult.MODULE_CODE + "9999", "oauth error", "权限错误")
     ;

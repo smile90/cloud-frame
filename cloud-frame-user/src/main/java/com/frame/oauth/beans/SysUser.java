@@ -1,4 +1,4 @@
-package com.frame.user.entity;
+package com.frame.oauth.beans;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.frame.common.frame.base.enums.UserStatus;

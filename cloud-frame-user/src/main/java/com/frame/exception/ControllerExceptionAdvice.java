@@ -1,9 +1,8 @@
 package com.frame.exception;
 
 import com.frame.common.frame.base.bean.ResponseBean;
-import com.frame.common.frame.base.enums.SystemResut;
 import com.frame.common.frame.base.exception.BaseRuntimeException;
-import com.frame.user.enums.SystemMsgResult;
+import com.frame.enums.SystemMsgResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -14,8 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Controller异常处理

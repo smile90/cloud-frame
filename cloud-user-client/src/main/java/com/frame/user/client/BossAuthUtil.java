@@ -15,19 +15,19 @@ import javax.servlet.http.HttpServletRequest;
 public class BossAuthUtil {
 
 
-    public static String getUsername() {
+    public static String getUserId() {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         // 先从请求头取
         String bossAuthUser = request.getHeader(BossAuthConstant.BOSS_AUTH_USER_KEY);
         if (StringUtils.hasText(bossAuthUser) && !"null".equalsIgnoreCase(bossAuthUser)) {
             JSONObject user = JSONObject.parseObject(bossAuthUser, JSONObject.class);
-            return user.getString(BossAuthConstant.BOSS_USERNAME_KEY);
+            return user.getString(BossAuthConstant.BOSS_USER_ID_KEY);
         }
         // 再从请求参数中去
         bossAuthUser = request.getHeader(BossAuthConstant.BOSS_AUTH_USER_KEY);
         if (StringUtils.hasText(bossAuthUser) && !"null".equalsIgnoreCase(bossAuthUser)) {
             JSONObject user = JSONObject.parseObject(bossAuthUser, JSONObject.class);
-            return user.getString(BossAuthConstant.BOSS_USERNAME_KEY);
+            return user.getString(BossAuthConstant.BOSS_USER_ID_KEY);
         }
         return null;
     }

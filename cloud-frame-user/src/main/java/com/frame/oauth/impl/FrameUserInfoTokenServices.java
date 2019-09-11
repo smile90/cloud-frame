@@ -1,12 +1,10 @@
 package com.frame.oauth.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.frame.common.frame.base.bean.ResponseBean;
 import com.frame.oauth.ClientResources;
 import com.frame.oauth.service.UserService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.http.util.EntityUtils;
 
 import java.util.Collections;
 import java.util.Map;
@@ -29,7 +27,7 @@ public class FrameUserInfoTokenServices extends UserInfoTokenServices {
             if (!userInfoResult.getSuccess()) {
                 return Collections.singletonMap("error", userInfoResult.getShowMsg());
             } else {
-                return null;
+                return JSON.parseObject((String) userInfoResult.getContent(), Map.class);
             }
         } catch (Exception ex) {
             log.error("Could not fetch user details.", ex);

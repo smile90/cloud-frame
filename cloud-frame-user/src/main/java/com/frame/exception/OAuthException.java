@@ -1,4 +1,4 @@
-package com.frame.user.exception;
+package com.frame.exception;
 
 import com.frame.common.frame.base.exception.BaseRuntimeException;
 import com.frame.common.frame.base.interfaces.MsgResult;

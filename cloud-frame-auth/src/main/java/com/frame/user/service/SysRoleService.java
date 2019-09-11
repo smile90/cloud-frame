@@ -81,14 +81,14 @@ public class SysRoleService extends ServiceImpl<SysRoleMapper, SysRole> {
     @Override
     public boolean save(SysRole entity) {
         entity.setCreateTime(new Date());
-        entity.setCreateUser(BossAuthUtil.getUsername());
+        entity.setCreateUser(BossAuthUtil.getUserId());
         return super.save(entity);
     }
 
     @Override
     public boolean updateById(SysRole entity) {
         entity.setUpdateTime(new Date());
-        entity.setUpdateUser(BossAuthUtil.getUsername());
+        entity.setUpdateUser(BossAuthUtil.getUserId());
         return super.updateById(entity);
     }
 

@@ -1,7 +1,7 @@
-package com.frame.user.constant;
+package com.frame.constant;
 
 /**
- * 角色标识
+ * 系统常量
  * @author: duanchangqing90
  * @date: 2018/12/20
  */

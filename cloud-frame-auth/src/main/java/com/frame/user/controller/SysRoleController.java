@@ -73,54 +73,34 @@ public class SysRoleController {
 
     @PostMapping("/save")
     public Object save(@Validated({SaveGroup.class, DefaultGroup.class}) SysRole bean) {
-        try {
-            roleService.save(bean);
-            return ResponseBean.success();
-        } catch (Exception e) {
-            log.error("save error. bean:{}", bean, e);
-            return ResponseBean.error(UserMsgResult.SYSTEM_ERROR);
-        }
+        roleService.save(bean);
+        return ResponseBean.success();
     }
 
     @PostMapping("/update/{id}")
     public Object update(@PathVariable("id") String id, @Validated({UpdateGroup.class, DefaultGroup.class}) SysRole bean) {
-        try {
-            SysRole entity = roleService.getById(id);
-            if (entity != null) {
-                entity.setCode(bean.getCode());
-                entity.setTypeCode(bean.getTypeCode());
-                entity.setName(bean.getName());
-                entity.setUseable(bean.getUseable());
-                entity.setDescription(bean.getDescription());
-                entity.setStatus(bean.getStatus());
-                roleService.updateById(entity);
-            }
-            return ResponseBean.success();
-        } catch (Exception e) {
-            log.error("update error. id:{},bean:{}", id, bean, e);
-            return ResponseBean.error(UserMsgResult.SYSTEM_ERROR);
+        SysRole entity = roleService.getById(id);
+        if (entity != null) {
+            entity.setCode(bean.getCode());
+            entity.setTypeCode(bean.getTypeCode());
+            entity.setName(bean.getName());
+            entity.setUseable(bean.getUseable());
+            entity.setDescription(bean.getDescription());
+            entity.setStatus(bean.getStatus());
+            roleService.updateById(entity);
         }
+        return ResponseBean.success();
     }
 
     @DeleteMapping("/delete/{id}")
     public Object delete(@PathVariable("id") String id) {
-        try {
-            roleService.deleteById(id);
-            return ResponseBean.success();
-        } catch (Exception e) {
-            log.error("delete error. id:{}", id, e);
-            return ResponseBean.error(UserMsgResult.SYSTEM_ERROR);
-        }
+        roleService.deleteById(id);
+        return ResponseBean.success();
     }
 
     @DeleteMapping("/delete")
     public Object delete(@RequestParam("ids[]") String[] ids) {
-        try {
-            roleService.deleteByIds(Arrays.asList(ids));
-            return ResponseBean.success();
-        } catch (Exception e) {
-            log.error("delete error. ids:{}", ids, e);
-            return ResponseBean.error(UserMsgResult.SYSTEM_ERROR);
-        }
+        roleService.deleteByIds(Arrays.asList(ids));
+        return ResponseBean.success();
     }
 }

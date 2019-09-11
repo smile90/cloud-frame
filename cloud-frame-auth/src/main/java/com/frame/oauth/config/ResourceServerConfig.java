@@ -17,7 +17,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http
-            .antMatcher("/pub/**").authorizeRequests()
+            .antMatcher("/pub/oauth/**").authorizeRequests()
             .anyRequest().authenticated()
 
             .and()

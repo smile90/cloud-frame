@@ -2,10 +2,10 @@ package com.frame.oauth.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.frame.enums.OAuthMsgResult;
+import com.frame.exception.OAuthException;
 import com.frame.oauth.ClientResources;
 import com.frame.oauth.service.UserService;
-import com.frame.user.enums.OAuthMsgResult;
-import com.frame.user.exception.OAuthException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;

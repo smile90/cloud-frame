@@ -27,7 +27,10 @@ public enum AuthMsgResult implements MsgResult {
     PERMISSIONS_AUTH_ERROR(SystemConstant.SYSTEM_CODE + AuthMsgResult.MODULE_CODE + "2002", "permissions auth error", "权限校验错误"),
     NOT_SUPPORT_AUTH_ERROR(SystemConstant.SYSTEM_CODE + AuthMsgResult.MODULE_CODE + "2088", "auth not support error", "不支持的权限校验"),
     NOT_AUTH_ERROR(SystemConstant.SYSTEM_CODE + AuthMsgResult.MODULE_CODE + "2099", "not auth error", "无操作权限"),
-    AUTH_ERROR(SystemConstant.SYSTEM_CODE + AuthMsgResult.MODULE_CODE + "9999", "auth error", "权限错误")
+
+    GET_USER_ERROR(SystemConstant.SYSTEM_CODE + AuthMsgResult.MODULE_CODE + "3000", "user not exit", "获取用户错误"),
+
+    SYSTEM_ERROR(SystemConstant.SYSTEM_CODE + AuthMsgResult.MODULE_CODE + "9999", "system error", "系统错误")
     ;
 
     AuthMsgResult(String code, String msg, String showMsg) {

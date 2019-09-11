@@ -1,9 +1,11 @@
 package com.frame.oauth.service;
 
+import com.alibaba.fastjson.JSONObject;
+import com.frame.common.frame.base.bean.ResponseBean;
 import com.frame.common.frame.base.enums.UserStatus;
-import com.frame.common.frame.base.utils.EmptyUtil;
-import com.frame.user.entity.SysUser;
-import com.frame.user.service.SysUserService;
+import com.frame.oauth.beans.SysUser;
+import com.frame.remote.RemoteUserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -20,10 +22,11 @@ import java.util.Set;
  * @date: 2019/07/15
  */
 @Service
+@Slf4j
 public class DefaultUserService implements UserService {
 
     @Autowired
-    private SysUserService sysUserService;
+    private RemoteUserService remoteUserService;
 
     private Set<SimpleGrantedAuthority> defaultAuthorities = new HashSet<>();
     {
@@ -32,12 +35,15 @@ public class DefaultUserService implements UserService {
 
     @Override
     public Authentication findUser(String userSource, Object principal) {
-        SysUser user = sysUserService.findBySource(userSource, String.valueOf(principal));
-        if (user != null) {
-            Set<SimpleGrantedAuthority> authorities = new HashSet<>();
-            Set<String> permissions = sysUserService.getPermissions(user.getUsername());
-            if (EmptyUtil.notEmpty(permissions)) {
-                permissions.stream().forEach(s -> authorities.add(new SimpleGrantedAuthority(s)));
+        ResponseBean responseBean = remoteUserService.findBySource(userSource, String.valueOf(principal));
+        log.debug("find user. userSource:{},principal:{},response:{}", userSource, principal, responseBean);
+        if (responseBean.getSuccess()) {
+            JSONObject result = JSONObject.parseObject((String) responseBean.getContent());
+            if (result.getJSONArray("permissions") != null) {
+                Set<SimpleGrantedAuthority> authorities = new HashSet<>();
+                for (Object permission : result.getJSONArray("permissions")) {
+                    authorities.add(new SimpleGrantedAuthority((String) permission));
+                }
                 return new UsernamePasswordAuthenticationToken(principal, null, authorities);
             } else {
                 return new UsernamePasswordAuthenticationToken(principal, null, defaultAuthorities);
@@ -51,15 +57,11 @@ public class DefaultUserService implements UserService {
     public Authentication createUser(String userSource, Object principal, Map<String, Object> map) {
         SysUser user = new SysUser();
         user.setUserSource(userSource);
-        user.setSourceId(String.valueOf(principal));
-        user.setUsername(String.valueOf(principal));
-        user.setRealname(getName(map));
+        user.setSourceId((String) principal);
+        user.setUsername((String) principal);
+        user.setRealname((String) map.get("name"));
         user.setUserStatus(UserStatus.NORMAL);
-        sysUserService.save(user);
+        remoteUserService.save(user);
         return new UsernamePasswordAuthenticationToken(principal, null, defaultAuthorities);
-    }
-
-    private String getName(Map<String, Object> map) {
-        return (String) map.get("name");
     }
 }

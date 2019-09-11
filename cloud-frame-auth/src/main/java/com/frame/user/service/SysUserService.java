@@ -126,14 +126,14 @@ public class SysUserService extends ServiceImpl<SysUserMapper, SysUser> {
             entity.setPassword(userProperties.getDefaultPwd());
         }
         entity.setCreateTime(new Date());
-        entity.setCreateUser(BossAuthUtil.getUsername());
+        entity.setCreateUser(BossAuthUtil.getUserId());
         return super.save(entity);
     }
 
     @Override
     public boolean updateById(SysUser entity) {
         entity.setUpdateTime(new Date());
-        entity.setUpdateUser(BossAuthUtil.getUsername());
+        entity.setUpdateUser(BossAuthUtil.getUserId());
         return super.updateById(entity);
     }
 
@@ -142,7 +142,7 @@ public class SysUserService extends ServiceImpl<SysUserMapper, SysUser> {
         if (entity != null) {
             entity.setUserStatus(UserStatus.DELETED);
             entity.setUpdateTime(new Date());
-            entity.setUpdateUser(BossAuthUtil.getUsername());
+            entity.setUpdateUser(BossAuthUtil.getUserId());
         }
         return super.updateById(entity);
     }
@@ -153,7 +153,7 @@ public class SysUserService extends ServiceImpl<SysUserMapper, SysUser> {
             users.stream().forEach(entity -> {
                 entity.setUserStatus(UserStatus.DELETED);
                 entity.setUpdateTime(new Date());
-                entity.setUpdateUser(BossAuthUtil.getUsername());
+                entity.setUpdateUser(BossAuthUtil.getUserId());
             });
             updateBatchById(users);
         }
