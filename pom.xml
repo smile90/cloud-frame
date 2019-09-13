@@ -14,7 +14,8 @@
     <version>1.0.0</version>
 
     <modules>
-        <module>cloud-frame-user</module>
+        <module>cloud-frame-auth</module>
+        <module>cloud-frame-boss</module>
         <module>cloud-user-client</module>
         <module>cloud-frame-gateway</module>
     </modules>
