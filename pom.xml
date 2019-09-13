@@ -21,6 +21,7 @@
 
     <properties>
         <common-frame.version>1.0.0</common-frame.version>
+        <cloud-boot.version>1.0.0</cloud-boot.version>
         <cloud-frame.version>1.0.0</cloud-frame.version>
     </properties>
 
@@ -29,6 +30,11 @@
             <groupId>com.frame</groupId>
             <artifactId>common-frame-base</artifactId>
             <version>${common-frame.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.frame</groupId>
+            <artifactId>cloud-boot-Spring</artifactId>
+            <version>${cloud-boot.version}</version>
         </dependency>
         <dependency>
             <groupId>com.frame</groupId>

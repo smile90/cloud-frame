@@ -32,12 +32,6 @@ spring:
           - data-id: spring_management.yaml
             group: SPRING_GROUP
             refresh: true
-          - data-id: mybatis-plus.yaml
-            group: MYBATIS_GROUP
-            refresh: true
-          - data-id: mysql_sys_user.yaml
-            group: DS_GROUP
-            refresh: true
           - data-id: redis_auth.yaml
             group: REDIS_GROUP
             refresh: true

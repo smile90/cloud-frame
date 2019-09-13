@@ -1,13 +1,14 @@
-package com.frame.user.entity;
+package com.frame.oauth.beans;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.frame.boot.mybatis.entity.BaseModel;
-import com.frame.boot.spring.validate.impl.PhoneNo;
+import com.frame.common.frame.base.enums.DataStatus;
 import com.frame.common.frame.base.enums.UserStatus;
+import com.frame.boot.spring.validate.impl.PhoneNo;
 import lombok.Data;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 /**
  * 用户实体
@@ -15,7 +16,14 @@ import javax.validation.constraints.NotNull;
  * @date: 2018/12/14
  */
 @Data
-public class SysUser extends BaseModel {
+public class SysUser implements Serializable {
+
+    protected Long id;
+
+    protected Long optimistic = 0L;
+
+    protected String status = DataStatus.NORMAL.name();
+
     /*用户来源*/
     private String userSource;
     /*来源ID*/

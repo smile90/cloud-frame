@@ -17,7 +17,9 @@ import com.frame.user.mapper.SysUserMapper;
 import com.frame.user.properties.UserProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
@@ -30,6 +32,10 @@ public class SysUserService extends ServiceImpl<SysUserMapper, SysUser> {
 
     @Autowired
     private UserProperties userProperties;
+
+    @Autowired
+    @Qualifier("passwordEncoder")
+    private PasswordEncoder passwordEncoder;
     @Autowired
     private SysRoleService sysRoleService;
     @Autowired
@@ -123,7 +129,7 @@ public class SysUserService extends ServiceImpl<SysUserMapper, SysUser> {
     public boolean save(SysUser entity) {
         entity.setUserId(UUID.randomUUID().toString());
         if (EmptyUtil.isEmpty(entity.getPassword())) {
-            entity.setPassword(userProperties.getDefaultPwd());
+            entity.setPassword(passwordEncoder.encode(userProperties.getDefaultPwd()));
         }
         entity.setCreateTime(new Date());
         entity.setCreateUser(BossAuthUtil.getUserId());
