@@ -35,14 +35,11 @@ spring:
           - data-id: mybatis-plus.yaml
             group: MYBATIS_GROUP
             refresh: true
-          - data-id: mysql_sys_gateway.yaml
+          - data-id: mysql_invoice.yaml
             group: DS_GROUP
             refresh: true
-          - data-id: redis_gateway.yaml
+          - data-id: redis_invoice.yaml
             group: REDIS_GROUP
-            refresh: true
-          - data-id: gateway_rule.yaml
-            group: DEFAULT_GROUP
             refresh: true
     sentinel:
       eager: true

@@ -1,9 +1,5 @@
 server:
-  port: 20009
-  servlet:
-    session:
-      cookie:
-        name: GWSESSION
+  port: 20003
 
 info:
   name: @project.artifactId@
