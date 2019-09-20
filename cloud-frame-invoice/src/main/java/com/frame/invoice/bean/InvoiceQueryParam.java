@@ -2,6 +2,7 @@ package com.frame.invoice.bean;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
@@ -13,11 +14,13 @@ import java.io.Serializable;
 @Data
 public class InvoiceQueryParam implements Serializable {
 
-    @NotNull(message = "{queryParam.invoiceCode.notNull}")
+    @NotBlank(message = "{queryParam.invoiceCode.notNull}")
     private String invoiceCode;
-    @NotNull(message = "{queryParam.invoiceNo.notNull}")
+    @NotBlank(message = "{queryParam.invoiceNo.notNull}")
     private String invoiceNo;
-    @NotNull(message = "{queryParam.invoiceDate.notNull}")
+
+    /** 开票日期：yyyyMMdd */
+    @NotBlank(message = "{queryParam.invoiceDate.notNull}")
     private String invoiceDate;
     @NotNull(message = "{queryParam.noTaxAmount.notNull}")
     private Double noTaxAmount;

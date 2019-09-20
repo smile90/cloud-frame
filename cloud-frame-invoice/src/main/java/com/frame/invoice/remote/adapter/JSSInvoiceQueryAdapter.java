@@ -9,6 +9,9 @@ import com.frame.invoice.bean.InvoiceQueryParam;
 import com.frame.invoice.entity.InvoiceDetail;
 import com.frame.invoice.entity.InvoiceInfo;
 import com.frame.invoice.remote.InvoiceQueryAdapter;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.time.DateUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -25,6 +28,7 @@ import java.util.List;
  * @author: duanchangqing90
  * @date: 2019/9/17
  */
+@Slf4j
 @Service("JSSInvoiceQueryAdapter")
 public class JSSInvoiceQueryAdapter implements InvoiceQueryAdapter {
 
@@ -32,10 +36,18 @@ public class JSSInvoiceQueryAdapter implements InvoiceQueryAdapter {
 
     @Override
     public ResponseBean<JSONObject> query(InvoiceQueryParam param) {
+        String invoiceDate = null;
+        try {
+            invoiceDate = DateFormatUtils.format(DateUtils.parseDate(param.getInvoiceDate(), "yyyyMMdd"), "yyyy-MM-dd");
+        } catch (Exception e) {
+            log.error("date format error. param:{}", param, e);
+            throw new RuntimeException(e);
+        }
+
         MultiValueMap<String, String> paramMap = new LinkedMultiValueMap<>();
         paramMap.add("invoiceCode", param.getInvoiceCode());
         paramMap.add("invoiceNum", param.getInvoiceNo());
-        paramMap.add("invoiceDate", param.getInvoiceDate());
+        paramMap.add("invoiceDate", invoiceDate);
         paramMap.add("termCode", String.valueOf(param.getNoTaxAmount()));
 
         RestTemplate client = new RestTemplate();
@@ -48,7 +60,7 @@ public class JSSInvoiceQueryAdapter implements InvoiceQueryAdapter {
         if ("1000".equalsIgnoreCase(result.getString("code"))) {
             return ResponseBean.successContent(result);
         } else {
-            return ResponseBean.successContent(result);
+            return ResponseBean.errorContent(result);
         }
     }
 
