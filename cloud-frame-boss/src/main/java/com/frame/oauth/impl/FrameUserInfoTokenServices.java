@@ -1,7 +1,7 @@
 package com.frame.oauth.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.frame.common.frame.base.bean.ResponseBean;
+import com.frame.boot.base.bean.ResponseBean;
 import com.frame.oauth.ClientResources;
 import com.frame.oauth.service.UserService;
 import lombok.extern.slf4j.Slf4j;

@@ -2,8 +2,8 @@ package com.frame.oauth.service;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.frame.common.frame.base.bean.ResponseBean;
-import com.frame.common.frame.base.enums.UserStatus;
+import com.frame.boot.base.bean.ResponseBean;
+import com.frame.boot.base.enums.UserStatus;
 import com.frame.oauth.exception.OAuthException;
 import com.frame.oauth.beans.SysUser;
 import com.frame.remote.RemoteUserService;

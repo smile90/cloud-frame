@@ -1,6 +1,6 @@
 package com.frame.oauth.impl;
 
-import com.frame.common.frame.base.utils.EmptyUtil;
+import com.frame.boot.base.utils.EmptyUtil;
 import com.frame.oauth.ClientResources;
 import com.frame.oauth.service.OAuthAuthoritiesExtractor;
 import com.frame.oauth.service.OAuthPrincipalExtractor;

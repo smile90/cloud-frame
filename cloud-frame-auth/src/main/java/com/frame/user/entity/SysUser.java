@@ -3,7 +3,7 @@ package com.frame.user.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.frame.boot.mybatis.entity.BaseModel;
 import com.frame.boot.spring.validate.impl.PhoneNo;
-import com.frame.common.frame.base.enums.UserStatus;
+import com.frame.boot.base.enums.UserStatus;
 import lombok.Data;
 
 import javax.validation.constraints.Email;

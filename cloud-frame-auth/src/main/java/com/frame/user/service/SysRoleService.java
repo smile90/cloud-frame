@@ -2,7 +2,7 @@ package com.frame.user.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.frame.common.frame.base.enums.YesNo;
+import com.frame.boot.base.enums.YesNo;
 import com.frame.user.client.BossAuthUtil;
 import com.frame.user.entity.SysRole;
 import com.frame.user.entity.SysRoleModule;

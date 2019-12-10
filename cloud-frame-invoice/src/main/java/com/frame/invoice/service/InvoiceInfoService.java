@@ -2,7 +2,7 @@ package com.frame.invoice.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.frame.common.frame.base.utils.EmptyUtil;
+import com.frame.boot.base.utils.EmptyUtil;
 import com.frame.invoice.entity.InvoiceDetail;
 import com.frame.invoice.entity.InvoiceInfo;
 import com.frame.invoice.mapper.InvoiceInfoMapper;

@@ -1,7 +1,7 @@
 package com.frame.user.exception;
 
-import com.frame.common.frame.base.exception.BaseRuntimeException;
-import com.frame.common.frame.base.interfaces.MsgResult;
+import com.frame.boot.base.exception.BaseRuntimeException;
+import com.frame.boot.base.interfaces.MsgResult;
 
 /**
  * 权限配置异常

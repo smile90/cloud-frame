@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.frame.boot.mybatis.search.SearchBuilder;
 import com.frame.boot.mybatis.search.SearchType;
 import com.frame.boot.mybatis.search.ValueType;
-import com.frame.common.frame.base.bean.ResponseBean;
+import com.frame.boot.base.bean.ResponseBean;
 import com.frame.invoice.bean.InvoiceQueryParam;
 import com.frame.invoice.entity.InvoiceInfo;
 import com.frame.invoice.service.InvoiceInfoService;

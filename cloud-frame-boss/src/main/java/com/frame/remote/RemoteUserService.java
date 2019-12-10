@@ -1,6 +1,6 @@
 package com.frame.remote;
 
-import com.frame.common.frame.base.bean.ResponseBean;
+import com.frame.boot.base.bean.ResponseBean;
 import com.frame.oauth.beans.SysUser;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;

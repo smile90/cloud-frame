@@ -21,35 +21,26 @@
     </modules>
 
     <properties>
-        <common-frame.version>1.0.0</common-frame.version>
-        <cloud-boot.version>1.0.0</cloud-boot.version>
+        <boot-base.version>1.0.0</boot-base.version>
+        <boot-spring.version>1.0.0</boot-spring.version>
         <cloud-frame.version>1.0.0</cloud-frame.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>com.frame</groupId>
-            <artifactId>common-frame-base</artifactId>
-            <version>${common-frame.version}</version>
+            <artifactId>boot-base</artifactId>
+            <version>${boot-base.version}</version>
         </dependency>
         <dependency>
             <groupId>com.frame</groupId>
-            <artifactId>cloud-boot-Spring</artifactId>
-            <version>${cloud-boot.version}</version>
+            <artifactId>boot-spring</artifactId>
+            <version>${boot-spring.version}</version>
         </dependency>
         <dependency>
             <groupId>com.frame</groupId>
             <artifactId>cloud-user-client</artifactId>
             <version>${cloud-frame.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
         </dependency>
 
         <!-- tag::spring cloud base dependency -->

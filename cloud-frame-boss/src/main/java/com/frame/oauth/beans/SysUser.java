@@ -1,8 +1,8 @@
 package com.frame.oauth.beans;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.frame.common.frame.base.enums.DataStatus;
-import com.frame.common.frame.base.enums.UserStatus;
+import com.frame.boot.base.enums.DataStatus;
+import com.frame.boot.base.enums.UserStatus;
 import com.frame.boot.spring.validate.impl.PhoneNo;
 import lombok.Data;
 

@@ -13,8 +13,8 @@
     <packaging>jar</packaging>
 
     <properties>
-        <cloud-boot-redis.version>1.0.0</cloud-boot-redis.version>
-        <cloud-boot-mybatis.version>1.0.0</cloud-boot-mybatis.version>
+        <boot-redis.version>1.0.0</boot-redis.version>
+        <boot-mybatis.version>1.0.0</boot-mybatis.version>
 
         <jwt.version>3.4.0</jwt.version>
     </properties>
@@ -23,13 +23,13 @@
         <!-- tag::dependency-cloud-frame -->
         <dependency>
             <groupId>com.frame</groupId>
-            <artifactId>cloud-boot-redis</artifactId>
-            <version>${cloud-boot-redis.version}</version>
+            <artifactId>boot-redis</artifactId>
+            <version>${boot-redis.version}</version>
         </dependency>
         <dependency>
             <groupId>com.frame</groupId>
-            <artifactId>cloud-boot-mybatis</artifactId>
-            <version>${cloud-boot-mybatis.version}</version>
+            <artifactId>boot-mybatis</artifactId>
+            <version>${boot-mybatis.version}</version>
         </dependency>
         <!-- end::dependency-cloud-frame -->
 

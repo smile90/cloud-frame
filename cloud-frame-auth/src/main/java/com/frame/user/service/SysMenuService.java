@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.frame.common.frame.base.enums.YesNo;
+import com.frame.boot.base.enums.YesNo;
 import com.frame.user.constant.ModuleKeyConstant;
 import com.frame.user.entity.SysMenu;
 import com.frame.user.entity.SysMenuModule;

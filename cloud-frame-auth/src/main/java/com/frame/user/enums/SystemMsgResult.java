@@ -1,6 +1,6 @@
 package com.frame.user.enums;
 
-import com.frame.common.frame.base.interfaces.MsgResult;
+import com.frame.boot.base.interfaces.MsgResult;
 import com.frame.user.constant.SystemConstant;
 
 /**

@@ -1,7 +1,7 @@
 package com.frame.user.controller;
 
-import com.frame.common.frame.base.bean.ResponseBean;
-import com.frame.common.frame.base.enums.YesNo;
+import com.frame.boot.base.bean.ResponseBean;
+import com.frame.boot.base.enums.YesNo;
 import com.frame.user.client.BossAuthUtil;
 import com.frame.user.enums.AuthMsgResult;
 import com.frame.user.service.SysMenuService;

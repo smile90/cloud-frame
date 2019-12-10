@@ -1,9 +1,7 @@
 package com.frame.invoice.remote.adapter;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.frame.common.frame.base.bean.ResponseBean;
+import com.frame.boot.base.bean.ResponseBean;
 import com.frame.invoice.bean.InvoiceBean;
 import com.frame.invoice.bean.InvoiceQueryParam;
 import com.frame.invoice.entity.InvoiceDetail;

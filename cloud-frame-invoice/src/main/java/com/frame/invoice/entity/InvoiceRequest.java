@@ -1,7 +1,7 @@
 package com.frame.invoice.entity;
 
 import com.frame.boot.mybatis.entity.BaseModel;
-import com.frame.common.frame.base.enums.SuccessFail;
+import com.frame.boot.base.enums.SuccessFail;
 import lombok.Data;
 
 @Data

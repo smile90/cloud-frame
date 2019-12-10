@@ -23,12 +23,12 @@
         <!-- tag::dependency-cloud-frame -->
         <dependency>
             <groupId>com.frame</groupId>
-            <artifactId>cloud-boot-redis</artifactId>
+            <artifactId>boot-redis</artifactId>
             <version>${cloud-boot-redis.version}</version>
         </dependency>
         <dependency>
             <groupId>com.frame</groupId>
-            <artifactId>cloud-boot-mybatis</artifactId>
+            <artifactId>boot-mybatis</artifactId>
             <version>${cloud-boot-mybatis.version}</version>
         </dependency>
         <!-- end::dependency-cloud-frame -->

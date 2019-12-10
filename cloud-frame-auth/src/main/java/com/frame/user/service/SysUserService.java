@@ -2,10 +2,10 @@ package com.frame.user.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.frame.common.frame.base.enums.DataStatus;
-import com.frame.common.frame.base.enums.UserStatus;
-import com.frame.common.frame.base.enums.YesNo;
-import com.frame.common.frame.base.utils.EmptyUtil;
+import com.frame.boot.base.enums.DataStatus;
+import com.frame.boot.base.enums.UserStatus;
+import com.frame.boot.base.enums.YesNo;
+import com.frame.boot.base.utils.EmptyUtil;
 import com.frame.user.client.BossAuthUtil;
 import com.frame.user.entity.SysFunction;
 import com.frame.user.entity.SysModule;

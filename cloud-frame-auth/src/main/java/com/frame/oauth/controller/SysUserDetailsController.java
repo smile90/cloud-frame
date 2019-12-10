@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.frame.boot.spring.validate.DefaultGroup;
 import com.frame.boot.spring.validate.SaveGroup;
-import com.frame.common.frame.base.bean.ResponseBean;
+import com.frame.boot.base.bean.ResponseBean;
 import com.frame.user.constant.AuthConstant;
 import com.frame.user.entity.SysUser;
 import com.frame.user.enums.AuthMsgResult;

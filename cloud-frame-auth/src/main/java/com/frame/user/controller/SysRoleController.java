@@ -8,7 +8,7 @@ import com.frame.boot.mybatis.search.ValueType;
 import com.frame.boot.spring.validate.DefaultGroup;
 import com.frame.boot.spring.validate.SaveGroup;
 import com.frame.boot.spring.validate.UpdateGroup;
-import com.frame.common.frame.base.bean.ResponseBean;
+import com.frame.boot.base.bean.ResponseBean;
 import com.frame.user.entity.SysRole;
 import com.frame.user.service.SysRoleService;
 import lombok.extern.slf4j.Slf4j;
