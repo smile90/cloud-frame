@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.activity.InvoiceDetailMapper">
+  <resultMap id="BaseResultMap" type="com.frame.invoice.entity.InvoiceDetail">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="OPTIMISTIC" jdbcType="BIGINT" property="optimistic" />
+    <result column="INVOICE_NO" jdbcType="VARCHAR" property="invoiceNo" />
+    <result column="INVOICE_CODE" jdbcType="VARCHAR" property="invoiceCode" />
+    <result column="GOODS_NAME" jdbcType="VARCHAR" property="goodsName" />
+    <result column="SPECIFICATIONS" jdbcType="VARCHAR" property="specifications" />
+    <result column="UNITS" jdbcType="VARCHAR" property="units" />
+    <result column="GOODS_SUM" jdbcType="DECIMAL" property="goodsSum" />
+    <result column="GOODS_PRICE" jdbcType="DECIMAL" property="goodsPrice" />
+    <result column="NO_TAX_AMOUNT" jdbcType="DECIMAL" property="noTaxAmount" />
+    <result column="TAX_RATE" jdbcType="DECIMAL" property="taxRate" />
+    <result column="TAX_AMOUNT" jdbcType="DECIMAL" property="taxAmount" />
+    <result column="ORDERS" jdbcType="INTEGER" property="orders" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
+    <result column="CREATE_USER" jdbcType="VARCHAR" property="createUser" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_USER" jdbcType="VARCHAR" property="updateUser" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, OPTIMISTIC, INVOICE_NO, INVOICE_CODE, GOODS_NAME, SPECIFICATIONS, UNITS, GOODS_SUM, 
+    GOODS_PRICE, NO_TAX_AMOUNT, TAX_RATE, TAX_AMOUNT, ORDERS, STATUS, DESCRIPTION, CREATE_USER, 
+    CREATE_TIME, UPDATE_USER, UPDATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from invoice_detail
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from invoice_detail
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.frame.invoice.entity.InvoiceDetail">
+    insert into invoice_detail (ID, OPTIMISTIC, INVOICE_NO, 
+      INVOICE_CODE, GOODS_NAME, SPECIFICATIONS, 
+      UNITS, GOODS_SUM, GOODS_PRICE, 
+      NO_TAX_AMOUNT, TAX_RATE, TAX_AMOUNT, 
+      ORDERS, STATUS, DESCRIPTION, 
+      CREATE_USER, CREATE_TIME, UPDATE_USER, 
+      UPDATE_TIME)
+    values (#{id,jdbcType=BIGINT}, #{optimistic,jdbcType=BIGINT}, #{invoiceNo,jdbcType=VARCHAR}, 
+      #{invoiceCode,jdbcType=VARCHAR}, #{goodsName,jdbcType=VARCHAR}, #{specifications,jdbcType=VARCHAR}, 
+      #{units,jdbcType=VARCHAR}, #{goodsSum,jdbcType=DECIMAL}, #{goodsPrice,jdbcType=DECIMAL}, 
+      #{noTaxAmount,jdbcType=DECIMAL}, #{taxRate,jdbcType=DECIMAL}, #{taxAmount,jdbcType=DECIMAL}, 
+      #{orders,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.frame.invoice.entity.InvoiceDetail">
+    insert into invoice_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="optimistic != null">
+        OPTIMISTIC,
+      </if>
+      <if test="invoiceNo != null">
+        INVOICE_NO,
+      </if>
+      <if test="invoiceCode != null">
+        INVOICE_CODE,
+      </if>
+      <if test="goodsName != null">
+        GOODS_NAME,
+      </if>
+      <if test="specifications != null">
+        SPECIFICATIONS,
+      </if>
+      <if test="units != null">
+        UNITS,
+      </if>
+      <if test="goodsSum != null">
+        GOODS_SUM,
+      </if>
+      <if test="goodsPrice != null">
+        GOODS_PRICE,
+      </if>
+      <if test="noTaxAmount != null">
+        NO_TAX_AMOUNT,
+      </if>
+      <if test="taxRate != null">
+        TAX_RATE,
+      </if>
+      <if test="taxAmount != null">
+        TAX_AMOUNT,
+      </if>
+      <if test="orders != null">
+        ORDERS,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="description != null">
+        DESCRIPTION,
+      </if>
+      <if test="createUser != null">
+        CREATE_USER,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="updateUser != null">
+        UPDATE_USER,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="optimistic != null">
+        #{optimistic,jdbcType=BIGINT},
+      </if>
+      <if test="invoiceNo != null">
+        #{invoiceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceCode != null">
+        #{invoiceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null">
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="specifications != null">
+        #{specifications,jdbcType=VARCHAR},
+      </if>
+      <if test="units != null">
+        #{units,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsSum != null">
+        #{goodsSum,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsPrice != null">
+        #{goodsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="noTaxAmount != null">
+        #{noTaxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="taxRate != null">
+        #{taxRate,jdbcType=DECIMAL},
+      </if>
+      <if test="taxAmount != null">
+        #{taxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="orders != null">
+        #{orders,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.frame.invoice.entity.InvoiceDetail">
+    update invoice_detail
+    <set>
+      <if test="optimistic != null">
+        OPTIMISTIC = #{optimistic,jdbcType=BIGINT},
+      </if>
+      <if test="invoiceNo != null">
+        INVOICE_NO = #{invoiceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceCode != null">
+        INVOICE_CODE = #{invoiceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null">
+        GOODS_NAME = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="specifications != null">
+        SPECIFICATIONS = #{specifications,jdbcType=VARCHAR},
+      </if>
+      <if test="units != null">
+        UNITS = #{units,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsSum != null">
+        GOODS_SUM = #{goodsSum,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsPrice != null">
+        GOODS_PRICE = #{goodsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="noTaxAmount != null">
+        NO_TAX_AMOUNT = #{noTaxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="taxRate != null">
+        TAX_RATE = #{taxRate,jdbcType=DECIMAL},
+      </if>
+      <if test="taxAmount != null">
+        TAX_AMOUNT = #{taxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="orders != null">
+        ORDERS = #{orders,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.frame.invoice.entity.InvoiceDetail">
+    update invoice_detail
+    set OPTIMISTIC = #{optimistic,jdbcType=BIGINT},
+      INVOICE_NO = #{invoiceNo,jdbcType=VARCHAR},
+      INVOICE_CODE = #{invoiceCode,jdbcType=VARCHAR},
+      GOODS_NAME = #{goodsName,jdbcType=VARCHAR},
+      SPECIFICATIONS = #{specifications,jdbcType=VARCHAR},
+      UNITS = #{units,jdbcType=VARCHAR},
+      GOODS_SUM = #{goodsSum,jdbcType=DECIMAL},
+      GOODS_PRICE = #{goodsPrice,jdbcType=DECIMAL},
+      NO_TAX_AMOUNT = #{noTaxAmount,jdbcType=DECIMAL},
+      TAX_RATE = #{taxRate,jdbcType=DECIMAL},
+      TAX_AMOUNT = #{taxAmount,jdbcType=DECIMAL},
+      ORDERS = #{orders,jdbcType=INTEGER},
+      STATUS = #{status,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <resultMap id="BaseResultMap" type="com.pay.AgentService.activity.model.InvoiceDetail">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="OPTIMISTIC" jdbcType="BIGINT" property="optimistic" />
+    <result column="INVOICE_NO" jdbcType="VARCHAR" property="invoiceNo" />
+    <result column="INVOICE_CODE" jdbcType="VARCHAR" property="invoiceCode" />
+    <result column="GOODS_NAME" jdbcType="VARCHAR" property="goodsName" />
+    <result column="SPECIFICATIONS" jdbcType="VARCHAR" property="specifications" />
+    <result column="UNITS" jdbcType="VARCHAR" property="units" />
+    <result column="GOODS_SUM" jdbcType="DECIMAL" property="goodsSum" />
+    <result column="GOODS_PRICE" jdbcType="DECIMAL" property="goodsPrice" />
+    <result column="NO_TAX_AMOUNT" jdbcType="DECIMAL" property="noTaxAmount" />
+    <result column="TAX_RATE" jdbcType="DECIMAL" property="taxRate" />
+    <result column="TAX_AMOUNT" jdbcType="DECIMAL" property="taxAmount" />
+    <result column="ORDERS" jdbcType="INTEGER" property="orders" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
+    <result column="CREATE_USER" jdbcType="VARCHAR" property="createUser" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_USER" jdbcType="VARCHAR" property="updateUser" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, OPTIMISTIC, INVOICE_NO, INVOICE_CODE, GOODS_NAME, SPECIFICATIONS, UNITS, GOODS_SUM, 
+    GOODS_PRICE, NO_TAX_AMOUNT, TAX_RATE, TAX_AMOUNT, ORDERS, STATUS, DESCRIPTION, CREATE_USER, 
+    CREATE_TIME, UPDATE_USER, UPDATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from invoice_detail
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from invoice_detail
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.pay.AgentService.activity.model.InvoiceDetail">
+    insert into invoice_detail (ID, OPTIMISTIC, INVOICE_NO, 
+      INVOICE_CODE, GOODS_NAME, SPECIFICATIONS, 
+      UNITS, GOODS_SUM, GOODS_PRICE, 
+      NO_TAX_AMOUNT, TAX_RATE, TAX_AMOUNT, 
+      ORDERS, STATUS, DESCRIPTION, 
+      CREATE_USER, CREATE_TIME, UPDATE_USER, 
+      UPDATE_TIME)
+    values (#{id,jdbcType=BIGINT}, #{optimistic,jdbcType=BIGINT}, #{invoiceNo,jdbcType=VARCHAR}, 
+      #{invoiceCode,jdbcType=VARCHAR}, #{goodsName,jdbcType=VARCHAR}, #{specifications,jdbcType=VARCHAR}, 
+      #{units,jdbcType=VARCHAR}, #{goodsSum,jdbcType=DECIMAL}, #{goodsPrice,jdbcType=DECIMAL}, 
+      #{noTaxAmount,jdbcType=DECIMAL}, #{taxRate,jdbcType=DECIMAL}, #{taxAmount,jdbcType=DECIMAL}, 
+      #{orders,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pay.AgentService.activity.model.InvoiceDetail">
+    insert into invoice_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="optimistic != null">
+        OPTIMISTIC,
+      </if>
+      <if test="invoiceNo != null">
+        INVOICE_NO,
+      </if>
+      <if test="invoiceCode != null">
+        INVOICE_CODE,
+      </if>
+      <if test="goodsName != null">
+        GOODS_NAME,
+      </if>
+      <if test="specifications != null">
+        SPECIFICATIONS,
+      </if>
+      <if test="units != null">
+        UNITS,
+      </if>
+      <if test="goodsSum != null">
+        GOODS_SUM,
+      </if>
+      <if test="goodsPrice != null">
+        GOODS_PRICE,
+      </if>
+      <if test="noTaxAmount != null">
+        NO_TAX_AMOUNT,
+      </if>
+      <if test="taxRate != null">
+        TAX_RATE,
+      </if>
+      <if test="taxAmount != null">
+        TAX_AMOUNT,
+      </if>
+      <if test="orders != null">
+        ORDERS,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="description != null">
+        DESCRIPTION,
+      </if>
+      <if test="createUser != null">
+        CREATE_USER,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="updateUser != null">
+        UPDATE_USER,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="optimistic != null">
+        #{optimistic,jdbcType=BIGINT},
+      </if>
+      <if test="invoiceNo != null">
+        #{invoiceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceCode != null">
+        #{invoiceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null">
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="specifications != null">
+        #{specifications,jdbcType=VARCHAR},
+      </if>
+      <if test="units != null">
+        #{units,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsSum != null">
+        #{goodsSum,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsPrice != null">
+        #{goodsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="noTaxAmount != null">
+        #{noTaxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="taxRate != null">
+        #{taxRate,jdbcType=DECIMAL},
+      </if>
+      <if test="taxAmount != null">
+        #{taxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="orders != null">
+        #{orders,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pay.AgentService.activity.model.InvoiceDetail">
+    update invoice_detail
+    <set>
+      <if test="optimistic != null">
+        OPTIMISTIC = #{optimistic,jdbcType=BIGINT},
+      </if>
+      <if test="invoiceNo != null">
+        INVOICE_NO = #{invoiceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceCode != null">
+        INVOICE_CODE = #{invoiceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null">
+        GOODS_NAME = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="specifications != null">
+        SPECIFICATIONS = #{specifications,jdbcType=VARCHAR},
+      </if>
+      <if test="units != null">
+        UNITS = #{units,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsSum != null">
+        GOODS_SUM = #{goodsSum,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsPrice != null">
+        GOODS_PRICE = #{goodsPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="noTaxAmount != null">
+        NO_TAX_AMOUNT = #{noTaxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="taxRate != null">
+        TAX_RATE = #{taxRate,jdbcType=DECIMAL},
+      </if>
+      <if test="taxAmount != null">
+        TAX_AMOUNT = #{taxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="orders != null">
+        ORDERS = #{orders,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pay.AgentService.activity.model.InvoiceDetail">
+    update invoice_detail
+    set OPTIMISTIC = #{optimistic,jdbcType=BIGINT},
+      INVOICE_NO = #{invoiceNo,jdbcType=VARCHAR},
+      INVOICE_CODE = #{invoiceCode,jdbcType=VARCHAR},
+      GOODS_NAME = #{goodsName,jdbcType=VARCHAR},
+      SPECIFICATIONS = #{specifications,jdbcType=VARCHAR},
+      UNITS = #{units,jdbcType=VARCHAR},
+      GOODS_SUM = #{goodsSum,jdbcType=DECIMAL},
+      GOODS_PRICE = #{goodsPrice,jdbcType=DECIMAL},
+      NO_TAX_AMOUNT = #{noTaxAmount,jdbcType=DECIMAL},
+      TAX_RATE = #{taxRate,jdbcType=DECIMAL},
+      TAX_AMOUNT = #{taxAmount,jdbcType=DECIMAL},
+      ORDERS = #{orders,jdbcType=INTEGER},
+      STATUS = #{status,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

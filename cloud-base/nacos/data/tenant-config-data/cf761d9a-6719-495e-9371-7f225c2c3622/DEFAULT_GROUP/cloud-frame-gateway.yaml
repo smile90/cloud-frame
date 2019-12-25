@@ -1,0 +1,9 @@
+zuul:
+  sensitive-headers: "*"
+  ignored-services:
+  routes:
+    cloud-frame-user:
+      path: /user/**
+      serviceId: cloud-frame-user
+  host:
+    socket-timeout-millis: 60000

@@ -1,0 +1,37 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.frame</groupId>
+		<artifactId>boot-parent</artifactId>
+        <version>2.0.0</version>
+    </parent>
+
+    <artifactId>cloud-base</artifactId>
+    <name>Spring Cloud基础服务-父包</name>
+    <packaging>pom</packaging>
+    <version>2.0.0</version>
+
+    <modules>
+        <module>cloud-boot-admin</module>
+    </modules>
+
+
+    <dependencies>
+        <!-- tag::spring cloud base dependency -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
+        <!-- tag::spring cloud base dependency -->
+    </dependencies>
+</project>

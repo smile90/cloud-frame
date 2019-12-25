@@ -1,0 +1,24 @@
+custom:
+  nacos:
+    server-addr: 127.0.0.1:1000
+    namespace: 41acf28f-1341-4614-8826-8354d4b5269b
+  sentinel:
+    server-addr: 127.0.0.1:2000
+
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${custom.nacos.server-addr}
+        namespace: ${custom.nacos.namespace}
+      config:
+        server-addr: ${custom.nacos.server-addr}
+        namespace: ${custom.nacos.namespace}
+    sentinel:
+      transport:
+        dashboard: ${custom.sentinel.server-addr}
+      datasource:
+        ds-nacos:
+          nacos:
+            server-addr: ${custom.nacos.server-addr}
+            namespace: ${custom.nacos.namespace}

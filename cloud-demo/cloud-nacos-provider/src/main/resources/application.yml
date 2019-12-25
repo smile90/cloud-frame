@@ -1,0 +1,7 @@
+server:
+  port: 10080
+
+info:
+  name: @project.artifactId@
+  version: @project.version@
+  description: @project.description@

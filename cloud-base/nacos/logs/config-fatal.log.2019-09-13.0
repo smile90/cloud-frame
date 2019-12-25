@@ -1,0 +1,6 @@
+2019-09-13 10:04:27,105 WARN [master-db] jdbc:mysql://10.10.111.129:3306/nacos_config?useUnicode=true&characterEncoding=UTF-8&useSSL=true
+
+2019-09-13 10:04:28,377 WARN useAddressServer:true
+
+2019-09-13 10:04:28,520 WARN isQuickStart:false
+

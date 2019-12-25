@@ -1,0 +1,65 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.frame</groupId>
+        <artifactId>boot-parent</artifactId>
+        <version>2.0.0</version>
+        <relativePath>../../boot-parent/pom.xml</relativePath>
+    </parent>
+
+    <groupId>com.frame</groupId>
+    <artifactId>boot-common</artifactId>
+    <name>Spring Boot公共服务-父包</name>
+    <version>2.0.0</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>boot-base</module>
+        <module>boot-spring</module>
+        <module>boot-mybatis</module>
+        <module>boot-redis</module>
+    </modules>
+
+    <dependencies>
+        <!-- tag::spring base dependency -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-logging</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-sleuth</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <!-- end::spring base dependency -->
+
+        <!-- tag::dependency-boot-admin-client -->
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
+        </dependency>
+        <!-- end::dependency-boot-admin-client -->
+
+        <!-- tag::dependency-test -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- end::dependency-test -->
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

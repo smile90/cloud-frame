@@ -1,0 +1,1 @@
+java -Dserver.port=12090 -Dcsp.sentinel.dashboard.server=10.10.128.14:12090 -Dproject.name=sentinel -jar sentinel.jar

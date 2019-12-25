@@ -1,0 +1,9 @@
+spring:
+  # session 使用 redis 管理
+  session:
+    store-type: redis
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    serialization:
+      indent_output: true

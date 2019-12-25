@@ -1,0 +1,23 @@
+custom:
+  nacos:
+    server-addr: 10.10.128.36:12080,10.10.128.76:12080
+    namespace: cf761d9a-6719-495e-9371-7f225c2c3622
+
+spring:
+  jmx:
+    default-domain: @project.artifactId@
+  application:
+    name: @project.artifactId@
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${custom.nacos.server-addr}
+        namespace: ${custom.nacos.namespace}
+      config:
+        file-extension: yaml
+        server-addr: ${custom.nacos.server-addr}
+        namespace: ${custom.nacos.namespace}
+
+feign:
+  sentinel:
+    enabled: true

@@ -1,0 +1,40 @@
+2019-09-13 10:06:25,535 INFO DEFAULT_GROUP@@cloud-frame-auth {SYNC} {IP-NEW} cluster: DEFAULT, new ips size: 1, content: [172.28.5.12:20002:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-13 10:06:25,537 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-auth, ips: 172.28.5.12:20002_true,
+
+2019-09-13 10:21:19,407 INFO DEFAULT_GROUP@@cloud-frame-auth {SYNC} {IP-DEAD} cluster: DEFAULT, dead ips size: 1, content: [172.28.5.12:20002:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-13 10:21:19,407 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-auth, ips: 
+
+2019-09-13 10:25:21,545 INFO DEFAULT_GROUP@@cloud-frame-auth {SYNC} {IP-NEW} cluster: DEFAULT, new ips size: 1, content: [172.28.5.12:20002:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-13 10:25:21,546 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-auth, ips: 172.28.5.12:20002_true,
+
+2019-09-13 10:25:28,759 INFO DEFAULT_GROUP@@cloud-frame-boss {SYNC} {IP-NEW} cluster: DEFAULT, new ips size: 1, content: [172.28.5.12:20001:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-13 10:25:28,760 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-boss, ips: 172.28.5.12:20001_true,
+
+2019-09-13 10:47:48,338 INFO DEFAULT_GROUP@@cloud-frame-auth {SYNC} {IP-DEAD} cluster: DEFAULT, dead ips size: 1, content: [172.28.5.12:20002:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-13 10:47:48,339 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-auth, ips: 
+
+2019-09-13 10:48:04,518 INFO DEFAULT_GROUP@@cloud-frame-boss {SYNC} {IP-DEAD} cluster: DEFAULT, dead ips size: 1, content: [172.28.5.12:20001:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-13 10:48:04,518 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-boss, ips: 
+
+2019-09-13 10:48:14,598 INFO DEFAULT_GROUP@@cloud-frame-auth {SYNC} {IP-NEW} cluster: DEFAULT, new ips size: 1, content: [172.28.5.12:20002:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-13 10:48:14,598 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-auth, ips: 172.28.5.12:20002_true,
+
+2019-09-13 10:48:20,254 INFO DEFAULT_GROUP@@cloud-frame-boss {SYNC} {IP-NEW} cluster: DEFAULT, new ips size: 1, content: [172.28.5.12:20001:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-13 10:48:20,254 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-boss, ips: 172.28.5.12:20001_true,
+
+2019-09-13 14:36:24,338 INFO DEFAULT_GROUP@@cloud-frame-auth {SYNC} {IP-DEAD} cluster: DEFAULT, dead ips size: 1, content: [172.28.5.12:20002:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-13 14:36:24,338 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-auth, ips: 
+
+2019-09-13 14:36:27,585 INFO DEFAULT_GROUP@@cloud-frame-boss {SYNC} {IP-DEAD} cluster: DEFAULT, dead ips size: 1, content: [172.28.5.12:20001:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-13 14:36:27,585 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-boss, ips: 
+

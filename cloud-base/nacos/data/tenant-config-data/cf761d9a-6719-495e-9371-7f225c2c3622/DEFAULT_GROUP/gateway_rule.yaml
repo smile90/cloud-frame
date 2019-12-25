@@ -1,0 +1,18 @@
+# 跨域配置
+cors:
+  allow-origin: "http://172.28.5.12:9999"
+  allow-method: GET,HEAD,POST,PUT,DELETE,TRACE,OPTIONS,PATCH
+  allow-header: bossToken,deviceSource
+  allow-credentials: "true"
+  max-age: "3600"
+
+# 网关配置
+zuul:
+  sensitive-headers: "*"
+  ignored-services:
+  routes:
+    cloud-frame-invoice:
+      path: /invoice/**
+      serviceId: cloud-frame-invoice
+  host:
+    socket-timeout-millis: 60000

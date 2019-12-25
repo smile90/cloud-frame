@@ -1,0 +1,32 @@
+2019-09-20 17:12:32,405 INFO initializing Raft sub-system
+
+2019-09-20 17:12:32,406 INFO finish loading all datums, size: 0 cost 0 ms.
+
+2019-09-20 17:12:32,407 INFO raft notifier started
+
+2019-09-20 17:12:32,417 INFO cache loaded, datum count: 0, current term: 0
+
+2019-09-20 17:12:32,417 INFO finish to load data from disk, cost: 11 ms.
+
+2019-09-20 17:12:32,419 INFO timer started: leader timeout ms: 15000, heart-beat timeout ms: 5000
+
+2019-09-20 17:12:32,313 INFO server list is updated, new: 1 servers: [{"adWeight":0,"alive":false,"ip":"172.28.5.12","key":"172.28.5.12:0","lastRefTime":0,"servePort":0,"site":"unknown","weight":1}]
+
+2019-09-20 17:12:32,425 INFO raft peers changed: [{"adWeight":0,"alive":false,"ip":"172.28.5.12","key":"172.28.5.12:0","lastRefTime":0,"lastRefTimeStr":"","servePort":0,"site":"unknown","weight":1}]
+
+2019-09-20 17:12:32,467 INFO add listener: com.alibaba.nacos.naming.domains.meta.
+
+2019-09-20 17:12:33,709 INFO add listener: com.alibaba.nacos.naming.domains.meta.00-00---000-NACOS_SWITCH_DOMAIN-000---00-00
+
+2019-09-20 17:12:37,289 INFO server list is updated, new: 1 servers: [{"adWeight":0,"alive":false,"ip":"172.28.5.12","key":"172.28.5.12:10000","lastRefTime":0,"lastRefTimeStr":"","servePort":10000,"site":"unknown","weight":1}]
+
+2019-09-20 17:12:37,289 INFO server list is updated, dead: 1, servers: [{"adWeight":0,"alive":false,"ip":"172.28.5.12","key":"172.28.5.12:0","lastRefTime":0,"lastRefTimeStr":"","servePort":0,"site":"unknown","weight":1}]
+
+2019-09-20 17:12:37,290 INFO raft peers changed: [{"adWeight":0,"alive":false,"ip":"172.28.5.12","key":"172.28.5.12:10000","lastRefTime":0,"lastRefTimeStr":"","servePort":10000,"site":"unknown","weight":1}]
+
+2019-09-20 17:12:52,292 INFO raft peers changed: [{"adWeight":0,"alive":false,"ip":"172.28.5.12","key":"172.28.5.12:10000","lastRefTime":0,"lastRefTimeStr":"","servePort":10000,"site":"unknown","weight":1}]
+
+2019-09-20 17:15:55,793 INFO add listener: com.alibaba.nacos.naming.iplist.cf761d9a-6719-495e-9371-7f225c2c3622##DEFAULT_GROUP@@cloud-frame-gateway
+
+2019-09-20 17:15:57,257 INFO add listener: com.alibaba.nacos.naming.iplist.cf761d9a-6719-495e-9371-7f225c2c3622##DEFAULT_GROUP@@cloud-frame-invoice
+

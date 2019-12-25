@@ -1,0 +1,20 @@
+2019-09-17 15:45:57,556 INFO [dump-all-ok] mybatis-plus.yaml+MYBATIS_GROUP, 1563156315000, length=774, md5=bf9cd924c660442f51dc8df029459f43
+
+2019-09-17 15:45:57,557 INFO [dump-all-ok] spring_mvc.yaml+SPRING_GROUP, 1559784601000, length=166, md5=ad451582497ccee5e7260257850eadda
+
+2019-09-17 15:45:57,557 INFO [dump-all-ok] redis_user.yaml+REDIS_GROUP, 1563263716000, length=777, md5=474ed50712a57ae94eec0de0d1bcadaf
+
+2019-09-17 15:45:57,557 INFO [dump-all-ok] mysql_sys_user.yaml+DS_GROUP, 1566888993000, length=626, md5=4a81301ef7a7f193544a1d2fdf57fef0
+
+2019-09-17 15:45:57,558 INFO [dump-all-ok] spring_management.yaml+SPRING_GROUP, 1559785197000, length=128, md5=e583b4cdb6e42e205fc7d7cf665d2225
+
+2019-09-17 15:45:57,558 INFO [dump-all-ok] log_file.yaml+LOG_GROUP, 1568197065000, length=125, md5=e77b011832f7070781660418ea3f01f3
+
+2019-09-17 15:45:57,558 INFO [dump-all-ok] mysql_sys_gateway.yaml+DS_GROUP, 1566877679000, length=937, md5=e86b0ebdedffd0f830ba4256feb47af7
+
+2019-09-17 15:45:57,558 INFO [dump-all-ok] cloud-frame-gateway.yaml+DEFAULT_GROUP, 1563160888000, length=186, md5=422ea8090fee5a507ed4bcb9c6f72060
+
+2019-09-17 15:45:57,558 INFO [dump-all-ok] redis_gateway.yaml+REDIS_GROUP, 1566553367000, length=743, md5=8a83c46f213cd2ba417949ad0960d084
+
+2019-09-17 15:45:57,558 INFO [dump-all-ok] redis_auth.yaml+REDIS_GROUP, 1568340334000, length=742, md5=38923fb65f4693d09e2701ca639113ca
+

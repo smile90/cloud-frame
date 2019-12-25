@@ -1,0 +1,798 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.activity.InvoiceInfoMapper">
+  <resultMap id="BaseResultMap" type="com.frame.invoice.entity.InvoiceInfo">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="OPTIMISTIC" jdbcType="BIGINT" property="optimistic" />
+    <result column="INVOICE_NO" jdbcType="VARCHAR" property="invoiceNo" />
+    <result column="INVOICE_CODE" jdbcType="VARCHAR" property="invoiceCode" />
+    <result column="BUYER_NAME" jdbcType="VARCHAR" property="buyerName" />
+    <result column="BUYER_TAX_NUM" jdbcType="VARCHAR" property="buyerTaxNum" />
+    <result column="BUYER_BANK_NAME" jdbcType="VARCHAR" property="buyerBankName" />
+    <result column="BUYER_ACCOUNT" jdbcType="VARCHAR" property="buyerAccount" />
+    <result column="BUYER_CONTACT" jdbcType="VARCHAR" property="buyerContact" />
+    <result column="BUYER_PHONE" jdbcType="VARCHAR" property="buyerPhone" />
+    <result column="SALER_NAME" jdbcType="VARCHAR" property="salerName" />
+    <result column="SALER_TAX_NUM" jdbcType="VARCHAR" property="salerTaxNum" />
+    <result column="SALER_BANK_NAME" jdbcType="VARCHAR" property="salerBankName" />
+    <result column="SALER_ACCOUNT" jdbcType="VARCHAR" property="salerAccount" />
+    <result column="SALER_CONTACT" jdbcType="VARCHAR" property="salerContact" />
+    <result column="SALER_PHONE" jdbcType="VARCHAR" property="salerPhone" />
+    <result column="INVOCE_DATE" jdbcType="VARCHAR" property="invoceDate" />
+    <result column="NO_TAX_AMOUNT" jdbcType="DECIMAL" property="noTaxAmount" />
+    <result column="TAX_AMOUNT" jdbcType="DECIMAL" property="taxAmount" />
+    <result column="TOTAL_TAX_AMOUNT" jdbcType="DECIMAL" property="totalTaxAmount" />
+    <result column="INVOICE_COMMENT" jdbcType="VARCHAR" property="invoiceComment" />
+    <result column="PROVINCE" jdbcType="VARCHAR" property="province" />
+    <result column="INVOICE_TYPE" jdbcType="VARCHAR" property="invoiceType" />
+    <result column="MACHINE_CODE" jdbcType="VARCHAR" property="machineCode" />
+    <result column="ORDERS" jdbcType="INTEGER" property="orders" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
+    <result column="CREATE_USER" jdbcType="VARCHAR" property="createUser" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_USER" jdbcType="VARCHAR" property="updateUser" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, OPTIMISTIC, INVOICE_NO, INVOICE_CODE, BUYER_NAME, BUYER_TAX_NUM, BUYER_BANK_NAME, 
+    BUYER_ACCOUNT, BUYER_CONTACT, BUYER_PHONE, SALER_NAME, SALER_TAX_NUM, SALER_BANK_NAME, 
+    SALER_ACCOUNT, SALER_CONTACT, SALER_PHONE, INVOCE_DATE, NO_TAX_AMOUNT, TAX_AMOUNT, 
+    TOTAL_TAX_AMOUNT, INVOICE_COMMENT, PROVINCE, INVOICE_TYPE, MACHINE_CODE, ORDERS, 
+    STATUS, DESCRIPTION, CREATE_USER, CREATE_TIME, UPDATE_USER, UPDATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from invoice_info
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from invoice_info
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.frame.invoice.entity.InvoiceInfo">
+    insert into invoice_info (ID, OPTIMISTIC, INVOICE_NO, 
+      INVOICE_CODE, BUYER_NAME, BUYER_TAX_NUM, 
+      BUYER_BANK_NAME, BUYER_ACCOUNT, BUYER_CONTACT, 
+      BUYER_PHONE, SALER_NAME, SALER_TAX_NUM, 
+      SALER_BANK_NAME, SALER_ACCOUNT, SALER_CONTACT, 
+      SALER_PHONE, INVOCE_DATE, NO_TAX_AMOUNT, 
+      TAX_AMOUNT, TOTAL_TAX_AMOUNT, INVOICE_COMMENT, 
+      PROVINCE, INVOICE_TYPE, MACHINE_CODE, 
+      ORDERS, STATUS, DESCRIPTION, 
+      CREATE_USER, CREATE_TIME, UPDATE_USER, 
+      UPDATE_TIME)
+    values (#{id,jdbcType=BIGINT}, #{optimistic,jdbcType=BIGINT}, #{invoiceNo,jdbcType=VARCHAR}, 
+      #{invoiceCode,jdbcType=VARCHAR}, #{buyerName,jdbcType=VARCHAR}, #{buyerTaxNum,jdbcType=VARCHAR}, 
+      #{buyerBankName,jdbcType=VARCHAR}, #{buyerAccount,jdbcType=VARCHAR}, #{buyerContact,jdbcType=VARCHAR}, 
+      #{buyerPhone,jdbcType=VARCHAR}, #{salerName,jdbcType=VARCHAR}, #{salerTaxNum,jdbcType=VARCHAR}, 
+      #{salerBankName,jdbcType=VARCHAR}, #{salerAccount,jdbcType=VARCHAR}, #{salerContact,jdbcType=VARCHAR}, 
+      #{salerPhone,jdbcType=VARCHAR}, #{invoceDate,jdbcType=VARCHAR}, #{noTaxAmount,jdbcType=DECIMAL}, 
+      #{taxAmount,jdbcType=DECIMAL}, #{totalTaxAmount,jdbcType=DECIMAL}, #{invoiceComment,jdbcType=VARCHAR}, 
+      #{province,jdbcType=VARCHAR}, #{invoiceType,jdbcType=VARCHAR}, #{machineCode,jdbcType=VARCHAR}, 
+      #{orders,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.frame.invoice.entity.InvoiceInfo">
+    insert into invoice_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="optimistic != null">
+        OPTIMISTIC,
+      </if>
+      <if test="invoiceNo != null">
+        INVOICE_NO,
+      </if>
+      <if test="invoiceCode != null">
+        INVOICE_CODE,
+      </if>
+      <if test="buyerName != null">
+        BUYER_NAME,
+      </if>
+      <if test="buyerTaxNum != null">
+        BUYER_TAX_NUM,
+      </if>
+      <if test="buyerBankName != null">
+        BUYER_BANK_NAME,
+      </if>
+      <if test="buyerAccount != null">
+        BUYER_ACCOUNT,
+      </if>
+      <if test="buyerContact != null">
+        BUYER_CONTACT,
+      </if>
+      <if test="buyerPhone != null">
+        BUYER_PHONE,
+      </if>
+      <if test="salerName != null">
+        SALER_NAME,
+      </if>
+      <if test="salerTaxNum != null">
+        SALER_TAX_NUM,
+      </if>
+      <if test="salerBankName != null">
+        SALER_BANK_NAME,
+      </if>
+      <if test="salerAccount != null">
+        SALER_ACCOUNT,
+      </if>
+      <if test="salerContact != null">
+        SALER_CONTACT,
+      </if>
+      <if test="salerPhone != null">
+        SALER_PHONE,
+      </if>
+      <if test="invoceDate != null">
+        INVOCE_DATE,
+      </if>
+      <if test="noTaxAmount != null">
+        NO_TAX_AMOUNT,
+      </if>
+      <if test="taxAmount != null">
+        TAX_AMOUNT,
+      </if>
+      <if test="totalTaxAmount != null">
+        TOTAL_TAX_AMOUNT,
+      </if>
+      <if test="invoiceComment != null">
+        INVOICE_COMMENT,
+      </if>
+      <if test="province != null">
+        PROVINCE,
+      </if>
+      <if test="invoiceType != null">
+        INVOICE_TYPE,
+      </if>
+      <if test="machineCode != null">
+        MACHINE_CODE,
+      </if>
+      <if test="orders != null">
+        ORDERS,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="description != null">
+        DESCRIPTION,
+      </if>
+      <if test="createUser != null">
+        CREATE_USER,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="updateUser != null">
+        UPDATE_USER,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="optimistic != null">
+        #{optimistic,jdbcType=BIGINT},
+      </if>
+      <if test="invoiceNo != null">
+        #{invoiceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceCode != null">
+        #{invoiceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerName != null">
+        #{buyerName,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerTaxNum != null">
+        #{buyerTaxNum,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerBankName != null">
+        #{buyerBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerAccount != null">
+        #{buyerAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerContact != null">
+        #{buyerContact,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerPhone != null">
+        #{buyerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="salerName != null">
+        #{salerName,jdbcType=VARCHAR},
+      </if>
+      <if test="salerTaxNum != null">
+        #{salerTaxNum,jdbcType=VARCHAR},
+      </if>
+      <if test="salerBankName != null">
+        #{salerBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="salerAccount != null">
+        #{salerAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="salerContact != null">
+        #{salerContact,jdbcType=VARCHAR},
+      </if>
+      <if test="salerPhone != null">
+        #{salerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="invoceDate != null">
+        #{invoceDate,jdbcType=VARCHAR},
+      </if>
+      <if test="noTaxAmount != null">
+        #{noTaxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="taxAmount != null">
+        #{taxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="totalTaxAmount != null">
+        #{totalTaxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="invoiceComment != null">
+        #{invoiceComment,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceType != null">
+        #{invoiceType,jdbcType=VARCHAR},
+      </if>
+      <if test="machineCode != null">
+        #{machineCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orders != null">
+        #{orders,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.frame.invoice.entity.InvoiceInfo">
+    update invoice_info
+    <set>
+      <if test="optimistic != null">
+        OPTIMISTIC = #{optimistic,jdbcType=BIGINT},
+      </if>
+      <if test="invoiceNo != null">
+        INVOICE_NO = #{invoiceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceCode != null">
+        INVOICE_CODE = #{invoiceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerName != null">
+        BUYER_NAME = #{buyerName,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerTaxNum != null">
+        BUYER_TAX_NUM = #{buyerTaxNum,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerBankName != null">
+        BUYER_BANK_NAME = #{buyerBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerAccount != null">
+        BUYER_ACCOUNT = #{buyerAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerContact != null">
+        BUYER_CONTACT = #{buyerContact,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerPhone != null">
+        BUYER_PHONE = #{buyerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="salerName != null">
+        SALER_NAME = #{salerName,jdbcType=VARCHAR},
+      </if>
+      <if test="salerTaxNum != null">
+        SALER_TAX_NUM = #{salerTaxNum,jdbcType=VARCHAR},
+      </if>
+      <if test="salerBankName != null">
+        SALER_BANK_NAME = #{salerBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="salerAccount != null">
+        SALER_ACCOUNT = #{salerAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="salerContact != null">
+        SALER_CONTACT = #{salerContact,jdbcType=VARCHAR},
+      </if>
+      <if test="salerPhone != null">
+        SALER_PHONE = #{salerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="invoceDate != null">
+        INVOCE_DATE = #{invoceDate,jdbcType=VARCHAR},
+      </if>
+      <if test="noTaxAmount != null">
+        NO_TAX_AMOUNT = #{noTaxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="taxAmount != null">
+        TAX_AMOUNT = #{taxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="totalTaxAmount != null">
+        TOTAL_TAX_AMOUNT = #{totalTaxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="invoiceComment != null">
+        INVOICE_COMMENT = #{invoiceComment,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        PROVINCE = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceType != null">
+        INVOICE_TYPE = #{invoiceType,jdbcType=VARCHAR},
+      </if>
+      <if test="machineCode != null">
+        MACHINE_CODE = #{machineCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orders != null">
+        ORDERS = #{orders,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.frame.invoice.entity.InvoiceInfo">
+    update invoice_info
+    set OPTIMISTIC = #{optimistic,jdbcType=BIGINT},
+      INVOICE_NO = #{invoiceNo,jdbcType=VARCHAR},
+      INVOICE_CODE = #{invoiceCode,jdbcType=VARCHAR},
+      BUYER_NAME = #{buyerName,jdbcType=VARCHAR},
+      BUYER_TAX_NUM = #{buyerTaxNum,jdbcType=VARCHAR},
+      BUYER_BANK_NAME = #{buyerBankName,jdbcType=VARCHAR},
+      BUYER_ACCOUNT = #{buyerAccount,jdbcType=VARCHAR},
+      BUYER_CONTACT = #{buyerContact,jdbcType=VARCHAR},
+      BUYER_PHONE = #{buyerPhone,jdbcType=VARCHAR},
+      SALER_NAME = #{salerName,jdbcType=VARCHAR},
+      SALER_TAX_NUM = #{salerTaxNum,jdbcType=VARCHAR},
+      SALER_BANK_NAME = #{salerBankName,jdbcType=VARCHAR},
+      SALER_ACCOUNT = #{salerAccount,jdbcType=VARCHAR},
+      SALER_CONTACT = #{salerContact,jdbcType=VARCHAR},
+      SALER_PHONE = #{salerPhone,jdbcType=VARCHAR},
+      INVOCE_DATE = #{invoceDate,jdbcType=VARCHAR},
+      NO_TAX_AMOUNT = #{noTaxAmount,jdbcType=DECIMAL},
+      TAX_AMOUNT = #{taxAmount,jdbcType=DECIMAL},
+      TOTAL_TAX_AMOUNT = #{totalTaxAmount,jdbcType=DECIMAL},
+      INVOICE_COMMENT = #{invoiceComment,jdbcType=VARCHAR},
+      PROVINCE = #{province,jdbcType=VARCHAR},
+      INVOICE_TYPE = #{invoiceType,jdbcType=VARCHAR},
+      MACHINE_CODE = #{machineCode,jdbcType=VARCHAR},
+      ORDERS = #{orders,jdbcType=INTEGER},
+      STATUS = #{status,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <resultMap id="BaseResultMap" type="com.pay.AgentService.activity.model.InvoiceInfo">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="OPTIMISTIC" jdbcType="BIGINT" property="optimistic" />
+    <result column="INVOICE_NO" jdbcType="VARCHAR" property="invoiceNo" />
+    <result column="INVOICE_CODE" jdbcType="VARCHAR" property="invoiceCode" />
+    <result column="BUYER_NAME" jdbcType="VARCHAR" property="buyerName" />
+    <result column="BUYER_TAX_NUM" jdbcType="VARCHAR" property="buyerTaxNum" />
+    <result column="BUYER_BANK_NAME" jdbcType="VARCHAR" property="buyerBankName" />
+    <result column="BUYER_ACCOUNT" jdbcType="VARCHAR" property="buyerAccount" />
+    <result column="BUYER_CONTACT" jdbcType="VARCHAR" property="buyerContact" />
+    <result column="BUYER_PHONE" jdbcType="VARCHAR" property="buyerPhone" />
+    <result column="SALER_NAME" jdbcType="VARCHAR" property="salerName" />
+    <result column="SALER_TAX_NUM" jdbcType="VARCHAR" property="salerTaxNum" />
+    <result column="SALER_BANK_NAME" jdbcType="VARCHAR" property="salerBankName" />
+    <result column="SALER_ACCOUNT" jdbcType="VARCHAR" property="salerAccount" />
+    <result column="SALER_CONTACT" jdbcType="VARCHAR" property="salerContact" />
+    <result column="SALER_PHONE" jdbcType="VARCHAR" property="salerPhone" />
+    <result column="INVOCE_DATE" jdbcType="VARCHAR" property="invoceDate" />
+    <result column="NO_TAX_AMOUNT" jdbcType="DECIMAL" property="noTaxAmount" />
+    <result column="TAX_AMOUNT" jdbcType="DECIMAL" property="taxAmount" />
+    <result column="TOTAL_TAX_AMOUNT" jdbcType="DECIMAL" property="totalTaxAmount" />
+    <result column="INVOICE_COMMENT" jdbcType="VARCHAR" property="invoiceComment" />
+    <result column="PROVINCE" jdbcType="VARCHAR" property="province" />
+    <result column="INVOICE_TYPE" jdbcType="VARCHAR" property="invoiceType" />
+    <result column="MACHINE_CODE" jdbcType="VARCHAR" property="machineCode" />
+    <result column="ORDERS" jdbcType="INTEGER" property="orders" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
+    <result column="CREATE_USER" jdbcType="VARCHAR" property="createUser" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_USER" jdbcType="VARCHAR" property="updateUser" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, OPTIMISTIC, INVOICE_NO, INVOICE_CODE, BUYER_NAME, BUYER_TAX_NUM, BUYER_BANK_NAME, 
+    BUYER_ACCOUNT, BUYER_CONTACT, BUYER_PHONE, SALER_NAME, SALER_TAX_NUM, SALER_BANK_NAME, 
+    SALER_ACCOUNT, SALER_CONTACT, SALER_PHONE, INVOCE_DATE, NO_TAX_AMOUNT, TAX_AMOUNT, 
+    TOTAL_TAX_AMOUNT, INVOICE_COMMENT, PROVINCE, INVOICE_TYPE, MACHINE_CODE, ORDERS, 
+    STATUS, DESCRIPTION, CREATE_USER, CREATE_TIME, UPDATE_USER, UPDATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from invoice_info
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from invoice_info
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.pay.AgentService.activity.model.InvoiceInfo">
+    insert into invoice_info (ID, OPTIMISTIC, INVOICE_NO, 
+      INVOICE_CODE, BUYER_NAME, BUYER_TAX_NUM, 
+      BUYER_BANK_NAME, BUYER_ACCOUNT, BUYER_CONTACT, 
+      BUYER_PHONE, SALER_NAME, SALER_TAX_NUM, 
+      SALER_BANK_NAME, SALER_ACCOUNT, SALER_CONTACT, 
+      SALER_PHONE, INVOCE_DATE, NO_TAX_AMOUNT, 
+      TAX_AMOUNT, TOTAL_TAX_AMOUNT, INVOICE_COMMENT, 
+      PROVINCE, INVOICE_TYPE, MACHINE_CODE, 
+      ORDERS, STATUS, DESCRIPTION, 
+      CREATE_USER, CREATE_TIME, UPDATE_USER, 
+      UPDATE_TIME)
+    values (#{id,jdbcType=BIGINT}, #{optimistic,jdbcType=BIGINT}, #{invoiceNo,jdbcType=VARCHAR}, 
+      #{invoiceCode,jdbcType=VARCHAR}, #{buyerName,jdbcType=VARCHAR}, #{buyerTaxNum,jdbcType=VARCHAR}, 
+      #{buyerBankName,jdbcType=VARCHAR}, #{buyerAccount,jdbcType=VARCHAR}, #{buyerContact,jdbcType=VARCHAR}, 
+      #{buyerPhone,jdbcType=VARCHAR}, #{salerName,jdbcType=VARCHAR}, #{salerTaxNum,jdbcType=VARCHAR}, 
+      #{salerBankName,jdbcType=VARCHAR}, #{salerAccount,jdbcType=VARCHAR}, #{salerContact,jdbcType=VARCHAR}, 
+      #{salerPhone,jdbcType=VARCHAR}, #{invoceDate,jdbcType=VARCHAR}, #{noTaxAmount,jdbcType=DECIMAL}, 
+      #{taxAmount,jdbcType=DECIMAL}, #{totalTaxAmount,jdbcType=DECIMAL}, #{invoiceComment,jdbcType=VARCHAR}, 
+      #{province,jdbcType=VARCHAR}, #{invoiceType,jdbcType=VARCHAR}, #{machineCode,jdbcType=VARCHAR}, 
+      #{orders,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pay.AgentService.activity.model.InvoiceInfo">
+    insert into invoice_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="optimistic != null">
+        OPTIMISTIC,
+      </if>
+      <if test="invoiceNo != null">
+        INVOICE_NO,
+      </if>
+      <if test="invoiceCode != null">
+        INVOICE_CODE,
+      </if>
+      <if test="buyerName != null">
+        BUYER_NAME,
+      </if>
+      <if test="buyerTaxNum != null">
+        BUYER_TAX_NUM,
+      </if>
+      <if test="buyerBankName != null">
+        BUYER_BANK_NAME,
+      </if>
+      <if test="buyerAccount != null">
+        BUYER_ACCOUNT,
+      </if>
+      <if test="buyerContact != null">
+        BUYER_CONTACT,
+      </if>
+      <if test="buyerPhone != null">
+        BUYER_PHONE,
+      </if>
+      <if test="salerName != null">
+        SALER_NAME,
+      </if>
+      <if test="salerTaxNum != null">
+        SALER_TAX_NUM,
+      </if>
+      <if test="salerBankName != null">
+        SALER_BANK_NAME,
+      </if>
+      <if test="salerAccount != null">
+        SALER_ACCOUNT,
+      </if>
+      <if test="salerContact != null">
+        SALER_CONTACT,
+      </if>
+      <if test="salerPhone != null">
+        SALER_PHONE,
+      </if>
+      <if test="invoceDate != null">
+        INVOCE_DATE,
+      </if>
+      <if test="noTaxAmount != null">
+        NO_TAX_AMOUNT,
+      </if>
+      <if test="taxAmount != null">
+        TAX_AMOUNT,
+      </if>
+      <if test="totalTaxAmount != null">
+        TOTAL_TAX_AMOUNT,
+      </if>
+      <if test="invoiceComment != null">
+        INVOICE_COMMENT,
+      </if>
+      <if test="province != null">
+        PROVINCE,
+      </if>
+      <if test="invoiceType != null">
+        INVOICE_TYPE,
+      </if>
+      <if test="machineCode != null">
+        MACHINE_CODE,
+      </if>
+      <if test="orders != null">
+        ORDERS,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="description != null">
+        DESCRIPTION,
+      </if>
+      <if test="createUser != null">
+        CREATE_USER,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="updateUser != null">
+        UPDATE_USER,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="optimistic != null">
+        #{optimistic,jdbcType=BIGINT},
+      </if>
+      <if test="invoiceNo != null">
+        #{invoiceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceCode != null">
+        #{invoiceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerName != null">
+        #{buyerName,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerTaxNum != null">
+        #{buyerTaxNum,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerBankName != null">
+        #{buyerBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerAccount != null">
+        #{buyerAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerContact != null">
+        #{buyerContact,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerPhone != null">
+        #{buyerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="salerName != null">
+        #{salerName,jdbcType=VARCHAR},
+      </if>
+      <if test="salerTaxNum != null">
+        #{salerTaxNum,jdbcType=VARCHAR},
+      </if>
+      <if test="salerBankName != null">
+        #{salerBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="salerAccount != null">
+        #{salerAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="salerContact != null">
+        #{salerContact,jdbcType=VARCHAR},
+      </if>
+      <if test="salerPhone != null">
+        #{salerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="invoceDate != null">
+        #{invoceDate,jdbcType=VARCHAR},
+      </if>
+      <if test="noTaxAmount != null">
+        #{noTaxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="taxAmount != null">
+        #{taxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="totalTaxAmount != null">
+        #{totalTaxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="invoiceComment != null">
+        #{invoiceComment,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceType != null">
+        #{invoiceType,jdbcType=VARCHAR},
+      </if>
+      <if test="machineCode != null">
+        #{machineCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orders != null">
+        #{orders,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pay.AgentService.activity.model.InvoiceInfo">
+    update invoice_info
+    <set>
+      <if test="optimistic != null">
+        OPTIMISTIC = #{optimistic,jdbcType=BIGINT},
+      </if>
+      <if test="invoiceNo != null">
+        INVOICE_NO = #{invoiceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceCode != null">
+        INVOICE_CODE = #{invoiceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerName != null">
+        BUYER_NAME = #{buyerName,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerTaxNum != null">
+        BUYER_TAX_NUM = #{buyerTaxNum,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerBankName != null">
+        BUYER_BANK_NAME = #{buyerBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerAccount != null">
+        BUYER_ACCOUNT = #{buyerAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerContact != null">
+        BUYER_CONTACT = #{buyerContact,jdbcType=VARCHAR},
+      </if>
+      <if test="buyerPhone != null">
+        BUYER_PHONE = #{buyerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="salerName != null">
+        SALER_NAME = #{salerName,jdbcType=VARCHAR},
+      </if>
+      <if test="salerTaxNum != null">
+        SALER_TAX_NUM = #{salerTaxNum,jdbcType=VARCHAR},
+      </if>
+      <if test="salerBankName != null">
+        SALER_BANK_NAME = #{salerBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="salerAccount != null">
+        SALER_ACCOUNT = #{salerAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="salerContact != null">
+        SALER_CONTACT = #{salerContact,jdbcType=VARCHAR},
+      </if>
+      <if test="salerPhone != null">
+        SALER_PHONE = #{salerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="invoceDate != null">
+        INVOCE_DATE = #{invoceDate,jdbcType=VARCHAR},
+      </if>
+      <if test="noTaxAmount != null">
+        NO_TAX_AMOUNT = #{noTaxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="taxAmount != null">
+        TAX_AMOUNT = #{taxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="totalTaxAmount != null">
+        TOTAL_TAX_AMOUNT = #{totalTaxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="invoiceComment != null">
+        INVOICE_COMMENT = #{invoiceComment,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        PROVINCE = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceType != null">
+        INVOICE_TYPE = #{invoiceType,jdbcType=VARCHAR},
+      </if>
+      <if test="machineCode != null">
+        MACHINE_CODE = #{machineCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orders != null">
+        ORDERS = #{orders,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null">
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pay.AgentService.activity.model.InvoiceInfo">
+    update invoice_info
+    set OPTIMISTIC = #{optimistic,jdbcType=BIGINT},
+      INVOICE_NO = #{invoiceNo,jdbcType=VARCHAR},
+      INVOICE_CODE = #{invoiceCode,jdbcType=VARCHAR},
+      BUYER_NAME = #{buyerName,jdbcType=VARCHAR},
+      BUYER_TAX_NUM = #{buyerTaxNum,jdbcType=VARCHAR},
+      BUYER_BANK_NAME = #{buyerBankName,jdbcType=VARCHAR},
+      BUYER_ACCOUNT = #{buyerAccount,jdbcType=VARCHAR},
+      BUYER_CONTACT = #{buyerContact,jdbcType=VARCHAR},
+      BUYER_PHONE = #{buyerPhone,jdbcType=VARCHAR},
+      SALER_NAME = #{salerName,jdbcType=VARCHAR},
+      SALER_TAX_NUM = #{salerTaxNum,jdbcType=VARCHAR},
+      SALER_BANK_NAME = #{salerBankName,jdbcType=VARCHAR},
+      SALER_ACCOUNT = #{salerAccount,jdbcType=VARCHAR},
+      SALER_CONTACT = #{salerContact,jdbcType=VARCHAR},
+      SALER_PHONE = #{salerPhone,jdbcType=VARCHAR},
+      INVOCE_DATE = #{invoceDate,jdbcType=VARCHAR},
+      NO_TAX_AMOUNT = #{noTaxAmount,jdbcType=DECIMAL},
+      TAX_AMOUNT = #{taxAmount,jdbcType=DECIMAL},
+      TOTAL_TAX_AMOUNT = #{totalTaxAmount,jdbcType=DECIMAL},
+      INVOICE_COMMENT = #{invoiceComment,jdbcType=VARCHAR},
+      PROVINCE = #{province,jdbcType=VARCHAR},
+      INVOICE_TYPE = #{invoiceType,jdbcType=VARCHAR},
+      MACHINE_CODE = #{machineCode,jdbcType=VARCHAR},
+      ORDERS = #{orders,jdbcType=INTEGER},
+      STATUS = #{status,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

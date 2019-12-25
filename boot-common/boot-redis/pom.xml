@@ -1,0 +1,35 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.frame</groupId>
+		<artifactId>boot-common</artifactId>
+        <version>2.0.0</version>
+    </parent>
+
+    <artifactId>boot-redis</artifactId>
+    <name>Spring Boot基础服务-redis</name>
+    <packaging>jar</packaging>
+
+    <properties>
+        <boot-common.version>2.0.0</boot-common.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.frame</groupId>
+            <artifactId>boot-base</artifactId>
+            <version>${boot-common.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+    </dependencies>
+</project>

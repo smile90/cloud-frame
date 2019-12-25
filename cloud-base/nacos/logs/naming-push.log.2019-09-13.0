@@ -1,0 +1,242 @@
+2019-09-13 10:06:26,537 INFO DEFAULT_GROUP@@cloud-frame-auth is changed, add it to push queue.
+
+2019-09-13 10:21:20,407 INFO DEFAULT_GROUP@@cloud-frame-auth is changed, add it to push queue.
+
+2019-09-13 10:21:20,438 INFO serviceName: DEFAULT_GROUP@@cloud-frame-auth changed, schedule push for: 127.0.1.1:60030, agent: Nacos-Java-Client:v1.0.0, key: 127.0.1.1,60030,323328289072810
+
+2019-09-13 10:21:20,438 INFO send udp packet: 127.0.1.1,60030,323328289072810
+
+2019-09-13 10:21:20,542 ERROR [NACOS-PUSH] error while receiving ack data
+
+java.lang.IllegalStateException: unable to find ackEntry for key: 127.0.0.1,60030,323328289072810, ack json: {"type": "push-ack", "lastRefTime":"323328289072810", "data":""}
+	at com.alibaba.nacos.naming.push.PushService$Receiver.run(PushService.java:642)
+	at java.lang.Thread.run(Thread.java:748)
+2019-09-13 10:21:30,478 INFO retry to push data, key: 127.0.1.1,60030,323328289072810
+
+2019-09-13 10:21:30,478 INFO send udp packet: 127.0.1.1,60030,323328289072810
+
+2019-09-13 10:21:40,479 INFO retry to push data, key: 127.0.1.1,60030,323328289072810
+
+2019-09-13 10:21:40,479 WARN max re-push times reached, retry times 2, key: 127.0.1.1,60030,323328289072810
+
+2019-09-13 10:25:22,546 INFO DEFAULT_GROUP@@cloud-frame-auth is changed, add it to push queue.
+
+2019-09-13 10:25:22,546 INFO serviceName: DEFAULT_GROUP@@cloud-frame-auth changed, schedule push for: 127.0.1.1:47774, agent: Nacos-Java-Client:v1.0.0, key: 127.0.1.1,47774,323570397503212
+
+2019-09-13 10:25:22,546 INFO send udp packet: 127.0.1.1,47774,323570397503212
+
+2019-09-13 10:25:22,552 ERROR [NACOS-PUSH] error while receiving ack data
+
+java.lang.IllegalStateException: unable to find ackEntry for key: 127.0.0.1,47774,323570397503212, ack json: {"type": "push-ack", "lastRefTime":"323570397503212", "data":""}
+	at com.alibaba.nacos.naming.push.PushService$Receiver.run(PushService.java:642)
+	at java.lang.Thread.run(Thread.java:748)
+2019-09-13 10:25:29,760 INFO DEFAULT_GROUP@@cloud-frame-boss is changed, add it to push queue.
+
+2019-09-13 10:25:32,546 INFO retry to push data, key: 127.0.1.1,47774,323570397503212
+
+2019-09-13 10:25:32,546 INFO send udp packet: 127.0.1.1,47774,323570397503212
+
+2019-09-13 10:25:32,547 WARN ack takes too long from /127.0.0.1:47774 ack json: {"type": "push-ack", "lastRefTime":"323570397503212", "data":""}
+
+2019-09-13 10:25:32,547 ERROR [NACOS-PUSH] error while receiving ack data
+
+java.lang.IllegalStateException: unable to find ackEntry for key: 127.0.0.1,47774,323570397503212, ack json: {"type": "push-ack", "lastRefTime":"323570397503212", "data":""}
+	at com.alibaba.nacos.naming.push.PushService$Receiver.run(PushService.java:642)
+	at java.lang.Thread.run(Thread.java:748)
+2019-09-13 10:25:42,547 INFO retry to push data, key: 127.0.1.1,47774,323570397503212
+
+2019-09-13 10:25:42,547 WARN max re-push times reached, retry times 2, key: 127.0.1.1,47774,323570397503212
+
+2019-09-13 10:47:49,339 INFO DEFAULT_GROUP@@cloud-frame-auth is changed, add it to push queue.
+
+2019-09-13 10:47:49,339 INFO serviceName: DEFAULT_GROUP@@cloud-frame-auth changed, schedule push for: 127.0.1.1:47774, agent: Nacos-Java-Client:v1.0.0, key: 127.0.1.1,47774,324917190467869
+
+2019-09-13 10:47:49,339 INFO send udp packet: 127.0.1.1,47774,324917190467869
+
+2019-09-13 10:47:49,339 INFO serviceName: DEFAULT_GROUP@@cloud-frame-auth changed, schedule push for: 127.0.1.1:59493, agent: Nacos-Java-Client:v1.0.0, key: 127.0.1.1,59493,324917190467869
+
+2019-09-13 10:47:49,339 INFO send udp packet: 127.0.1.1,59493,324917190467869
+
+2019-09-13 10:47:49,352 ERROR [NACOS-PUSH] error while receiving ack data
+
+java.lang.IllegalStateException: unable to find ackEntry for key: 127.0.0.1,47774,324917190467869, ack json: {"type": "push-ack", "lastRefTime":"324917190467869", "data":""}
+	at com.alibaba.nacos.naming.push.PushService$Receiver.run(PushService.java:642)
+	at java.lang.Thread.run(Thread.java:748)
+2019-09-13 10:47:49,372 ERROR [NACOS-PUSH] error while receiving ack data
+
+java.lang.IllegalStateException: unable to find ackEntry for key: 127.0.0.1,59493,324917190467869, ack json: {"type": "push-ack", "lastRefTime":"324917190467869", "data":""}
+	at com.alibaba.nacos.naming.push.PushService$Receiver.run(PushService.java:642)
+	at java.lang.Thread.run(Thread.java:748)
+2019-09-13 10:47:59,339 INFO retry to push data, key: 127.0.1.1,47774,324917190467869
+
+2019-09-13 10:47:59,339 INFO send udp packet: 127.0.1.1,47774,324917190467869
+
+2019-09-13 10:47:59,339 INFO retry to push data, key: 127.0.1.1,59493,324917190467869
+
+2019-09-13 10:47:59,339 INFO send udp packet: 127.0.1.1,59493,324917190467869
+
+2019-09-13 10:47:59,343 WARN ack takes too long from /127.0.0.1:59493 ack json: {"type": "push-ack", "lastRefTime":"324917190467869", "data":""}
+
+2019-09-13 10:47:59,343 ERROR [NACOS-PUSH] error while receiving ack data
+
+java.lang.IllegalStateException: unable to find ackEntry for key: 127.0.0.1,59493,324917190467869, ack json: {"type": "push-ack", "lastRefTime":"324917190467869", "data":""}
+	at com.alibaba.nacos.naming.push.PushService$Receiver.run(PushService.java:642)
+	at java.lang.Thread.run(Thread.java:748)
+2019-09-13 10:48:05,518 INFO DEFAULT_GROUP@@cloud-frame-boss is changed, add it to push queue.
+
+2019-09-13 10:48:05,519 INFO serviceName: DEFAULT_GROUP@@cloud-frame-boss changed, schedule push for: 127.0.1.1:59493, agent: Nacos-Java-Client:v1.0.0, key: 127.0.1.1,59493,324933370199531
+
+2019-09-13 10:48:05,519 INFO send udp packet: 127.0.1.1,59493,324933370199531
+
+2019-09-13 10:48:05,535 ERROR [NACOS-PUSH] error while receiving ack data
+
+java.lang.IllegalStateException: unable to find ackEntry for key: 127.0.0.1,59493,324933370199531, ack json: {"type": "push-ack", "lastRefTime":"324933370199531", "data":""}
+	at com.alibaba.nacos.naming.push.PushService$Receiver.run(PushService.java:642)
+	at java.lang.Thread.run(Thread.java:748)
+2019-09-13 10:48:09,339 INFO retry to push data, key: 127.0.1.1,47774,324917190467869
+
+2019-09-13 10:48:09,340 WARN max re-push times reached, retry times 2, key: 127.0.1.1,47774,324917190467869
+
+2019-09-13 10:48:09,340 INFO retry to push data, key: 127.0.1.1,59493,324917190467869
+
+2019-09-13 10:48:09,340 WARN max re-push times reached, retry times 2, key: 127.0.1.1,59493,324917190467869
+
+2019-09-13 10:48:15,519 INFO retry to push data, key: 127.0.1.1,59493,324933370199531
+
+2019-09-13 10:48:15,519 INFO send udp packet: 127.0.1.1,59493,324933370199531
+
+2019-09-13 10:48:15,598 INFO DEFAULT_GROUP@@cloud-frame-auth is changed, add it to push queue.
+
+2019-09-13 10:48:15,599 INFO serviceName: DEFAULT_GROUP@@cloud-frame-auth changed, schedule push for: 127.0.1.1:33847, agent: Nacos-Java-Client:v1.0.0, key: 127.0.1.1,33847,324943450246124
+
+2019-09-13 10:48:15,599 INFO send udp packet: 127.0.1.1,33847,324943450246124
+
+2019-09-13 10:48:15,602 ERROR [NACOS-PUSH] error while receiving ack data
+
+java.lang.IllegalStateException: unable to find ackEntry for key: 127.0.0.1,33847,324943450246124, ack json: {"type": "push-ack", "lastRefTime":"324943450246124", "data":""}
+	at com.alibaba.nacos.naming.push.PushService$Receiver.run(PushService.java:642)
+	at java.lang.Thread.run(Thread.java:748)
+2019-09-13 10:48:21,255 INFO DEFAULT_GROUP@@cloud-frame-boss is changed, add it to push queue.
+
+2019-09-13 10:48:21,255 INFO serviceName: DEFAULT_GROUP@@cloud-frame-boss changed, schedule push for: 127.0.1.1:33847, agent: Nacos-Java-Client:v1.0.0, key: 127.0.1.1,33847,324949106416765
+
+2019-09-13 10:48:21,255 INFO send udp packet: 127.0.1.1,33847,324949106416765
+
+2019-09-13 10:48:21,255 INFO serviceName: DEFAULT_GROUP@@cloud-frame-boss changed, schedule push for: 127.0.1.1:48392, agent: Nacos-Java-Client:v1.0.0, key: 127.0.1.1,48392,324949106416765
+
+2019-09-13 10:48:21,255 INFO send udp packet: 127.0.1.1,48392,324949106416765
+
+2019-09-13 10:48:21,256 ERROR [NACOS-PUSH] error while receiving ack data
+
+java.lang.IllegalStateException: unable to find ackEntry for key: 127.0.0.1,33847,324949106416765, ack json: {"type": "push-ack", "lastRefTime":"324949106416765", "data":""}
+	at com.alibaba.nacos.naming.push.PushService$Receiver.run(PushService.java:642)
+	at java.lang.Thread.run(Thread.java:748)
+2019-09-13 10:48:21,258 ERROR [NACOS-PUSH] error while receiving ack data
+
+java.lang.IllegalStateException: unable to find ackEntry for key: 127.0.0.1,48392,324949106416765, ack json: {"type": "push-ack", "lastRefTime":"324949106416765", "data":""}
+	at com.alibaba.nacos.naming.push.PushService$Receiver.run(PushService.java:642)
+	at java.lang.Thread.run(Thread.java:748)
+2019-09-13 10:48:25,519 INFO retry to push data, key: 127.0.1.1,59493,324933370199531
+
+2019-09-13 10:48:25,519 WARN max re-push times reached, retry times 2, key: 127.0.1.1,59493,324933370199531
+
+2019-09-13 10:48:25,599 INFO retry to push data, key: 127.0.1.1,33847,324943450246124
+
+2019-09-13 10:48:25,599 INFO send udp packet: 127.0.1.1,33847,324943450246124
+
+2019-09-13 10:48:25,600 WARN ack takes too long from /127.0.0.1:33847 ack json: {"type": "push-ack", "lastRefTime":"324943450246124", "data":""}
+
+2019-09-13 10:48:25,600 ERROR [NACOS-PUSH] error while receiving ack data
+
+java.lang.IllegalStateException: unable to find ackEntry for key: 127.0.0.1,33847,324943450246124, ack json: {"type": "push-ack", "lastRefTime":"324943450246124", "data":""}
+	at com.alibaba.nacos.naming.push.PushService$Receiver.run(PushService.java:642)
+	at java.lang.Thread.run(Thread.java:748)
+2019-09-13 10:48:31,255 INFO retry to push data, key: 127.0.1.1,33847,324949106416765
+
+2019-09-13 10:48:31,255 INFO send udp packet: 127.0.1.1,33847,324949106416765
+
+2019-09-13 10:48:31,255 INFO retry to push data, key: 127.0.1.1,48392,324949106416765
+
+2019-09-13 10:48:31,255 INFO send udp packet: 127.0.1.1,48392,324949106416765
+
+2019-09-13 10:48:31,256 WARN ack takes too long from /127.0.0.1:33847 ack json: {"type": "push-ack", "lastRefTime":"324949106416765", "data":""}
+
+2019-09-13 10:48:31,256 ERROR [NACOS-PUSH] error while receiving ack data
+
+java.lang.IllegalStateException: unable to find ackEntry for key: 127.0.0.1,33847,324949106416765, ack json: {"type": "push-ack", "lastRefTime":"324949106416765", "data":""}
+	at com.alibaba.nacos.naming.push.PushService$Receiver.run(PushService.java:642)
+	at java.lang.Thread.run(Thread.java:748)
+2019-09-13 10:48:31,256 WARN ack takes too long from /127.0.0.1:48392 ack json: {"type": "push-ack", "lastRefTime":"324949106416765", "data":""}
+
+2019-09-13 10:48:31,256 ERROR [NACOS-PUSH] error while receiving ack data
+
+java.lang.IllegalStateException: unable to find ackEntry for key: 127.0.0.1,48392,324949106416765, ack json: {"type": "push-ack", "lastRefTime":"324949106416765", "data":""}
+	at com.alibaba.nacos.naming.push.PushService$Receiver.run(PushService.java:642)
+	at java.lang.Thread.run(Thread.java:748)
+2019-09-13 10:48:35,599 INFO retry to push data, key: 127.0.1.1,33847,324943450246124
+
+2019-09-13 10:48:35,599 WARN max re-push times reached, retry times 2, key: 127.0.1.1,33847,324943450246124
+
+2019-09-13 10:48:41,255 INFO retry to push data, key: 127.0.1.1,33847,324949106416765
+
+2019-09-13 10:48:41,255 WARN max re-push times reached, retry times 2, key: 127.0.1.1,33847,324949106416765
+
+2019-09-13 10:48:41,255 INFO retry to push data, key: 127.0.1.1,48392,324949106416765
+
+2019-09-13 10:48:41,255 WARN max re-push times reached, retry times 2, key: 127.0.1.1,48392,324949106416765
+
+2019-09-13 14:36:25,338 INFO DEFAULT_GROUP@@cloud-frame-auth is changed, add it to push queue.
+
+2019-09-13 14:36:25,338 INFO serviceName: DEFAULT_GROUP@@cloud-frame-auth changed, schedule push for: 127.0.1.1:48392, agent: Nacos-Java-Client:v1.0.0, key: 127.0.1.1,48392,338633189748407
+
+2019-09-13 14:36:25,338 INFO send udp packet: 127.0.1.1,48392,338633189748407
+
+2019-09-13 14:36:25,338 INFO serviceName: DEFAULT_GROUP@@cloud-frame-auth changed, schedule push for: 127.0.1.1:33847, agent: Nacos-Java-Client:v1.0.0, key: 127.0.1.1,33847,338633189748407
+
+2019-09-13 14:36:25,338 INFO send udp packet: 127.0.1.1,33847,338633189748407
+
+2019-09-13 14:36:25,504 ERROR [NACOS-PUSH] error while receiving ack data
+
+java.lang.IllegalStateException: unable to find ackEntry for key: 127.0.0.1,48392,338633189748407, ack json: {"type": "push-ack", "lastRefTime":"338633189748407", "data":""}
+	at com.alibaba.nacos.naming.push.PushService$Receiver.run(PushService.java:642)
+	at java.lang.Thread.run(Thread.java:748)
+2019-09-13 14:36:25,504 ERROR [NACOS-PUSH] error while receiving ack data
+
+java.lang.IllegalStateException: unable to find ackEntry for key: 127.0.0.1,33847,338633189748407, ack json: {"type": "push-ack", "lastRefTime":"338633189748407", "data":""}
+	at com.alibaba.nacos.naming.push.PushService$Receiver.run(PushService.java:642)
+	at java.lang.Thread.run(Thread.java:748)
+2019-09-13 14:36:28,585 INFO DEFAULT_GROUP@@cloud-frame-boss is changed, add it to push queue.
+
+2019-09-13 14:36:28,585 INFO serviceName: DEFAULT_GROUP@@cloud-frame-boss changed, schedule push for: 127.0.1.1:48392, agent: Nacos-Java-Client:v1.0.0, key: 127.0.1.1,48392,338636436508913
+
+2019-09-13 14:36:28,585 INFO send udp packet: 127.0.1.1,48392,338636436508913
+
+2019-09-13 14:36:28,595 ERROR [NACOS-PUSH] error while receiving ack data
+
+java.lang.IllegalStateException: unable to find ackEntry for key: 127.0.0.1,48392,338636436508913, ack json: {"type": "push-ack", "lastRefTime":"338636436508913", "data":""}
+	at com.alibaba.nacos.naming.push.PushService$Receiver.run(PushService.java:642)
+	at java.lang.Thread.run(Thread.java:748)
+2019-09-13 14:36:35,338 INFO retry to push data, key: 127.0.1.1,48392,338633189748407
+
+2019-09-13 14:36:35,338 INFO send udp packet: 127.0.1.1,48392,338633189748407
+
+2019-09-13 14:36:35,339 INFO retry to push data, key: 127.0.1.1,33847,338633189748407
+
+2019-09-13 14:36:35,339 INFO send udp packet: 127.0.1.1,33847,338633189748407
+
+2019-09-13 14:36:38,585 INFO retry to push data, key: 127.0.1.1,48392,338636436508913
+
+2019-09-13 14:36:38,585 INFO send udp packet: 127.0.1.1,48392,338636436508913
+
+2019-09-13 14:36:45,339 INFO retry to push data, key: 127.0.1.1,48392,338633189748407
+
+2019-09-13 14:36:45,339 WARN max re-push times reached, retry times 2, key: 127.0.1.1,48392,338633189748407
+
+2019-09-13 14:36:45,339 INFO retry to push data, key: 127.0.1.1,33847,338633189748407
+
+2019-09-13 14:36:45,339 WARN max re-push times reached, retry times 2, key: 127.0.1.1,33847,338633189748407
+
+2019-09-13 14:36:48,585 INFO retry to push data, key: 127.0.1.1,48392,338636436508913
+
+2019-09-13 14:36:48,585 WARN max re-push times reached, retry times 2, key: 127.0.1.1,48392,338636436508913
+

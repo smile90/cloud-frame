@@ -1,0 +1,12 @@
+spring:
+  cloud:
+    sentinel:
+      eager: true
+      transport:
+        dashboard: 127.0.0.1:5551
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

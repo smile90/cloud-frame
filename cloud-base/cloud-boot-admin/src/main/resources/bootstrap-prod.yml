@@ -1,0 +1,20 @@
+custom:
+  nacos:
+    server-addr: 10.10.128.36:12080,10.10.128.76:12080
+    namespace: d16b8cae-3b26-4160-8ad3-0ba16e83f9ed
+  sentinel:
+    server-addr: 10.10.128.14:12090
+
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${custom.nacos.server-addr}
+        namespace: ${custom.nacos.namespace}
+      config:
+        server-addr: ${custom.nacos.server-addr}
+        namespace: ${custom.nacos.namespace}
+  security:
+    user:
+      name: "admin"
+      password: "123456"

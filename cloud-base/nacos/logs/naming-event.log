@@ -1,0 +1,24 @@
+2019-09-20 17:15:55,838 INFO DEFAULT_GROUP@@cloud-frame-gateway {SYNC} {IP-NEW} cluster: DEFAULT, new ips size: 1, content: [172.28.5.12:20009:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-20 17:15:55,840 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-gateway, ips: 172.28.5.12:20009_true,
+
+2019-09-20 17:15:57,258 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-NEW} cluster: DEFAULT, new ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-20 17:15:57,258 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 172.28.5.12:20003_true,
+
+2019-09-20 17:38:52,103 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-DEAD} cluster: DEFAULT, dead ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-20 17:38:52,103 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 
+
+2019-09-20 17:39:08,706 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-NEW} cluster: DEFAULT, new ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-20 17:39:08,706 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 172.28.5.12:20003_true,
+
+2019-09-20 19:53:53,792 INFO DEFAULT_GROUP@@cloud-frame-gateway {SYNC} {IP-DEAD} cluster: DEFAULT, dead ips size: 1, content: [172.28.5.12:20009:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-20 19:53:53,793 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-gateway, ips: 
+
+2019-09-20 19:59:55,953 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-DEAD} cluster: DEFAULT, dead ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-20 19:59:55,953 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 
+

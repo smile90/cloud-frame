@@ -1,0 +1,2 @@
+2019-09-23 09:50:53,503 INFO server list is updated, new: 1 servers: [{"adWeight":0,"alive":false,"ip":"172.28.5.12","key":"172.28.5.12:10000","lastRefTime":0,"lastRefTimeStr":"","servePort":10000,"site":"unknown","weight":1}]
+

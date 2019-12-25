@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="example-raw-jdbc" />
+        <module name="boot-spring" />
+        <module name="encrypt-spring-namespace-example" />
+        <module name="example-spring-jpa" />
+        <module name="sharding-spring-namespace-mybatis-example" />
+        <module name="orchestration-spring-namespace-example" />
+        <module name="sharding-spring-namespace-jpa-example" />
+        <module name="example-api" />
+        <module name="boot-mybatis" />
+        <module name="transaction-2pc-xa-raw-jdbc-example" />
+        <module name="example-spring-mybatis" />
+        <module name="encrypt-raw-jdbc-example" />
+        <module name="boot-redis" />
+        <module name="sharding-proxy-boot-mybatis-example" />
+        <module name="sharding-spring-boot-mybatis-example" />
+        <module name="transaction-base-seata-raw-jdbc-example" />
+        <module name="sharding-spring-boot-jpa-example" />
+        <module name="orchestration-spring-boot-example" />
+        <module name="boot-base" />
+        <module name="encrypt-spring-boot-example" />
+        <module name="sharding-raw-jdbc-example" />
+        <module name="hint-raw-jdbc-example" />
+        <module name="sharding-proxy-hint-example" />
+        <module name="cloud-frame-account" />
+        <module name="orchestration-raw-jdbc-example" />
+        <module name="config-utility" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="boot-base" target="1.8" />
+      <module name="boot-common" target="1.8" />
+      <module name="boot-mybatis" target="1.8" />
+      <module name="boot-parent" target="1.8" />
+      <module name="boot-redis" target="1.8" />
+      <module name="boot-spring" target="1.8" />
+      <module name="cloud" target="1.5" />
+      <module name="cloud-frame" target="1.8" />
+      <module name="cloud-frame-account" target="1.8" />
+      <module name="config-utility" target="1.8" />
+      <module name="encrypt-example" target="1.8" />
+      <module name="encrypt-raw-jdbc-example" target="1.8" />
+      <module name="encrypt-spring-boot-example" target="1.8" />
+      <module name="encrypt-spring-namespace-example" target="1.8" />
+      <module name="example-api" target="1.8" />
+      <module name="example-core" target="1.8" />
+      <module name="example-raw-jdbc" target="1.8" />
+      <module name="example-spring-jpa" target="1.8" />
+      <module name="example-spring-mybatis" target="1.8" />
+      <module name="hint-example" target="1.8" />
+      <module name="hint-raw-jdbc-example" target="1.8" />
+      <module name="orchestration-example" target="1.8" />
+      <module name="orchestration-raw-jdbc-example" target="1.8" />
+      <module name="orchestration-spring-boot-example" target="1.8" />
+      <module name="orchestration-spring-namespace-example" target="1.8" />
+      <module name="other-feature-example" target="1.8" />
+      <module name="sharding-example" target="1.8" />
+      <module name="sharding-jdbc-example" target="1.8" />
+      <module name="sharding-proxy-boot-mybatis-example" target="1.8" />
+      <module name="sharding-proxy-example" target="1.8" />
+      <module name="sharding-proxy-hint-example" target="1.8" />
+      <module name="sharding-raw-jdbc-example" target="1.8" />
+      <module name="sharding-spring-boot-jpa-example" target="1.8" />
+      <module name="sharding-spring-boot-mybatis-example" target="1.8" />
+      <module name="sharding-spring-namespace-jpa-example" target="1.8" />
+      <module name="sharding-spring-namespace-mybatis-example" target="1.8" />
+      <module name="shardingsphere-example" target="1.7" />
+      <module name="transaction-2pc-xa-raw-jdbc-example" target="1.8" />
+      <module name="transaction-base-seata-raw-jdbc-example" target="1.8" />
+      <module name="transaction-example" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="boot-base" options="-parameters" />
+      <module name="boot-common" options="" />
+      <module name="boot-mybatis" options="-parameters" />
+      <module name="boot-redis" options="-parameters" />
+      <module name="boot-spring" options="-parameters" />
+      <module name="cloud-frame-account" options="-parameters" />
+      <module name="sharding-spring-boot-mybatis-example" options="" />
+    </option>
+  </component>
+</project>

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.apache.shardingsphere:sharding-jdbc-orchestration-spring-boot-starter:4.0.0-RC4-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/shardingsphere/sharding-jdbc-orchestration-spring-boot-starter/4.0.0-RC4-SNAPSHOT/sharding-jdbc-orchestration-spring-boot-starter-4.0.0-RC4-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/shardingsphere/sharding-jdbc-orchestration-spring-boot-starter/4.0.0-RC4-SNAPSHOT/sharding-jdbc-orchestration-spring-boot-starter-4.0.0-RC4-SNAPSHOT-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/shardingsphere/sharding-jdbc-orchestration-spring-boot-starter/4.0.0-RC4-SNAPSHOT/sharding-jdbc-orchestration-spring-boot-starter-4.0.0-RC4-SNAPSHOT-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

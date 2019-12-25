@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    # 基础配置，必须有，后面可以进行覆盖
+    url: jdbc:mysql://127.0.0.1:3306/sys_gateway?useUnicode=true&characterEncoding=UTF-8&useSSL=true
+    username: root
+    password: 123456
+
+    # 公共参数配置
+    druid:
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      max-wait: 60000
+      time-between-log-stats-millis: 60000
+
+      filters: stat,wall
+#      stat-view-servlet:
+#        login-username: admin
+#        login-password: 123456
+
+      # 主数据源
+      primary:
+        name: ${spring.application.name}-primary
+
+      # 只读数据源
+      read:
+        name: ${spring.application.name}-read

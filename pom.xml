@@ -2,103 +2,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>com.frame</groupId>
-		<artifactId>boot-parent</artifactId>
-        <version>1.0.0</version>
-    </parent>
-
-    <artifactId>cloud-frame</artifactId>
-    <name>Spring Cloud业务服务-父包</name>
+    <groupId>com.frame</groupId>
+    <artifactId>cloud</artifactId>
+    <name>程序包</name>
     <packaging>pom</packaging>
-    <version>1.0.0</version>
+    <version>2.0.0</version>
 
     <modules>
-        <module>cloud-frame-auth</module>
-        <module>cloud-frame-boss</module>
-        <module>cloud-user-client</module>
-        <module>cloud-frame-gateway</module>
+        <module>boot-parent</module>
+        <module>boot-common</module>
+        <module>cloud-frame</module>
     </modules>
-
-    <properties>
-        <boot-base.version>1.0.0</boot-base.version>
-        <boot-spring.version>1.0.0</boot-spring.version>
-        <cloud-frame.version>1.0.0</cloud-frame.version>
-    </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>com.frame</groupId>
-            <artifactId>boot-base</artifactId>
-            <version>${boot-base.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.frame</groupId>
-            <artifactId>boot-spring</artifactId>
-            <version>${boot-spring.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.frame</groupId>
-            <artifactId>cloud-user-client</artifactId>
-            <version>${cloud-frame.version}</version>
-        </dependency>
-
-        <!-- tag::spring cloud base dependency -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba.csp</groupId>
-            <artifactId>sentinel-datasource-nacos</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
-        </dependency>
-        <!-- tag::spring cloud base dependency -->
-
-        <!-- tag::spring base dependency -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-logging</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-sleuth</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-        <!-- end::spring base dependency -->
-
-        <!-- tag::dependency-boot-admin-client -->
-        <dependency>
-            <groupId>de.codecentric</groupId>
-            <artifactId>spring-boot-admin-starter-client</artifactId>
-        </dependency>
-        <!-- end::dependency-boot-admin-client -->
-
-        <!-- tag::dependency-test -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <!-- end::dependency-test -->
-    </dependencies>
 
 </project>

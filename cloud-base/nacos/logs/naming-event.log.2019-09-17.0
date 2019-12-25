@@ -1,0 +1,206 @@
+2019-09-17 18:42:51,620 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-NEW} cluster: DEFAULT, new ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-17 18:42:51,638 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 172.28.5.12:20003_true,
+
+2019-09-17 18:44:00,927 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-DEAD} cluster: DEFAULT, dead ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-17 18:44:00,927 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 
+
+2019-09-17 18:44:14,557 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-NEW} cluster: DEFAULT, new ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-17 18:44:14,557 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 172.28.5.12:20003_true,
+
+2019-09-17 18:45:21,535 INFO {POS} {IP-DISABLED} valid: 172.28.5.12:20003@DEFAULT@DEFAULT_GROUP@@cloud-frame-invoice, region: unknown, msg: client timeout after 15000, last beat: 1568717105660
+
+2019-09-17 18:45:30,102 INFO service: DEFAULT_GROUP@@cloud-frame-invoice {POS} {IP-ENABLED} valid: 172.28.5.12:20003@DEFAULT, region: unknown, msg: client beat ok
+
+2019-09-17 18:46:08,087 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-DEAD} cluster: DEFAULT, dead ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-17 18:46:08,087 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 
+
+2019-09-17 18:46:22,187 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-NEW} cluster: DEFAULT, new ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-17 18:46:22,187 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 172.28.5.12:20003_true,
+
+2019-09-17 18:49:56,682 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-DEAD} cluster: DEFAULT, dead ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-17 18:49:56,682 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 
+
+2019-09-17 18:50:10,015 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-NEW} cluster: DEFAULT, new ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-17 18:50:10,015 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 172.28.5.12:20003_true,
+
+2019-09-17 20:16:03,011 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-DEAD} cluster: DEFAULT, dead ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-17 20:16:03,011 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 
+
+2019-09-17 20:16:23,806 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-NEW} cluster: DEFAULT, new ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-17 20:16:23,806 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 172.28.5.12:20003_true,
+
+2019-09-17 20:19:51,703 INFO {POS} {IP-DISABLED} valid: 172.28.5.12:20003@DEFAULT@DEFAULT_GROUP@@cloud-frame-invoice, region: unknown, msg: client timeout after 15000, last beat: 1568722774635
+
+2019-09-17 20:20:01,913 INFO service: DEFAULT_GROUP@@cloud-frame-invoice {POS} {IP-ENABLED} valid: 172.28.5.12:20003@DEFAULT, region: unknown, msg: client beat ok
+
+2019-09-17 20:24:04,831 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-DEAD} cluster: DEFAULT, dead ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-17 20:24:04,831 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 
+
+2019-09-17 20:24:18,650 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-NEW} cluster: DEFAULT, new ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-17 20:24:18,650 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 172.28.5.12:20003_true,
+
+2019-09-17 20:28:37,759 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-DEAD} cluster: DEFAULT, dead ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-17 20:28:37,759 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 
+
+2019-09-17 20:28:52,183 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-NEW} cluster: DEFAULT, new ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-17 20:28:52,184 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 172.28.5.12:20003_true,
+
+2019-09-17 20:32:51,477 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-DEAD} cluster: DEFAULT, dead ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-17 20:32:51,477 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 
+
+2019-09-17 20:33:07,625 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-NEW} cluster: DEFAULT, new ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-17 20:33:07,625 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 172.28.5.12:20003_true,
+
+2019-09-17 20:33:34,270 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-DEAD} cluster: DEFAULT, dead ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-17 20:33:34,270 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 
+
+2019-09-17 20:33:49,407 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-NEW} cluster: DEFAULT, new ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-17 20:33:49,408 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 172.28.5.12:20003_true,
+
+2019-09-17 20:34:16,725 INFO {POS} {IP-DISABLED} valid: 172.28.5.12:20003@DEFAULT@DEFAULT_GROUP@@cloud-frame-invoice, region: unknown, msg: client timeout after 15000, last beat: 1568723640646
+
+2019-09-17 20:34:32,012 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-DEAD} cluster: DEFAULT, dead ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_false_false_DEFAULT]
+
+2019-09-17 20:34:32,012 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 
+
+2019-09-17 20:35:55,440 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-NEW} cluster: DEFAULT, new ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-17 20:35:55,440 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 172.28.5.12:20003_true,
+
+2019-09-17 20:36:25,824 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-DEAD} cluster: DEFAULT, dead ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-17 20:36:25,824 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 
+
+2019-09-17 20:36:41,802 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-NEW} cluster: DEFAULT, new ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-17 20:36:41,803 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 172.28.5.12:20003_true,
+
+2019-09-17 20:38:26,683 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-DEAD} cluster: DEFAULT, dead ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-17 20:38:26,684 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 
+
+2019-09-17 20:38:42,365 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-NEW} cluster: DEFAULT, new ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-17 20:38:42,365 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 172.28.5.12:20003_true,
+
+2019-09-17 20:47:08,333 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-DEAD} cluster: DEFAULT, dead ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-17 20:47:08,333 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 
+
+2019-09-17 20:47:22,594 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-NEW} cluster: DEFAULT, new ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-17 20:47:22,594 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 172.28.5.12:20003_true,
+
+2019-09-17 20:48:22,062 INFO {POS} {IP-DISABLED} valid: 172.28.5.12:20003@DEFAULT@DEFAULT_GROUP@@cloud-frame-invoice, region: unknown, msg: client timeout after 15000, last beat: 1568724485520
+
+2019-09-17 20:48:37,065 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-DEAD} cluster: DEFAULT, dead ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_false_false_DEFAULT]
+
+2019-09-17 20:48:37,065 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 
+
+2019-09-17 20:48:51,038 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-NEW} cluster: DEFAULT, new ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-17 20:48:51,038 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 172.28.5.12:20003_true,
+
+2019-09-17 20:49:34,056 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-DEAD} cluster: DEFAULT, dead ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-17 20:49:34,056 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 
+
+2019-09-17 20:49:48,362 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-NEW} cluster: DEFAULT, new ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-17 20:49:48,362 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 172.28.5.12:20003_true,
+
+2019-09-17 20:52:27,734 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-DEAD} cluster: DEFAULT, dead ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-17 20:52:27,734 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 
+
+2019-09-17 20:52:42,924 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-NEW} cluster: DEFAULT, new ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-17 20:52:42,924 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 172.28.5.12:20003_true,
+
+2019-09-17 20:53:37,071 INFO {POS} {IP-DISABLED} valid: 172.28.5.12:20003@DEFAULT@DEFAULT_GROUP@@cloud-frame-invoice, region: unknown, msg: client timeout after 15000, last beat: 1568724799188
+
+2019-09-17 20:53:39,894 INFO service: DEFAULT_GROUP@@cloud-frame-invoice {POS} {IP-ENABLED} valid: 172.28.5.12:20003@DEFAULT, region: unknown, msg: client beat ok
+
+2019-09-17 20:55:08,886 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-DEAD} cluster: DEFAULT, dead ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-17 20:55:08,886 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 
+
+2019-09-17 20:55:22,967 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-NEW} cluster: DEFAULT, new ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-17 20:55:22,967 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 172.28.5.12:20003_true,
+
+2019-09-17 20:55:47,075 INFO {POS} {IP-DISABLED} valid: 172.28.5.12:20003@DEFAULT@DEFAULT_GROUP@@cloud-frame-invoice, region: unknown, msg: client timeout after 15000, last beat: 1568724929263
+
+2019-09-17 20:55:50,003 INFO service: DEFAULT_GROUP@@cloud-frame-invoice {POS} {IP-ENABLED} valid: 172.28.5.12:20003@DEFAULT, region: unknown, msg: client beat ok
+
+2019-09-17 20:56:59,578 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-DEAD} cluster: DEFAULT, dead ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-17 20:56:59,578 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 
+
+2019-09-17 20:57:14,433 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-NEW} cluster: DEFAULT, new ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-17 20:57:14,433 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 172.28.5.12:20003_true,
+
+2019-09-17 20:58:52,065 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-DEAD} cluster: DEFAULT, dead ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-17 20:58:52,065 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 
+
+2019-09-17 20:59:06,410 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-NEW} cluster: DEFAULT, new ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-17 20:59:06,410 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 172.28.5.12:20003_true,
+
+2019-09-17 21:02:56,532 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-DEAD} cluster: DEFAULT, dead ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-17 21:02:56,532 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 
+
+2019-09-17 21:03:12,434 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-NEW} cluster: DEFAULT, new ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-17 21:03:12,434 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 172.28.5.12:20003_true,
+
+2019-09-17 21:03:42,087 INFO {POS} {IP-DISABLED} valid: 172.28.5.12:20003@DEFAULT@DEFAULT_GROUP@@cloud-frame-invoice, region: unknown, msg: client timeout after 15000, last beat: 1568725405784
+
+2019-09-17 21:03:57,093 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-DEAD} cluster: DEFAULT, dead ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_false_false_DEFAULT]
+
+2019-09-17 21:03:57,093 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 
+
+2019-09-17 21:04:10,351 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-NEW} cluster: DEFAULT, new ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-17 21:04:10,351 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 172.28.5.12:20003_true,
+
+2019-09-17 21:05:51,977 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-DEAD} cluster: DEFAULT, dead ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-17 21:05:51,977 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 
+
+2019-09-17 21:06:06,500 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-NEW} cluster: DEFAULT, new ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-17 21:06:06,500 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 172.28.5.12:20003_true,
+
+2019-09-17 21:06:27,094 INFO {POS} {IP-DISABLED} valid: 172.28.5.12:20003@DEFAULT@DEFAULT_GROUP@@cloud-frame-invoice, region: unknown, msg: client timeout after 15000, last beat: 1568725567793
+
+2019-09-17 21:06:27,163 INFO service: DEFAULT_GROUP@@cloud-frame-invoice {POS} {IP-ENABLED} valid: 172.28.5.12:20003@DEFAULT, region: unknown, msg: client beat ok
+
+2019-09-17 21:07:58,944 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-DEAD} cluster: DEFAULT, dead ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-17 21:07:58,944 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 
+
+2019-09-17 21:08:13,427 INFO DEFAULT_GROUP@@cloud-frame-invoice {SYNC} {IP-NEW} cluster: DEFAULT, new ips size: 1, content: [172.28.5.12:20003:unknown:DEFAULT_1.0_true_false_DEFAULT]
+
+2019-09-17 21:08:13,427 INFO [IP-UPDATED] namespace: cf761d9a-6719-495e-9371-7f225c2c3622, service: DEFAULT_GROUP@@cloud-frame-invoice, ips: 172.28.5.12:20003_true,
+
