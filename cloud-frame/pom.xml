@@ -1,0 +1,132 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.frame</groupId>
+		<artifactId>boot-parent</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <artifactId>cloud-frame</artifactId>
+    <name>Spring Cloud业务服务-父包</name>
+    <packaging>pom</packaging>
+    <version>1.0.0</version>
+
+    <modules>
+<!--        <module>cloud-frame-auth</module>-->
+<!--        <module>cloud-frame-boss</module>-->
+<!--        <module>cloud-user-client</module>-->
+<!--        <module>cloud-frame-gateway</module>-->
+    </modules>
+
+    <properties>
+        <boot-base.version>1.0.0</boot-base.version>
+        <boot-spring.version>1.0.0</boot-spring.version>
+        <boot-mybatis.version>1.0.0</boot-mybatis.version>
+        <boot-redis.version>1.0.0</boot-redis.version>
+        <cloud-frame.version>1.0.0</cloud-frame.version>
+    </properties>
+
+    <dependencies>
+        <!-- tag::frame base dependency -->
+        <dependency>
+            <groupId>com.frame</groupId>
+            <artifactId>boot-base</artifactId>
+            <version>${boot-base.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.frame</groupId>
+            <artifactId>boot-spring</artifactId>
+            <version>${boot-spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.frame</groupId>
+            <artifactId>boot-mybatis</artifactId>
+            <version>${boot-mybatis.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.frame</groupId>
+            <artifactId>boot-redis</artifactId>
+            <version>${boot-redis.version}</version>
+        </dependency>
+        <!-- tag::frame base dependency -->
+
+        <!-- tag::other dependency -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <!-- tag::other dependency -->
+
+        <!-- tag::spring cloud base dependency -->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>com.alibaba.csp</groupId>-->
+<!--            <artifactId>sentinel-datasource-nacos</artifactId>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-openfeign</artifactId>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>-->
+<!--        </dependency>-->
+        <!-- tag::spring cloud base dependency -->
+
+        <!-- tag::spring base dependency -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-logging</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-sleuth</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <!-- end::spring base dependency -->
+
+        <!-- tag::dependency-boot-admin-client -->
+<!--        <dependency>-->
+<!--            <groupId>de.codecentric</groupId>-->
+<!--            <artifactId>spring-boot-admin-starter-client</artifactId>-->
+<!--        </dependency>-->
+        <!-- end::dependency-boot-admin-client -->
+
+        <!-- tag::dependency-test -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- end::dependency-test -->
+    </dependencies>
+
+</project>
